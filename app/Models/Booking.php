@@ -29,6 +29,6 @@ class Booking extends Model
 
     public function persons()
     {
-        return $this->hasMany('App\Models\bookingPersons');
+        return $this->hasMany('App\Models\BookingPersons');
     }
 }

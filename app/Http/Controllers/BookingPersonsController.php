@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\bookingPersons;
+use App\Models\BookingPersons;
 use Illuminate\Http\Request;
 
 class BookingPersonsController extends Controller
@@ -41,10 +41,10 @@ class BookingPersonsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\bookingPersons  $bookingPersons
+     * @param  \App\Models\BookingPersons  $BookingPersons
      * @return \Illuminate\Http\Response
      */
-    public function show(bookingPersons $bookingPersons)
+    public function show(BookingPersons $BookingPersons)
     {
         //
     }
@@ -52,10 +52,10 @@ class BookingPersonsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\bookingPersons  $bookingPersons
+     * @param  \App\Models\BookingPersons  $BookingPersons
      * @return \Illuminate\Http\Response
      */
-    public function edit(bookingPersons $bookingPersons)
+    public function edit(BookingPersons $BookingPersons)
     {
         //
     }
@@ -64,10 +64,10 @@ class BookingPersonsController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\bookingPersons  $bookingPersons
+     * @param  \App\Models\BookingPersons  $BookingPersons
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, bookingPersons $bookingPersons)
+    public function update(Request $request, BookingPersons $BookingPersons)
     {
         //
     }
@@ -75,10 +75,10 @@ class BookingPersonsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\bookingPersons  $bookingPersons
+     * @param  \App\Models\BookingPersons  $BookingPersons
      * @return \Illuminate\Http\Response
      */
-    public function destroy(bookingPersons $bookingPersons)
+    public function destroy(BookingPersons $BookingPersons)
     {
         //
     }
