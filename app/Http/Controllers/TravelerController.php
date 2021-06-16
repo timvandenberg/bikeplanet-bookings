@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\BookingPersons;
+use App\Models\Traveler;
 use Illuminate\Http\Request;
 
-class BookingPersonsController extends Controller
+class TravelerController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class BookingPersonsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\BookingPersons  $BookingPersons
+     * @param  \App\Models\Traveler  $Traveler
      * @return \Illuminate\Http\Response
      */
-    public function show(BookingPersons $BookingPersons)
+    public function show(Traveler $Traveler)
     {
         //
     }
@@ -52,10 +52,10 @@ class BookingPersonsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\BookingPersons  $BookingPersons
+     * @param  \App\Models\Traveler  $Traveler
      * @return \Illuminate\Http\Response
      */
-    public function edit(BookingPersons $BookingPersons)
+    public function edit(Traveler $Traveler)
     {
         //
     }
@@ -64,10 +64,10 @@ class BookingPersonsController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\BookingPersons  $BookingPersons
+     * @param  \App\Models\Traveler  $Traveler
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, BookingPersons $BookingPersons)
+    public function update(Request $request, Traveler $Traveler)
     {
         //
     }
@@ -75,10 +75,10 @@ class BookingPersonsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\BookingPersons  $BookingPersons
+     * @param  \App\Models\Traveler  $Traveler
      * @return \Illuminate\Http\Response
      */
-    public function destroy(BookingPersons $BookingPersons)
+    public function destroy(Traveler $Traveler)
     {
         //
     }
