@@ -5,7 +5,7 @@
 @import "tailwindcss/utilities";
 
 /*.btn {
-  @apply select-none font-bold whitespace-no-wrap p-3 rounded-lg text-base leading-normal no-underline text-gray-100 bg-blue-500 hover:bg-blue-700 sm:py-4;
+  @apply select-none font-bold whitespace-no-wrap p-3 rounded-lg text-base leading-normal no-underline text-gray-100 bg-orange-500 hover:bg-orange-700 sm:py-4;
 }*/
 
 table, td, th {
@@ -27,8 +27,8 @@ select {
   cursor: pointer;
 }
 
-/*.btn-blue {
-  @apply relative inline-block w-auto select-none font-bold whitespace-no-wrap p-4 rounded-lg text-base leading-small no-underline text-gray-100 bg-blue-500 hover:bg-blue-700;
+/*.btn-orange {
+  @apply relative inline-block w-auto select-none font-bold whitespace-no-wrap p-4 rounded-lg text-base leading-small no-underline text-gray-100 bg-orange-500 hover:bg-orange-700;
 }*/
 
 .btn-active {

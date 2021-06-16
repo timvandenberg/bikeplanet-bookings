@@ -5,7 +5,7 @@
     <div class="w-full sm:px-6">
 
         <div class="bg-gray-100 py-4">
-            <a href="/home" class="relative inline-block w-auto select-none font-bold whitespace-no-wrap px-6 py-2 border-blue-500 border rounded-lg text-base leading-normal no-underline text-gray-100 bg-blue-500 hover:bg-blue-700">Back</a>
+            <a href="/home" class="relative inline-block w-auto select-none font-bold whitespace-no-wrap px-6 py-2 border-orange-500 border rounded-lg text-base leading-normal no-underline text-gray-100 bg-orange-500 hover:bg-orange-700">Back</a>
         </div>
 
         <section class="flex flex-col break-words bg-white sm:border-1 sm:rounded-md sm:shadow-sm sm:shadow-lg">
@@ -16,7 +16,7 @@
                         <div class="mb-4">
                             <h1 class="inline text-4xl mr-2">{{$tour->title}}</h1>
                             <h2 class="inline text-2xl mr-2"> ( {{$tour->season}} )</h2>
-                            <a class="inline font-normal text-sm text-blue-700" href="http://bikeplanet-bookings.nl/booking/new/{{ $tour->season }}/{{ $tour->slug }}" target="_blank" rel="noopener noreferrer">
+                            <a class="inline font-normal text-sm text-orange-700" href="http://bikeplanet-bookings.nl/booking/new/{{ $tour->season }}/{{ $tour->slug }}" target="_blank" rel="noopener noreferrer">
                                 [ go to apply form ]
                             </a>
                         </div>
@@ -73,7 +73,7 @@
                         </div>
                     </div>
                     <div class="relative inline">
-                        <a href="{{ route('tours.edit', $tour->id) }}" class="relative inline-block w-auto select-none font-bold whitespace-no-wrap px-6 py-2 border-blue-500 border rounded-lg text-base leading-normal no-underline text-gray-100 bg-blue-500 hover:bg-blue-700">Edit tour</a>
+                        <a href="{{ route('tours.edit', $tour->id) }}" class="relative inline-block w-auto select-none font-bold whitespace-no-wrap px-6 py-2 border-orange-500 border rounded-lg text-base leading-normal no-underline text-gray-100 bg-orange-500 hover:bg-orange-700">Edit tour</a>
                     </div>
                 </div>
             </header>

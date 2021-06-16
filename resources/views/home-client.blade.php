@@ -35,7 +35,7 @@
                     @foreach($bookings as $key => $booking)
                     <tr>
                         <td>
-                            <a class="text-blue-500 font-bold" href="/booking/{{$booking->id}}">
+                            <a class="text-orange-500 font-bold" href="/booking/{{$booking->id}}">
                                 {{ $booking->tour->title }}
                             </a>
                         </td>

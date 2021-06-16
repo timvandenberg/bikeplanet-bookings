@@ -5,7 +5,7 @@
     <div class="w-full sm:px-6">
 
         <div class="bg-gray-100 py-4">
-            <a href="@if($user_role === 'admin')/tours/{{ $booking->tour->id }}@else/home @endif" class="relative inline-block w-auto select-none font-bold whitespace-no-wrap px-6 py-2 border-blue-500 border rounded-lg text-base leading-normal no-underline text-gray-100 bg-blue-500 hover:bg-blue-700">Back</a>
+            <a href="@if($user_role === 'admin')/tours/{{ $booking->tour->id }}@else/home @endif" class="relative inline-block w-auto select-none font-bold whitespace-no-wrap px-6 py-2 border-orange-500 border rounded-lg text-base leading-normal no-underline text-gray-100 bg-orange-500 hover:bg-orange-700">Back</a>
         </div>
 
         <section class="flex flex-col break-words bg-white sm:border-1 sm:rounded-md sm:shadow-sm sm:shadow-lg">
@@ -25,7 +25,7 @@
                             @csrf
                             <input type="hidden" name="_method" value="put">
                             <input type="hidden" name="update-type" value="cancel_booking">
-                            <button type="submit" class="relative inline-block w-auto select-none font-bold whitespace-no-wrap px-6 py-2 border-blue-500 border rounded-lg text-base leading-normal no-underline text-gray-100 bg-blue-500 hover:bg-blue-700">Annuleer booking</button>
+                            <button type="submit" class="relative inline-block w-auto select-none font-bold whitespace-no-wrap px-6 py-2 border-orange-500 border rounded-lg text-base leading-normal no-underline text-gray-100 bg-orange-500 hover:bg-orange-700">Annuleer booking</button>
                         </form>
                         @endif
 
@@ -121,18 +121,18 @@
                                     <div class="inline-block">
 
                                         <div class="flex column">
-                                            <label class="radio-container relative inline-block w-auto select-none font-bold whitespace-no-wrap px-6 py-2 border-blue-500 border rounded-lg text-base leading-normal no-underline text-gray-100 bg-blue-500 hover:bg-blue-700 mx-1 cursor-pointer">
+                                            <label class="radio-container relative inline-block w-auto select-none font-bold whitespace-no-wrap px-6 py-2 border-orange-500 border rounded-lg text-base leading-normal no-underline text-gray-100 bg-orange-500 hover:bg-orange-700 mx-1 cursor-pointer">
                                                 15%
                                               <input class="discount-radio opacity-0 absolute inset-0" type="radio" name="discount" value="15">
                                             </label>
 
-                                            <label class="radio-container relative inline-block w-auto select-none font-bold whitespace-no-wrap px-6 py-2 border-blue-500 border rounded-lg text-base leading-normal no-underline text-gray-100 bg-blue-500 hover:bg-blue-700 mx-1 cursor-pointer">
+                                            <label class="radio-container relative inline-block w-auto select-none font-bold whitespace-no-wrap px-6 py-2 border-orange-500 border rounded-lg text-base leading-normal no-underline text-gray-100 bg-orange-500 hover:bg-orange-700 mx-1 cursor-pointer">
                                                 30%
                                               <input class="discount-radio opacity-0 absolute inset-0" type="radio" name="discount" value="30">
                                             </label>
                                         </div>
                                     </div>
-                                    <button type="submit" class="relative inline-block w-auto select-none font-bold whitespace-no-wrap px-6 py-2 border-blue-500 border rounded-lg text-base leading-normal no-underline text-gray-100 bg-blue-500 hover:bg-blue-700">Send documenten</button>
+                                    <button type="submit" class="relative inline-block w-auto select-none font-bold whitespace-no-wrap px-6 py-2 border-orange-500 border rounded-lg text-base leading-normal no-underline text-gray-100 bg-orange-500 hover:bg-orange-700">Send documenten</button>
                                 </div>
                             </form>
                             @else
@@ -140,7 +140,7 @@
                                 @csrf
                                 <input type="hidden" name="_method" value="put">
                                 <input type="hidden" name="update-type" value="send-documents-again">
-                                <button type="submit" class="relative inline-block w-auto select-none font-bold whitespace-no-wrap px-6 py-2 border-blue-500 border rounded-lg text-base leading-normal no-underline text-gray-100 bg-blue-500 hover:bg-blue-700">Change price and send again</button>
+                                <button type="submit" class="relative inline-block w-auto select-none font-bold whitespace-no-wrap px-6 py-2 border-orange-500 border rounded-lg text-base leading-normal no-underline text-gray-100 bg-orange-500 hover:bg-orange-700">Change price and send again</button>
                             </form>
                             @endif
 
@@ -150,7 +150,7 @@
                                 <input type="hidden" name="_method" value="put">
                                 <input type="hidden" name="update-type" value="has-payed">
 
-                                <button type="submit" class="relative inline-block w-auto select-none font-bold whitespace-no-wrap px-6 py-2 border-blue-500 border rounded-lg text-base leading-normal no-underline text-gray-100 bg-blue-500 hover:bg-blue-700">Mark as payed</button>
+                                <button type="submit" class="relative inline-block w-auto select-none font-bold whitespace-no-wrap px-6 py-2 border-orange-500 border rounded-lg text-base leading-normal no-underline text-gray-100 bg-orange-500 hover:bg-orange-700">Mark as payed</button>
                             </form>
                             @endif
 

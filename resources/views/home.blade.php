@@ -25,7 +25,7 @@
                     </div>
 
                     <div class="relative">
-                        <a href="/tours/create" class="relative inline-block w-auto select-none font-bold whitespace-no-wrap px-6 py-2 border-blue-500 border rounded-lg text-base leading-normal no-underline text-gray-100 bg-blue-500 hover:bg-blue-700">Nieuwe Tour</a>
+                        <a href="/tours/create" class="relative inline-block w-auto select-none font-bold whitespace-no-wrap px-6 py-2 border-orange-500 border rounded-lg text-base leading-normal no-underline text-gray-100 bg-orange-500 hover:bg-orange-700">Nieuwe Tour</a>
                     </div>
                 </div>
             </header>
@@ -43,7 +43,7 @@
                     </thead>
                     @foreach($tours as $key => $tour)
                     <tr class="season-row season-{{ $tour['season'] }}" <?php if(date("Y") != $tour['season']) { echo 'style="display: none"'; }?>>
-                        <td><a href="/tours/{{ $tour['id'] }}" class="text-blue-500 font-bold">{{ $tour['title'] }}</a></td>
+                        <td><a href="/tours/{{ $tour['id'] }}" class="text-orange-500 font-bold">{{ $tour['title'] }}</a></td>
                         <td>{{ $tour['pending'] }}</td>
                         <td>{{ $tour['completed'] }}</td>
                         <td>{{ $tour['spots_left'] }}</td>
