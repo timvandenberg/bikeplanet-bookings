@@ -13,9 +13,9 @@
         <section class="flex mt-4 flex-col break-words bg-white sm:border-1 sm:rounded-md sm:shadow-sm sm:shadow-lg">
 
             <header class="font-semibold bg-gray-200 text-gray-700 py-5 px-6 sm:py-6 sm:px-8 sm:rounded-t-md">
-                <div class="flex justify-between">
+                <div class="flex justify-between flex-wrap">
                     <div class="titlebox">
-                        <h1 class="text-4xl inline mr-2">Dashboard</h1>
+                        <h1 class="text-2xl md:text-4xl inline mr-2">Dashboard</h1>
                         <select name="season" id="select-season" class="text-xl font-bold inline form-input">
                             <option value="2021">2021</option>
                             <option value="2022">2022</option>
@@ -24,21 +24,21 @@
                         </select>
                     </div>
 
-                    <div class="relative">
-                        <a href="/tours/create" class="relative inline-block w-auto select-none font-bold whitespace-no-wrap px-6 py-2 border-orange-500 border rounded-lg text-base leading-normal no-underline text-gray-100 bg-orange-500 hover:bg-orange-700">Nieuwe Tour</a>
+                    <div class="relative mt-4 w-full">
+                        <a href="/tours/create" class="relative inline-block w-auto select-none font-bold whitespace-no-wrap px-6 py-2 border-orange-500 border rounded-lg text-base leading-normal no-underline text-gray-100 bg-orange-500 hover:bg-orange-700 w-full sm:w-auto text-center">Nieuwe Tour</a>
                     </div>
                 </div>
             </header>
 
-            <div class="w-full p-6 flex">
+            <div class="w-full p-6 flex md:flex-wrap overflow-x-auto md:overflow-visible">
                 @if(isset($tours))
-                <table>
+                <table class="flex-00">
                     <thead>
                         <tr>
-                            <th class="text-lg">Tour title</th>
+                            <th class="text-lg">Tour&nbsp;title</th>
                             <th class="text-lg">Pending</th>
                             <th class="text-lg">Booked</th>
-                            <th class="text-lg">Plekken over</th>
+                            <th class="text-lg">Plekken&nbsp;over</th>
                         </tr>
                     </thead>
                     @foreach($tours as $key => $tour)
