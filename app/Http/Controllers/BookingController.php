@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Booking;
-use App\Models\BookingPersons;
+use App\Models\Traveler;
 use App\Models\Tour;
 use PDF;
 use Illuminate\Support\Str;
@@ -80,18 +80,18 @@ class BookingController extends Controller
         $newBooking->fill(['completed' => 0]);
         $newBooking->save();
 
-        $bookingPersonsTotal = intval($request->input_total_person_count);
+        $TravelerTotal = intval($request->input_total_person_count);
 
 
-        for ($i=1; $i <= $bookingPersonsTotal; $i++) {
+        for ($i=1; $i <= $TravelerTotal; $i++) {
             $inputPerson = $request->only(['name_person_'.$i, 'email_person_'.$i,'bike_person_'.$i,'food_person_'.$i]);
-            $newBookingPersons = new BookingPersons;
-            $newBookingPersons->fill(['booking_id' => $newBooking->id]);
-            $newBookingPersons->fill(['name' => $inputPerson['name_person_'.$i]]);
-            $newBookingPersons->fill(['email' => $inputPerson['email_person_'.$i]]);
-            $newBookingPersons->fill(['bike' => $inputPerson['bike_person_'.$i]]);
-            $newBookingPersons->fill(['food' => $inputPerson['food_person_'.$i]]);
-            $newBookingPersons->save();
+            $newTraveler = new Traveler;
+            $newTraveler->fill(['booking_id' => $newBooking->id]);
+            $newTraveler->fill(['name' => $inputPerson['name_person_'.$i]]);
+            $newTraveler->fill(['email' => $inputPerson['email_person_'.$i]]);
+            $newTraveler->fill(['bike' => $inputPerson['bike_person_'.$i]]);
+            $newTraveler->fill(['food' => $inputPerson['food_person_'.$i]]);
+            $newTraveler->save();
         }
 
         if (isset($inputCP['client_profile']) && $inputCP['client_profile'] === 'on') {
@@ -126,7 +126,7 @@ class BookingController extends Controller
 
         $titleSlug = Str::slug($bookingTour[0]->name, '-');
 
-        $persons = BookingPersons::where('booking_id', '=', $booking->id)
+        $persons = Traveler::where('booking_id', '=', $booking->id)
             ->get();
 
         return view('booking.show', [
@@ -172,7 +172,7 @@ class BookingController extends Controller
 
                 $tour = $booking->tour;
 
-                $persons = BookingPersons::where('booking_id', '=', $booking->id)
+                $persons = Traveler::where('booking_id', '=', $booking->id)
                     ->get();
 
                 $pdf = PDF::loadView('booking.pdftemplates.invoice', array(
