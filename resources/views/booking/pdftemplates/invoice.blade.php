@@ -36,6 +36,20 @@
             clear: both;
             margin: 0 0 20px 0;
         }
+        th {
+            text-align: left;
+            padding: 20px 10px;
+            border-bottom: 1px solid #000;
+        }
+        table {
+            width: 100%;
+            border: 1px solid black;
+            height: 300px;
+        }
+        td {
+            padding: 10px;
+            vertical-align: top;
+        }
     </style>
 </head>
 <body>
@@ -88,15 +102,35 @@
     </div>
 
     <div class="full">
-        <p>
-        p1  passenger:<br>
-        7 nights in 1 twin cabin <br>
-        7 days breakfast<br>
-        6 days 3 course dinner <br>
-        7 days lunch supplies for picnic<br>
-        Coffee and tea on board<br>
-        2 guides<br>
-        1 Bike including insurance, water bottle and pannier</p>
+        <table> 
+            <thead>
+                <tr>
+                    <th>Description</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td><p>
+                        Tour for 1 passenger:<br>
+                        7 nights in 1 twin cabin <br>
+                        7 days breakfast<br>
+                        6 days 3 course dinner <br>
+                        7 days lunch supplies for picnic<br>
+                        Coffee and tea on board<br>
+                        2 guides<br>
+                        1 Bike including insurance, water bottle and pannier</p>
+                    </td>
+                    <td>{{ $price }}</td>
+                </tr>
+            </tbody>
+        </table>
+        
+    </div>
+
+    <div class="full">
+        
     </div>
 
     <div class="full">
