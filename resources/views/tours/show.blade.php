@@ -16,7 +16,7 @@
                         <div class="mb-4">
                             <h1 class="inline text-4xl mr-2">{{$tour->title}}</h1>
                             <h2 class="inline text-2xl mr-2"> ( {{$tour->season}} )</h2>
-                            <a class="inline font-normal text-sm text-orange-700" href="http://bikeplanet-bookings.nl/booking/new/{{ $tour->season }}/{{ $tour->slug }}" target="_blank" rel="noopener noreferrer">
+                            <a class="inline font-normal text-sm text-orange-700" href="http://{{$_SERVER['HTTP_HOST']}}/booking/new/{{ $tour->season }}/{{ $tour->slug }}" target="_blank" rel="noopener noreferrer">
                                 [ go to apply form ]
                             </a>
                         </div>
