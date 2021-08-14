@@ -36,6 +36,7 @@
                     <thead>
                         <tr>
                             <th class="text-lg">Tour&nbsp;title</th>
+                            <th class="text-lg">Start date</th>
                             <th class="text-lg">Pending</th>
                             <th class="text-lg">Booked</th>
                             <th class="text-lg">Plekken&nbsp;over</th>
@@ -44,6 +45,7 @@
                     @foreach($tours as $key => $tour)
                     <tr class="season-row season-{{ $tour['season'] }}" <?php if(date("Y") != $tour['season']) { echo 'style="display: none"'; }?>>
                         <td><a href="/tours/{{ $tour['id'] }}" class="text-orange-500 font-bold">{{ $tour['title'] }}</a></td>
+                        <td>{{ $tour['start_date'] }}</td>
                         <td>{{ $tour['pending'] }}</td>
                         <td>{{ $tour['completed'] }}</td>
                         <td>{{ $tour['spots_left'] }}</td>

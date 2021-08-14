@@ -1,13 +1,16 @@
 @extends('layouts.app')
 
 @section('content')
-<main class="sm:container sm:mx-auto sm:max-w-lg sm:mt-10">
+<main class="sm:container sm:mx-auto sm:max-w-4xl sm:mt-10">
     <div class="flex">
         <div class="w-full">
             <section class="flex flex-col break-words bg-white sm:border-1 sm:rounded-md sm:shadow-sm sm:shadow-lg">
 
                 <header class="font-semibold bg-gray-200 text-gray-700 py-5 px-6 sm:py-6 sm:px-8 sm:rounded-t-md">
-                    {{ __('Register') }}
+                    <h1 class="text-4xl font-semibold mb-2 text-gray-700">
+                        {{ __('Register for Account') }}
+                    </h1>
+
                 </header>
 
                 <form class="w-full px-6 space-y-6 sm:px-10 sm:space-y-8" method="POST"
@@ -84,10 +87,12 @@
                         </button>
 
                         <p class="w-full text-xs text-center text-gray-700 my-6 sm:text-sm sm:my-8">
+                        @if(1===0)
                             {{ __('Already have an account?') }}
                             <a class="text-orange-500 hover:text-orange-700 no-underline hover:underline" href="{{ route('login') }}">
                                 {{ __('Login') }}
                             </a>
+                        @endif
                         </p>
                     </div>
                 </form>

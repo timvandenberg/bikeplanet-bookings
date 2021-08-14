@@ -22,12 +22,10 @@ class CreateToursTable extends Migration
             $table->integer('max_bookings')->nullable();
             $table->integer('crew')->nullable();
             $table->integer('guides')->nullable();
-
             $table->string('start_location')->nullable();
-            $table->dateTime('start_datetime')->nullable();
+            $table->date('start_date')->nullable();
             $table->string('end_location')->nullable();
-            $table->dateTime('end_datetime')->nullable();
-
+            $table->date('end_date')->nullable();
             $table->string('booking_form')->nullable();
             $table->longText('invoice_text')->nullable();
             $table->timestamps();

@@ -14,7 +14,7 @@
                 <div class="flex justify-between flex-wrap sm:flex-nowrap">
                     <div class="relative w-full sm:w-auto flex flex-wrap sm:block">
 
-                        <h1 class="text-4xl mb-4 inline mr-4">Booking - {{ $booking->name }}</h1>
+                        <h1 class="text-4xl mb-4 inline mr-4">Booking - {{ $booking->last_name }}, {{ $booking->first_name }}</h1>
                         <p class="text-lg inline w-full sm:w-auto sm:mt-0">
                             <span class="font-bold">Tour:</span> <span class="font-normal">{{ $booking->tour->title }}</span> | <span class="font-bold">Season:</span> <span class="font-normal">{{ $booking->tour->season }}</span>
                         </p>
@@ -96,7 +96,7 @@
                             @if(isset($persons))
                             @foreach($persons as $person)
                             <tr>
-                                <td>{{ $person->name }}</td>
+                                <td>{{ $person->first_name }} {{ $person->last_name }}</td>
                                 <td>{{ $person->bike }}</td>
                                 <td>{{ $person->food }}</td>
                                 <td>{{ $person->room }}</td>
@@ -161,7 +161,9 @@
 
                             @if($booking->documents === 1 && $booking->active === 1)
                             <div class="relative">
-                                <a href="/pdf/{{ $booking->tour->season }}/{{ $booking->tour->slug }}-{{$titleSlug}}.pdf" target="_blank" rel="noopener noreferrer" class="relative inline-block w-auto select-none font-bold whitespace-no-wrap px-6 py-2 border-blue-500 border rounded-lg text-base leading-normal no-underline text-gray-100 bg-blue-500 hover:bg-blue-700">See invoice</a>
+                                <a href="/pdf/{{ $booking->tour->season }}/{{ $booking->tour->slug }}-{{ $booking->tour->start_date }}/{{ $booking->last_name }}-agreement.pdf" target="_blank" rel="noopener noreferrer" class="relative inline-block w-auto select-none font-bold whitespace-no-wrap px-6 py-2 border-blue-500 border rounded-lg text-base leading-normal no-underline text-gray-100 bg-blue-500 hover:bg-blue-700">See Agreement</a>
+
+                                <a href="/pdf/{{ $booking->tour->season }}/{{ $booking->tour->slug }}-{{ $booking->tour->start_date }}/{{ $booking->last_name }}.pdf" target="_blank" rel="noopener noreferrer" class="relative inline-block w-auto select-none font-bold whitespace-no-wrap px-6 py-2 border-blue-500 border rounded-lg text-base leading-normal no-underline text-gray-100 bg-blue-500 hover:bg-blue-700">See invoice</a>
                             </div>
                             @endif
                         </div>
@@ -171,7 +173,7 @@
             </div>
         </section>
 
-        @if($user_role === 'admin')
+        @if(false && $user_role === 'admin')
         <section class="flex flex-col break-words bg-white sm:border-1 sm:rounded-md sm:shadow-sm sm:shadow-lg mt-10">
             <header class="font-semibold bg-gray-200 text-gray-700 py-5 px-6 sm:py-6 sm:px-8 sm:rounded-t-md">
                 <div class="flex justify-between">

@@ -30287,6 +30287,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _form_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./form.js */ "./resources/js/form.js");
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 
@@ -30295,9 +30297,25 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 var initApp = function initApp() {
   initSeasonSelect();
   initDiscountSelect();
+  initPrefilPerson1();
   initBookPersons();
+  initDifferentAddresses();
   Object(_form_js__WEBPACK_IMPORTED_MODULE_1__["initForm"])();
+  initCoupledRoomsInput();
 };
+
+function initPrefilPerson1() {
+  if ((typeof prefilledMame1 === "undefined" ? "undefined" : _typeof(prefilledMame1)) !== undefined && (typeof prefilledEmail1 === "undefined" ? "undefined" : _typeof(prefilledEmail1)) !== undefined) {
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()('#first_name_person_1').val(prefilledFirstMame1);
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()('#last_name_person_1').val(prefilledLastMame1);
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()('#email_person_1').val(prefilledEmail1);
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()('#phone_person_1').val(prefilledPhone1);
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()('#street_person_1').val(prefilledStreet1);
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()('#postal_code_person_1').val(prefilledPostalCode1);
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()('#town_person_1').val(prefilledTown1);
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()('#country_person_1').val(prefilledCountry1);
+  }
+}
 
 function initBookPersons() {
   var select = document.querySelector('#select_total_persons');
@@ -30312,6 +30330,33 @@ function initBookPersons() {
       document.querySelector("#input_person_".concat(i)).value = '1';
     }
   });
+}
+
+function initDifferentAddresses() {
+  var checkboxes = document.querySelectorAll('.different_address_checkbox');
+
+  for (var i = checkboxes.length - 1; i >= 0; i--) {
+    checkboxes[i].addEventListener('change', function (e) {
+      var nr = this.getAttribute('data-nr');
+
+      if (this.checked) {
+        jquery__WEBPACK_IMPORTED_MODULE_0___default()('.hidden_address_fields_' + nr).show();
+      } else {
+        jquery__WEBPACK_IMPORTED_MODULE_0___default()('.hidden_address_fields_' + nr).hide();
+      }
+    });
+  }
+}
+
+function initCoupledRoomsInput() {
+  var selects = document.querySelectorAll('.js_coupled_room_select');
+
+  for (var i = selects.length - 1; i >= 0; i--) {
+    selects[i].addEventListener('change', function (e) {
+      var nr = parseInt(this.getAttribute('data-nr')) + 1;
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()('#coupled_cabin_person_' + nr).val(this.value);
+    });
+  }
 }
 
 function initSeasonSelect() {

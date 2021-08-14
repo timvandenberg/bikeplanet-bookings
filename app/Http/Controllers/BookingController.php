@@ -53,10 +53,58 @@ class BookingController extends Controller
 
         $bookingCount = count($bookings);
 
-        return view('booking.book', [
+        return view('booking.book-part1', [
             'tour' => $tour[0],
             'bookingCount' => $bookingCount
         ]);
+    }
+
+    /**
+     * step1
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+
+    public function part1(Request $request)
+    {
+        $request->validate([
+            'tour_id' => 'required',
+            'gender' => 'required',
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'email' => 'required',
+        ]);
+
+        // dd($request->all());
+
+        $request->session()->put('key', 'value');
+        $request->session()->push('allPart1', $request->all());
+
+        return view('booking.book-part2', [
+            'first_name_1' => $request->first_name,
+            'last_name_1' => $request->last_name,
+            'email_1' => $request->email,
+            'phone_1' => $request->phone,
+            'street_1' => $request->street,
+            'postal_code_1' => $request->postal_code,
+            'town_1' => $request->town,
+            'country_1' => $request->country,
+        ]);
+    }
+
+    /**
+     * step1
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+
+    public function part2(Request $request)
+    {
+        $request->session()->push('allPart2', $request->all());
+
+        return view('booking.book-part3');
     }
 
     /**
@@ -67,47 +115,47 @@ class BookingController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required',
-        ]);
-
-        $inputCP = $request->only('client_profile');
-        $allBookingInput = $request->only(['tour_id','name','email','room']);
+        $allPart1 = $request->session()->all()['allPart1'][array_key_last($request->session()->all()['allPart1'])];
+        $allPart2 = $request->session()->all()['allPart2'][array_key_last($request->session()->all()['allPart2'])];
 
         $newBooking = new Booking;
-        $newBooking->fill($allBookingInput);
+        $newBooking->fill($allPart1);
         $newBooking->fill(['documents' => 0]);
         $newBooking->fill(['completed' => 0]);
         $newBooking->save();
 
-        $TravelerTotal = intval($request->input_total_person_count);
-
+        $TravelerTotal = intval($allPart2['input_total_person_count']);
 
         for ($i=1; $i <= $TravelerTotal; $i++) {
-            $inputPerson = $request->only(['name_person_'.$i, 'email_person_'.$i,'bike_person_'.$i,'food_person_'.$i]);
             $newTraveler = new Traveler;
             $newTraveler->fill(['booking_id' => $newBooking->id]);
-            $newTraveler->fill(['name' => $inputPerson['name_person_'.$i]]);
-            $newTraveler->fill(['email' => $inputPerson['email_person_'.$i]]);
-            $newTraveler->fill(['bike' => $inputPerson['bike_person_'.$i]]);
-            $newTraveler->fill(['food' => $inputPerson['food_person_'.$i]]);
+            $newTraveler->fill(['first_name' => $allPart2['first_name_person_'.$i]]);
+            $newTraveler->fill(['last_name' => $allPart2['last_name_person_'.$i]]);
+            $newTraveler->fill(['email' => $allPart2['email_person_'.$i]]);
+            $newTraveler->fill(['phone' => $allPart2['phone_person_'.$i]]);
+            $newTraveler->fill(['street' => $allPart2['street_person_'.$i]]);
+            $newTraveler->fill(['postal_code' => $allPart2['postal_code_person_'.$i]]);
+            $newTraveler->fill(['town' => $allPart2['town_person_'.$i]]);
+            $newTraveler->fill(['country' => $allPart2['country_person_'.$i]]);
+            $newTraveler->fill(['bike' => $allPart2['bike_person_'.$i]]);
+            $newTraveler->fill(['height' => $allPart2['height_person_'.$i]]);
+            $newTraveler->fill(['food' => $allPart2['food_person_'.$i]]);
+            if($i%2===1) {
+                $newTraveler->fill(['cabin' => $allPart2['cabin_person_'.$i]]);
+            } else {
+                $newTraveler->fill(['cabin' => $allPart2['coupled_cabin_person_'.$i]]);
+            }
             $newTraveler->save();
         }
 
-        if (isset($inputCP['client_profile']) && $inputCP['client_profile'] === 'on') {
+        $travelers = Traveler::where('booking_id', '=', $newBooking->id)
+            ->get();
 
-            return view('auth.register', [
-                'bookingID' => $newBooking->id,
-                'name' => $allBookingInput['name'],
-                'email' => $allBookingInput['email'],
-            ]);
-
-        } else {
-
-            return view('booking.thankyou', [
-                'tour' => Tour::findOrFail($allBookingInput['tour_id'])
-            ]);
-        }
+        return view('booking.thankyou', [
+            'tour' => Tour::findOrFail($allPart1['tour_id']),
+            'booking' => $allPart1,
+            'travelers' => $travelers
+        ]);
     }
 
     /**
@@ -166,29 +214,41 @@ class BookingController extends Controller
                     'price' => $request->price,
                 ]);
 
-                $title = $booking->name;
+                $title = $booking->last_name;
                 $titleSlug = Str::slug($title, '-');
                 $price = $request->price;
-
                 $tour = $booking->tour;
 
-                $persons = Traveler::where('booking_id', '=', $booking->id)
+                $travelers = Traveler::where('booking_id', '=', $booking->id)
                     ->get();
+
+                $bookedTour = Tour::where('id', '=', $booking->tour_id)
+                    ->first();
+
+                // dd($bookedTour);
+
+                $pdf = PDF::loadView('booking.pdftemplates.agreement', array(
+                        'title' => $title,
+                        'price' => $price,
+                        'tour' => $tour,
+                        'person_count' => count($travelers),
+                        'tour' => $bookedTour
+                    ))
+                    ->save('pdf/'.$booking->tour->season.'/'.$booking->tour->slug.'-'.$booking->tour->start_date.'/'.$titleSlug.'-agreement.pdf');
+
+                // return $pdf->stream();
 
                 $pdf = PDF::loadView('booking.pdftemplates.invoice', array(
                         'title' => $title,
                         'price' => $price,
                         'tour' => $tour,
-                        'person_count' => count($persons)
+                        'person_count' => count($travelers),
+                        'tour' => $bookedTour,
+                        'date' => '10-01-2021'
                     ))
-                    // ->setPaper('a4', 'landscape')
-                    ->save('pdf/'.$booking->tour->season.'/'.$booking->tour->slug.'-'.$titleSlug.'.pdf');
+                    ->save('pdf/'.$booking->tour->season.'/'.$booking->tour->slug.'-'.$booking->tour->start_date.'/'.$titleSlug.'.pdf');
 
-                // $pdf = PDF::loadFile(public_path().'/pdf-templates/test-pdf.html')
-                //     ->save('pdf/testtttt222.pdf');
-
-                // PDF::loadFile(public_path().'/myfile.html')->save('/path-to/my_stored_file.pdf')->stream('download.pdf');
-
+                // return $pdf->stream();
             }
 
             if ($allInput['update-type'] === 'send-documents-again') {

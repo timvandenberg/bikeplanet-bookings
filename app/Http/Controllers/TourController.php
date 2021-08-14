@@ -6,6 +6,7 @@ use App\Models\Tour;
 use App\Models\Booking;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use File;
 
 class TourController extends Controller
 {
@@ -53,6 +54,9 @@ class TourController extends Controller
         $tour->fill($allInput);
         $tour->fill(['slug' => $slug]);
         $tour->save();
+
+        $path = public_path().'/pdf/2021/'.$slug.'-'.$allInput['start_date'];
+        File::makeDirectory($path, 0777, true, true);
 
         return redirect(route('home'));
     }

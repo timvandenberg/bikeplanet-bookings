@@ -78,7 +78,8 @@ class HomeController extends Controller
                     'season' => $tour->season,
                     'pending' => $pending,
                     'completed' => $completed,
-                    'spots_left' => $spotsLeft
+                    'spots_left' => $spotsLeft,
+                    'start_date' => $tour->start_date,
                 ];
             }
 
