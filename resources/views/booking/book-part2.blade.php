@@ -49,6 +49,7 @@
                             <script>
                                 var prefilledFirstMame1 = '{{$first_name_1}}'
                                 var prefilledLastMame1 = '{{$last_name_1}}'
+                                var prefilledBirthDate1 = '{{$birth_date_1}}'
                                 var prefilledEmail1 = '{{$email_1}}'
                                 var prefilledPhone1 = '{{$phone_1}}'
                                 var prefilledStreet1 = '{{$street_1}}'

@@ -72,6 +72,14 @@
 </head>
 <body>
 
+    @php( $tourPrice = $person_count*$price )
+    @php( $subTotal = $tourPrice )
+    @php( $subTotal += ($ebikeCount*150) )
+    @php( $subTotal += ($hybridCount*150) )
+    @php( $subTotal += ($vegetarianCount*80) )
+    @php( $subTotal += ($veganCount*100) )
+    @php( $finalPrice = $subTotal )
+
     <div class="full header">
         <div class="half">
             <img class="logo" src="{{ asset('img/logo-pdf-iris.jpg') }}" alt="">
@@ -117,29 +125,66 @@
             <tbody>
                 <tr>
                     <td class="bb bl">
-                        Bike & Barge tour: {{ $tour->title }}<br>
-                        <span class="small">Date of embarkation: 2021-08-15 12:21:00<br>
-                        Date of disembarkation: 2021-08-26 12:21:00</span><br>
-                        &nbsp;<br>
-                        &nbsp;<br>
+                        Bike & Barge: {{ $tour->title }} |{{ $tour->start_date }} - {{ $tour->end_date }}|
                     </td>
                     <td class="bl bb">{{ $person_count }}</td>
-                    <td class="br bl">{{ $person_count*$price }}</td>
+                    <td class="br bl">{{ $tourPrice }}</td>
                 </tr>
+
+                @if($ebikeCount)
+                <tr>
+                    <td class="bb bl">
+                        E-bike
+                    </td>
+                    <td class="bl br bb">{{ $ebikeCount }}</td>
+                    <td class="br bt">{{ $ebikeCount*150 }}</td>
+                </tr>
+                @endif
+
+                @if($hybridCount)
+                <tr>
+                    <td class="bb bl">
+                        Hybrid Bike
+                    </td>
+                    <td class="bl br bb">{{ $hybridCount }}</td>
+                    <td class="br bt">{{ $hybridCount*120 }}</td>
+                </tr>
+                @endif
+
+                @if($vegetarianCount)
+                <tr>
+                    <td class="bb bl">
+                        Vegetarian menu
+                    </td>
+                    <td class="bl br bb">{{ $vegetarianCount }}</td>
+                    <td class="br bt">{{ $vegetarianCount*80 }}</td>
+                </tr>
+                @endif
+
+                @if($veganCount)
+                <tr>
+                    <td class="bb bl">
+                        Vegan menu
+                    </td>
+                    <td class="bl br bb">{{ $veganCount }}</td>
+                    <td class="br bt">{{ $veganCount*100 }}</td>
+                </tr>
+                @endif
+
                 <tr>
                     <td></td>
                     <td class="td-align-right">Subtotal</td>
-                    <td class="bl br bb bt">{{ $person_count*$price }}</td>
+                    <td class="bl br bb bt">{{ $subTotal }}</td>
                 </tr>
                 <tr>
                     <td></td>
                     <td class="td-align-right">VAT (6% incl)</td>
-                    <td class="bl br bb">132,-</td>
+                    <td class="bl br bb">{{ $subTotal*0.06 }}</td>
                 </tr>
                 <tr>
                     <td></td>
                     <td class="td-align-right"><strong>Total</strong></td>
-                    <td class="bl br bb">{{ $person_count*$price }}</td>
+                    <td class="bl br bb">{{ $subTotal }}</td>
                 </tr>
             </tbody>
         </table>
@@ -161,13 +206,13 @@
                     <td class="bt bb bl br">First Payment</td>
                     <td class="bt bb bl br">20%</td>
                     <td class="bt bb bl br">October 23, 2018</td>
-                    <td class="bt bb bl br">€&nbsp;{{ $person_count*$price*0.2 }},--</td>
+                    <td class="bt bb bl br">€&nbsp;{{ $finalPrice*0.2 }},--</td>
                 </tr>
                 <tr>
                     <td class="bt bb bl br">Final payment</td>
                     <td class="bt bb bl br">80%</td>
                     <td class="bt bb bl br">April 27, 2019</td>
-                    <td class="bt bb bl br">€&nbsp;{{ $person_count*$price*0.8 }},--</td>
+                    <td class="bt bb bl br">€&nbsp;{{ $finalPrice*0.8 }},--</td>
                 </tr>
             </tbody>
         </table>
@@ -181,8 +226,8 @@
     </div>
 
     <div class="full">
-        <p class="small">Please pay exactly the right amount in Euros!<br><br>
-        Payment by Credit Card is possible, extra costs are 3% of the payment. Visit out <a href="https://www.bikeplanet.tours/product/payment">payment page</a> and fill in the adjusted amount to pay.<br><br>
+        <p class="small">Please pay exactly the right amount in Euros!<br>
+        Payment by Credit Card is possible, extra costs are 3% of the payment. Visit out <a href="https://www.bikeplanet.tours/product/payment">payment page</a> and fill in the adjusted amount to pay.<br>
         Payment without extra costs can be easily arranged on <a href="https://wise.com/" target="_blank">wise.com</a></p>
     </div>
 

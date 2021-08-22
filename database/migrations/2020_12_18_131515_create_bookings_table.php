@@ -28,6 +28,7 @@ class CreateBookingsTable extends Migration
             $table->string('town')->nullable();
             $table->string('country')->nullable();
             $table->string('input_total_person_count')->nullable();
+            $table->string('extra_comments')->nullable();
             $table->string('hotel')->nullable();
             $table->integer('price')->nullable();
             $table->boolean('documents')->default(0);

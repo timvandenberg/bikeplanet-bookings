@@ -18,6 +18,7 @@ class CreateTravelersTable extends Migration
             $table->integer('booking_id')->nullable();
             $table->string('first_name')->nullable();
             $table->string('last_name')->nullable();
+            $table->date('birth_date')->nullable();
             $table->string('email')->nullable();
             $table->string('phone')->nullable();
             $table->string('street')->nullable();

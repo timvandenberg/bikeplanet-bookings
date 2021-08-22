@@ -84,6 +84,7 @@ class BookingController extends Controller
         return view('booking.book-part2', [
             'first_name_1' => $request->first_name,
             'last_name_1' => $request->last_name,
+            'birth_date_1' => $request->birth_date,
             'email_1' => $request->email,
             'phone_1' => $request->phone,
             'street_1' => $request->street,
@@ -117,9 +118,12 @@ class BookingController extends Controller
     {
         $allPart1 = $request->session()->all()['allPart1'][array_key_last($request->session()->all()['allPart1'])];
         $allPart2 = $request->session()->all()['allPart2'][array_key_last($request->session()->all()['allPart2'])];
+        $allPart3 = $request->all();
 
         $newBooking = new Booking;
         $newBooking->fill($allPart1);
+        $newBooking->fill(['input_total_person_count' => $allPart2['input_total_person_count']]);
+        $newBooking->fill($allPart3);
         $newBooking->fill(['documents' => 0]);
         $newBooking->fill(['completed' => 0]);
         $newBooking->save();
@@ -131,20 +135,32 @@ class BookingController extends Controller
             $newTraveler->fill(['booking_id' => $newBooking->id]);
             $newTraveler->fill(['first_name' => $allPart2['first_name_person_'.$i]]);
             $newTraveler->fill(['last_name' => $allPart2['last_name_person_'.$i]]);
+            $newTraveler->fill(['birth_date' => $allPart2['birth_date_person_'.$i]]);
             $newTraveler->fill(['email' => $allPart2['email_person_'.$i]]);
             $newTraveler->fill(['phone' => $allPart2['phone_person_'.$i]]);
-            $newTraveler->fill(['street' => $allPart2['street_person_'.$i]]);
-            $newTraveler->fill(['postal_code' => $allPart2['postal_code_person_'.$i]]);
-            $newTraveler->fill(['town' => $allPart2['town_person_'.$i]]);
-            $newTraveler->fill(['country' => $allPart2['country_person_'.$i]]);
             $newTraveler->fill(['bike' => $allPart2['bike_person_'.$i]]);
             $newTraveler->fill(['height' => $allPart2['height_person_'.$i]]);
             $newTraveler->fill(['food' => $allPart2['food_person_'.$i]]);
+
+            // set same address as person -1
+            if(($i === 2 || $i === 4 || $i === 6 || $i === 8) && !isset($allPart2['different_address_'.$i])) {
+                $newTraveler->fill(['street' => $allPart2['street_person_'.($i-1)]]);
+                $newTraveler->fill(['postal_code' => $allPart2['postal_code_person_'.($i-1)]]);
+                $newTraveler->fill(['town' => $allPart2['town_person_'.($i-1)]]);
+                $newTraveler->fill(['country' => $allPart2['country_person_'.($i-1)]]);
+            } else { // set different address
+                $newTraveler->fill(['street' => $allPart2['street_person_'.$i]]);
+                $newTraveler->fill(['postal_code' => $allPart2['postal_code_person_'.$i]]);
+                $newTraveler->fill(['town' => $allPart2['town_person_'.$i]]);
+                $newTraveler->fill(['country' => $allPart2['country_person_'.$i]]);
+            }
+
             if($i%2===1) {
                 $newTraveler->fill(['cabin' => $allPart2['cabin_person_'.$i]]);
             } else {
                 $newTraveler->fill(['cabin' => $allPart2['coupled_cabin_person_'.$i]]);
             }
+
             $newTraveler->save();
         }
 
@@ -217,7 +233,6 @@ class BookingController extends Controller
                 $title = $booking->last_name;
                 $titleSlug = Str::slug($title, '-');
                 $price = $request->price;
-                $tour = $booking->tour;
 
                 $travelers = Traveler::where('booking_id', '=', $booking->id)
                     ->get();
@@ -230,25 +245,50 @@ class BookingController extends Controller
                 $pdf = PDF::loadView('booking.pdftemplates.agreement', array(
                         'title' => $title,
                         'price' => $price,
-                        'tour' => $tour,
                         'person_count' => count($travelers),
                         'tour' => $bookedTour
                     ))
                     ->save('pdf/'.$booking->tour->season.'/'.$booking->tour->slug.'-'.$booking->tour->start_date.'/'.$titleSlug.'-agreement.pdf');
 
                 // return $pdf->stream();
+                $ebikeCount = 0;
+                $hybridCount = 0;
+                $noCount = 0;
+                $vegetarianCount = 0;
+                $veganCount = 0;
+                foreach ($travelers as $traveler) {
+                    if ($traveler->bike === 'e-bike') {
+                        $ebikeCount++;
+                    }
+                    if ($traveler->bike === 'hybrid-bike') {
+                        $hybridCount++;
+                    }
+                    if ($traveler->bike === 'no-bike') {
+                        $noCount++;
+                    }
+                    if ($traveler->food === 'vegetarian') {
+                        $vegetarianCount++;
+                    }
+                    if ($traveler->food === 'vegan') {
+                        $veganCount++;
+                    }
+                }
 
                 $pdf = PDF::loadView('booking.pdftemplates.invoice', array(
                         'title' => $title,
                         'price' => $price,
-                        'tour' => $tour,
                         'person_count' => count($travelers),
                         'tour' => $bookedTour,
-                        'date' => '10-01-2021'
+                        'date' => '10-01-2021',
+                        'ebikeCount' => $ebikeCount,
+                        'hybridCount' => $hybridCount,
+                        'noCount' => $noCount,
+                        'vegetarianCount' => $vegetarianCount,
+                        'veganCount' => $veganCount
                     ))
                     ->save('pdf/'.$booking->tour->season.'/'.$booking->tour->slug.'-'.$booking->tour->start_date.'/'.$titleSlug.'.pdf');
 
-                // return $pdf->stream();
+                return $pdf->stream();
             }
 
             if ($allInput['update-type'] === 'send-documents-again') {

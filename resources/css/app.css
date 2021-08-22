@@ -57,6 +57,7 @@ select {
 #street_person_1,
 #postal_code_person_1,
 #town_person_1,
+#birth_date_person_1,
 #country_person_1 {
   pointer-events: none;
   background-color: rgba(0,0,0,0.04);
@@ -86,12 +87,20 @@ select {
   width: calc(100% - 50% - 60px - 20px);
 }
 
+.w-street {
+  width: 40%;
+}
+
 .w-name {
-  width: 15%;
+  width: 25%;
 }
 
 .w-lastname {
-  width: 25%;
+  width: 40%;
+}
+
+.w-birthdate {
+  width: 35%;
 }
 
 .w-email {
@@ -103,19 +112,19 @@ select {
 }
 
 .w-bike {
-  width: 15%;
+  width: 25%;
 }
 
 .w-food {
-  width: 40%;
+  width: 25%;
 }
 
 .w-room {
-  width: 30%;
+  width: 25%;
 }
 
 .w-height {
-  width: 15%;
+  width: 25%;
 }
 
 #select_total_persons {

@@ -36,7 +36,7 @@
             <label for="birth_date" class="block text-gray-700 text-sm font-semibold mb-2">
                 {{ __('Birth date') }}
             </label>
-            <input type="date" class="form-input w-full">
+            <input type="date" name="birth_date" class="form-input w-full" required>
         </div>
     </div>
 

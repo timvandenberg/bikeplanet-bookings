@@ -30308,6 +30308,8 @@ function initPrefilPerson1() {
   if ((typeof prefilledMame1 === "undefined" ? "undefined" : _typeof(prefilledMame1)) !== undefined && (typeof prefilledEmail1 === "undefined" ? "undefined" : _typeof(prefilledEmail1)) !== undefined) {
     jquery__WEBPACK_IMPORTED_MODULE_0___default()('#first_name_person_1').val(prefilledFirstMame1);
     jquery__WEBPACK_IMPORTED_MODULE_0___default()('#last_name_person_1').val(prefilledLastMame1);
+    console.log(prefilledBirthDate1);
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()('#birth_date_person_1').val(prefilledBirthDate1);
     jquery__WEBPACK_IMPORTED_MODULE_0___default()('#email_person_1').val(prefilledEmail1);
     jquery__WEBPACK_IMPORTED_MODULE_0___default()('#phone_person_1').val(prefilledPhone1);
     jquery__WEBPACK_IMPORTED_MODULE_0___default()('#street_person_1').val(prefilledStreet1);
