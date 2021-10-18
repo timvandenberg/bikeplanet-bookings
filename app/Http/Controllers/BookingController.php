@@ -8,6 +8,7 @@ use App\Models\Tour;
 use PDF;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Mail;
 
 class BookingController extends Controller
 {
@@ -125,6 +126,7 @@ class BookingController extends Controller
         $newBooking->fill(['input_total_person_count' => $allPart2['input_total_person_count']]);
         $newBooking->fill($allPart3);
         $newBooking->fill(['documents' => 0]);
+        $newBooking->fill(['documents_sent' => 0]);
         $newBooking->fill(['completed' => 0]);
         $newBooking->save();
 
@@ -222,7 +224,7 @@ class BookingController extends Controller
     public function update(Request $request, Booking $booking)
     {
         if ($allInput = $request->all()) {
-            if ($allInput['update-type'] === 'send-documents') {
+            if ($allInput['update-type'] === 'create-documents') {
 
                 $request->validate([ 'price' => 'required', ]);
                 $booking->update([
@@ -288,13 +290,35 @@ class BookingController extends Controller
                     ))
                     ->save('pdf/'.$booking->tour->season.'/'.$booking->tour->slug.'-'.$booking->tour->start_date.'/'.$titleSlug.'.pdf');
 
-                return $pdf->stream();
+                // return $pdf->stream();
             }
 
-            if ($allInput['update-type'] === 'send-documents-again') {
+            if ($allInput['update-type'] === 'create-documents-again') {
                 $booking->update([
                     'documents' => 0,
                 ]);
+            }
+
+            if ($allInput['update-type'] === 'send-documents') {
+                $title = $booking->last_name;
+                $titleSlug = Str::slug($title, '-');
+                $pathToAgreementFile = 'http://bikeplanet-bookings.test/pdf/'.$booking->tour->season.'/'.$booking->tour->slug.'-'.$booking->tour->start_date.'/'.$titleSlug.'-agreement.pdf';
+                $pathToInvoice = 'http://bikeplanet-bookings.test/pdf/'.$booking->tour->season.'/'.$booking->tour->slug.'-'.$booking->tour->start_date.'/'.$titleSlug.'.pdf';
+
+                Mail::send('email.test', ['booking' => $booking], function ($m) use ($booking, $pathToAgreementFile, $pathToInvoice) {
+                    $m->from('hello@app.com', 'Your Application');
+                    $m->to('tim@lamalama.nl', 'Tim')->subject('Your Reminder!');
+                    dd($pathToAgreementFile);
+                    $m->attach($pathToAgreementFile);
+                    $m->attach($pathToInvoice);
+                });
+
+                // $booking->update([
+                //     'documents_sent' => 1,
+                // ]);
+
+                var_dump('sendded');
+                die();
             }
 
             if ($allInput['update-type'] === 'has-payed') {

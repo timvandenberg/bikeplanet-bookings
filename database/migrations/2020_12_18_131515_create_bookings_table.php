@@ -32,6 +32,7 @@ class CreateBookingsTable extends Migration
             $table->string('hotel')->nullable();
             $table->integer('price')->nullable();
             $table->boolean('documents')->default(0);
+            $table->boolean('documents_sent')->default(0);
             $table->boolean('completed')->default(0);
             $table->boolean('active')->default(1);
             $table->timestamps();

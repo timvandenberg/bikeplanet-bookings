@@ -25,7 +25,7 @@
                             @csrf
                             <input type="hidden" name="_method" value="put">
                             <input type="hidden" name="update-type" value="cancel_booking">
-                            <button type="submit" class="relative inline-block w-auto select-none font-bold whitespace-no-wrap px-6 py-2 border-orange-500 border rounded-lg text-base leading-normal no-underline text-gray-100 bg-orange-500 hover:bg-orange-700 w-full sm:w-auto text-center">Annuleer booking</button>
+                            <button type="submit" class="relative inline-block w-auto select-none font-bold whitespace-no-wrap px-6 py-2 border-orange-500 border rounded-lg text-base leading-normal no-underline text-gray-100 bg-orange-500 hover:bg-orange-700 w-full sm:w-auto text-center">Cancel booking</button>
                         </form>
                         @endif
 
@@ -34,7 +34,7 @@
                             @csrf
                             <input type="hidden" name="_method" value="delete">
 
-                            <button type="submit" class="relative inline-block w-auto select-none font-bold whitespace-no-wrap px-6 py-2 border-red-500 border rounded-lg text-base leading-normal no-underline text-gray-100 bg-red-500 hover:bg-red-700 w-full sm:w-auto text-center">Verwijder booking</button>
+                            <button type="submit" class="relative inline-block w-auto select-none font-bold whitespace-no-wrap px-6 py-2 border-red-500 border rounded-lg text-base leading-normal no-underline text-gray-100 bg-red-500 hover:bg-red-700 w-full sm:w-auto text-center">Delete booking</button>
                         </form>
                         @endif
                     </div>
@@ -116,7 +116,7 @@
                             <form method="post" action="{{ route('booking.update', $booking) }}">
                                 @csrf
                                 <input type="hidden" name="_method" value="put">
-                                <input type="hidden" name="update-type" value="send-documents">
+                                <input type="hidden" name="update-type" value="create-documents">
 
                                 <div class="inline">
 
@@ -126,12 +126,12 @@
                                     <div class="inline-block my-2 sm:my-0">
 
                                         <div class="flex column">
-                                            <label class="radio-container relative inline-block w-auto select-none font-bold whitespace-no-wrap px-6 py-2 border-orange-500 border rounded-lg text-base leading-normal no-underline text-gray-100 bg-orange-500 hover:bg-orange-700 mx-1 cursor-pointer">
+                                            <label class="radio-container relative inline-block w-auto select-none font-bold whitespace-no-wrap px-6 py-2 border-blue-500 border rounded-lg text-base leading-normal no-underline text-gray-100 bg-blue-500 hover:bg-blue-700 mx-1 cursor-pointer">
                                                 15%
                                               <input class="discount-radio opacity-0 absolute inset-0" type="radio" name="discount" value="15">
                                             </label>
 
-                                            <label class="radio-container relative inline-block w-auto select-none font-bold whitespace-no-wrap px-6 py-2 border-orange-500 border rounded-lg text-base leading-normal no-underline text-gray-100 bg-orange-500 hover:bg-orange-700 mx-1 cursor-pointer">
+                                            <label class="radio-container relative inline-block w-auto select-none font-bold whitespace-no-wrap px-6 py-2 border-blue-500 border rounded-lg text-base leading-normal no-underline text-gray-100 bg-blue-500 hover:bg-blue-700 mx-1 cursor-pointer">
                                                 30%
                                               <input class="discount-radio opacity-0 absolute inset-0" type="radio" name="discount" value="30">
                                             </label>
@@ -144,8 +144,15 @@
                             <form method="post" action="{{ route('booking.update', $booking) }}">
                                 @csrf
                                 <input type="hidden" name="_method" value="put">
-                                <input type="hidden" name="update-type" value="send-documents-again">
-                                <button type="submit" class="relative inline-block w-auto select-none font-bold whitespace-no-wrap px-6 py-2 border-orange-500 border rounded-lg text-base leading-normal no-underline text-gray-100 bg-orange-500 hover:bg-orange-700 mb-2 sm:mb-0">Change price and send again</button>
+                                <input type="hidden" name="update-type" value="create-documents-again">
+                                <button type="submit" class="relative inline-block w-auto select-none font-bold whitespace-no-wrap px-6 py-2 border-orange-500 border rounded-lg text-base leading-normal no-underline text-gray-100 bg-orange-500 hover:bg-orange-700 mb-2 sm:mb-0">Change price</button>
+                            </form>
+
+                            <form method="post" action="{{ route('booking.update', $booking) }}">
+                                @csrf
+                                <input type="hidden" name="_method" value="put">
+                                <input type="hidden" name="update-type" value="send-documents">
+                                <button type="submit" class="relative inline-block w-auto select-none font-bold whitespace-no-wrap px-6 py-2 border-orange-500 border rounded-lg text-base leading-normal no-underline text-gray-100 bg-orange-500 hover:bg-orange-700 mb-2 sm:mb-0">Send Documents</button>
                             </form>
                             @endif
 
@@ -161,9 +168,9 @@
 
                             @if($booking->documents === 1 && $booking->active === 1)
                             <div class="relative">
-                                <a href="/pdf/{{ $booking->tour->season }}/{{ $booking->tour->slug }}-{{ $booking->tour->start_date }}/{{ $booking->last_name }}-agreement.pdf" target="_blank" rel="noopener noreferrer" class="relative inline-block w-auto select-none font-bold whitespace-no-wrap px-6 py-2 border-blue-500 border rounded-lg text-base leading-normal no-underline text-gray-100 bg-blue-500 hover:bg-blue-700">See Agreement</a>
+                                <a href="/pdf/{{ $booking->tour->season }}/{{ $booking->tour->slug }}-{{ $booking->tour->start_date }}/{{ str_slug($booking->last_name) }}-agreement.pdf" target="_blank" rel="noopener noreferrer" class="relative inline-block w-auto select-none font-bold whitespace-no-wrap px-6 py-2 border-blue-500 border rounded-lg text-base leading-normal no-underline text-gray-100 bg-blue-500 hover:bg-blue-700">See Agreement</a>
 
-                                <a href="/pdf/{{ $booking->tour->season }}/{{ $booking->tour->slug }}-{{ $booking->tour->start_date }}/{{ $booking->last_name }}.pdf" target="_blank" rel="noopener noreferrer" class="relative inline-block w-auto select-none font-bold whitespace-no-wrap px-6 py-2 border-blue-500 border rounded-lg text-base leading-normal no-underline text-gray-100 bg-blue-500 hover:bg-blue-700">See invoice</a>
+                                <a href="/pdf/{{ $booking->tour->season }}/{{ $booking->tour->slug }}-{{ $booking->tour->start_date }}/{{ str_slug($booking->last_name) }}.pdf" target="_blank" rel="noopener noreferrer" class="relative inline-block w-auto select-none font-bold whitespace-no-wrap px-6 py-2 border-blue-500 border rounded-lg text-base leading-normal no-underline text-gray-100 bg-blue-500 hover:bg-blue-700">See invoice</a>
                             </div>
                             @endif
                         </div>
