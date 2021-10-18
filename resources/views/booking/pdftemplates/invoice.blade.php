@@ -27,7 +27,6 @@
         .half {
             float: left;
             width: 50%;
-
         }
         .logo {
             width: 200px;
@@ -36,9 +35,50 @@
             clear: both;
             margin: 0 0 20px 0;
         }
+        th {
+            text-align: left;
+            padding: 10px;
+            background-color: rgba(0,0,0,0.05);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        td {
+            padding: 10px;
+            vertical-align: top;
+        }
+        .td-align-right {
+            text-align: right;
+        }
+
+        .bl {
+            border-left: 1px solid #000;
+        }
+        .bt {
+            border-top: 1px solid #000;
+        }
+        .br {
+            border-right: 1px solid #000;
+        }
+        .bb {
+            border-bottom: 1px solid #000;
+        }
+        .small {
+            font-size: 14px;
+        }
     </style>
 </head>
 <body>
+
+    @php( $tourPrice = $person_count*$price )
+    @php( $subTotal = $tourPrice )
+    @php( $subTotal += ($ebikeCount*150) )
+    @php( $subTotal += ($hybridCount*150) )
+    @php( $subTotal += ($vegetarianCount*80) )
+    @php( $subTotal += ($veganCount*100) )
+    @php( $finalPrice = $subTotal )
 
     <div class="full header">
         <div class="half">
@@ -58,58 +98,139 @@
         </div>
     </div>
 
-    <div class="full">
-        <h1>Invoice {{ $title }}</h1>
+    <div class="half">
+        <h2>Invoice</h2>
+        <p>Date: {{ $date }}</p>
+        <p>Invoice number: I-IRIS-2019-0608-1a-{{$title}}-1</p>
+    </div>
+
+    <div class="half">
+        <h2>To</h2>
+        <p>{{ $title }}</p>
+        <p>Street 123</p>
+        <p>1234 LF Amsterdam</p>
+        <p>United states of america</p>
     </div>
 
     <div class="full">
-        <p><strong>Agreement for Motor Passenger Ship Iris 2019</strong></p>
+        <table>
+            <thead>
+                <tr class="bt bb bl br">
+                    <th class="bt bb bl br">Description</th>
+                    <th class="bt bb bl br">Amount</th>
+                    <th class="bt bb bl br">Price</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td class="bb bl">
+                        Bike & Barge: {{ $tour->title }} |{{ $tour->start_date }} - {{ $tour->end_date }}|
+                    </td>
+                    <td class="bl bb">{{ $person_count }}</td>
+                    <td class="br bl">{{ $tourPrice }}</td>
+                </tr>
+
+                @if($ebikeCount)
+                <tr>
+                    <td class="bb bl">
+                        E-bike
+                    </td>
+                    <td class="bl br bb">{{ $ebikeCount }}</td>
+                    <td class="br bt">{{ $ebikeCount*150 }}</td>
+                </tr>
+                @endif
+
+                @if($hybridCount)
+                <tr>
+                    <td class="bb bl">
+                        Hybrid Bike
+                    </td>
+                    <td class="bl br bb">{{ $hybridCount }}</td>
+                    <td class="br bt">{{ $hybridCount*120 }}</td>
+                </tr>
+                @endif
+
+                @if($vegetarianCount)
+                <tr>
+                    <td class="bb bl">
+                        Vegetarian menu
+                    </td>
+                    <td class="bl br bb">{{ $vegetarianCount }}</td>
+                    <td class="br bt">{{ $vegetarianCount*80 }}</td>
+                </tr>
+                @endif
+
+                @if($veganCount)
+                <tr>
+                    <td class="bb bl">
+                        Vegan menu
+                    </td>
+                    <td class="bl br bb">{{ $veganCount }}</td>
+                    <td class="br bt">{{ $veganCount*100 }}</td>
+                </tr>
+                @endif
+
+                <tr>
+                    <td></td>
+                    <td class="td-align-right">Subtotal</td>
+                    <td class="bl br bb bt">{{ $subTotal }}</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="td-align-right">VAT (6% incl)</td>
+                    <td class="bl br bb">{{ $subTotal*0.06 }}</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="td-align-right"><strong>Total</strong></td>
+                    <td class="bl br bb">{{ $subTotal }}</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 
     <div class="full">
-        <p><strong>RESERVATION NR : A-IRIS-2019-0608-1a-{{ $title }}<br>
-        TOUR : Bike and Barge Moselle<br>
-        PASSENGERS: {{ $person_count }}</strong>
-        </p>
-    </div>
-    <div class="full">
-        <p>{{ $tour->invoice_text }}</p>
-    </div>
-
-    <div class="full">
-        <p>The Voyage shall begin on {{ $tour->start_datetime }} in {{ $tour->start_location }}  = port of embarkation.<br>
-        The Voyage shall end on {{ $tour->end_datetime }} in {{ $tour->end_location }} = port of disembarkation.</p>
-    </div>
-
-    <div class="full">
-        <p><strong>
-            The price for this tour is {{ $price }}
-        </strong></p>
-    </div>
-
-    <div class="full">
-        <p>
-        p1  passenger:<br>
-        7 nights in 1 twin cabin <br>
-        7 days breakfast<br>
-        6 days 3 course dinner <br>
-        7 days lunch supplies for picnic<br>
-        Coffee and tea on board<br>
-        2 guides<br>
-        1 Bike including insurance, water bottle and pannier</p>
+        <h2>Payment</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th class="bt bb bl br">Type</th>
+                    <th class="bt bb bl br">Part</th>
+                    <th class="bt bb bl br">Due</th>
+                    <th class="bt bb bl br">Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="bt bb bl br">First Payment</td>
+                    <td class="bt bb bl br">20%</td>
+                    <td class="bt bb bl br">October 23, 2018</td>
+                    <td class="bt bb bl br">€&nbsp;{{ $finalPrice*0.2 }},--</td>
+                </tr>
+                <tr>
+                    <td class="bt bb bl br">Final payment</td>
+                    <td class="bt bb bl br">80%</td>
+                    <td class="bt bb bl br">April 27, 2019</td>
+                    <td class="bt bb bl br">€&nbsp;{{ $finalPrice*0.8 }},--</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 
     <div class="full">
-        <p>Conditions of payment of the agreed price by customer (Customer will receive invoice):<br>
-        20% of the price = €&nbsp;{{ $price*0.2 }},--   to be paid before October 23, 2018, not refundable <br>
-        80% of the price = €&nbsp;{{ $price*0.8 }},-- to be paid before April 27, 2019  (6 weeks prior to the departure date)<br>
-        <strong>The General Conditions of MPS IRIS BV are applicable to this agreement!</strong>
-        </p>
+        <h2>To be paid to:</h2>
+        <p>MPS IRIS BV</p>
+        <p>Bankaccount (IBAN): NL 22 ABNA 0449 7366 87<br>
+            SWIFT/BIC Code: ABNANL2A</p>
     </div>
 
     <div class="full">
-        <p>Bankaccount (IBAN): NL 22 ABNA 0449 7366 87,   SWIFT/BIC Code: ABNANL2A</p>
+        <p class="small">Please pay exactly the right amount in Euros!<br>
+        Payment by Credit Card is possible, extra costs are 3% of the payment. Visit out <a href="https://www.bikeplanet.tours/product/payment">payment page</a> and fill in the adjusted amount to pay.<br>
+        Payment without extra costs can be easily arranged on <a href="https://wise.com/" target="_blank">wise.com</a></p>
     </div>
+
 </body>
 </html>
 

@@ -30,6 +30,8 @@ Route::middleware(['auth'])->group(function () {
 
 Route::resource('/booking', 'App\Http\Controllers\BookingController');
 Route::get('/booking/new/{season}/{slug}', 'App\Http\Controllers\BookingController@book');
+Route::post('/booking/part1', 'App\Http\Controllers\BookingController@part1')->name('booking.part1');
+Route::post('/booking/part2', 'App\Http\Controllers\BookingController@part2')->name('booking.part2');
 // Route::post('/booking/send-documents/{id}', 'App\Http\Controllers\BookingController@documents');
 
 Route::get('/register-tour', function () {

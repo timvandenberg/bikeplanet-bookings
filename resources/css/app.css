@@ -45,3 +45,92 @@ select {
   display: block;
 }
 
+.person_row_2 {
+  display: block;
+}
+
+.coupled_room_input,
+#first_name_person_1,
+#last_name_person_1,
+#email_person_1,
+#phone_person_1,
+#street_person_1,
+#postal_code_person_1,
+#town_person_1,
+#birth_date_person_1,
+#country_person_1 {
+  pointer-events: none;
+  background-color: rgba(0,0,0,0.04);
+}
+
+.form-field-half {
+  width: calc(50% - 5px);
+}
+
+.form-field-third {
+  width: calc(33% - 5px);
+}
+
+.form-field-quarter {
+  width: calc(25% - 5px);
+}
+
+.form-field-sixth {
+  width: calc(100% / 6 - 5px);
+}
+
+.form-field-radio {
+  width: 60px;
+}
+
+.form-field-last-name {
+  width: calc(100% - 50% - 60px - 20px);
+}
+
+.w-street {
+  width: 40%;
+}
+
+.w-name {
+  width: 25%;
+}
+
+.w-lastname {
+  width: 40%;
+}
+
+.w-birthdate {
+  width: 35%;
+}
+
+.w-email {
+  width: 30%;
+}
+
+.w-phone {
+  width: 30%;
+}
+
+.w-bike {
+  width: 25%;
+}
+
+.w-food {
+  width: 25%;
+}
+
+.w-room {
+  width: 25%;
+}
+
+.w-height {
+  width: 25%;
+}
+
+#select_total_persons {
+  transform: translateY(-9px);
+  padding-top: 0.1em;
+  padding-bottom: 0.1em;
+}
+
+

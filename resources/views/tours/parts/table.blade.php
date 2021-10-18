@@ -1,7 +1,7 @@
 @if(isset($bookings))
 <table>
     <tr>
-        <th>Naam</th>
+        <th>Last name</th>
         <th>Documenten verstuurd</th>
         <th>Heeft betaald</th>
         <th>Ingeschreven op</th>
@@ -12,7 +12,7 @@
     <tr>
         <td>
             <a class="text-orange-500 font-bold" href="/booking/{{$booking->id}}">
-                {{ $booking->name }}
+                {{ $booking->last_name }}
             </a>
         </td>
         <td>

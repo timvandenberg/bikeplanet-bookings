@@ -67,12 +67,12 @@
     </div>
 
     <div class="w-49 mb-4">
-        <label for="start_datetime" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4">
+        <label for="start_date" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4">
             {{ __('Start date') }}
         </label>
 
-        <input id="start_datetime" type="datetime-local" class="form-input w-full @error('start_datetime') border-red-500 @enderror"
-            name="start_datetime" value="@if(isset($tour->start_datetime)){{$tour->start_datetime}}@endif" required autocomplete="start_datetime" autofocus>
+        <input id="start_date" type="date" class="form-input w-full @error('start_date') border-red-500 @enderror"
+            name="start_date" value="@if(isset($tour->start_date)){{$tour->start_date}}@endif" required autocomplete="start_date" autofocus>
     </div>
 
     <div class="w-49 mb-4">
@@ -85,12 +85,12 @@
     </div>
 
     <div class="w-49 mb-4">
-        <label for="end_datetime" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4">
+        <label for="end_date" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4">
             {{ __('End date') }}
         </label>
 
-        <input id="end_datetime" type="datetime-local" class="form-input w-full @error('end_datetime') border-red-500 @enderror"
-            name="end_datetime" value="@if(isset($tour->end_datetime)){{$tour->end_datetime}}@endif" required autocomplete="end_datetime" autofocus>
+        <input id="end_date" type="date" class="form-input w-full @error('end_date') border-red-500 @enderror"
+            name="end_date" value="@if(isset($tour->end_date)){{$tour->end_date}}@endif" required autocomplete="end_date" autofocus>
     </div>
 
     <div class="w-32 mb-4">

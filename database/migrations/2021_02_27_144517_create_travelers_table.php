@@ -16,10 +16,19 @@ class CreateTravelersTable extends Migration
         Schema::create('travelers', function (Blueprint $table) {
             $table->id();
             $table->integer('booking_id')->nullable();
-            $table->string('name')->nullable();
+            $table->string('first_name')->nullable();
+            $table->string('last_name')->nullable();
+            $table->date('birth_date')->nullable();
             $table->string('email')->nullable();
+            $table->string('phone')->nullable();
+            $table->string('street')->nullable();
+            $table->string('postal_code')->nullable();
+            $table->string('town')->nullable();
+            $table->string('country')->nullable();
             $table->string('bike')->nullable();
+            $table->string('height')->nullable();
             $table->string('food')->nullable();
+            $table->string('cabin')->nullable();
             $table->timestamps();
         });
     }
