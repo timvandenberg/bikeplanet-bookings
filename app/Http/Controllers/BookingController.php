@@ -242,15 +242,13 @@ class BookingController extends Controller
                 $bookedTour = Tour::where('id', '=', $booking->tour_id)
                     ->first();
 
-                // dd($bookedTour);
-
                 $pdf = PDF::loadView('booking.pdftemplates.agreement', array(
                         'title' => $title,
                         'price' => $price,
                         'person_count' => count($travelers),
                         'tour' => $bookedTour
                     ))
-                    ->save('pdf/'.$booking->tour->season.'/'.$booking->tour->slug.'-'.$booking->tour->start_date.'/'.$titleSlug.'-agreement.pdf');
+                    ->save('pdf/'.$booking->tour->season.'/'.$booking->tour->slug.'-'.$booking->tour->start_date.'/agreement-'.$titleSlug.'.pdf');
 
                 // return $pdf->stream();
                 $ebikeCount = 0;
@@ -288,7 +286,7 @@ class BookingController extends Controller
                         'vegetarianCount' => $vegetarianCount,
                         'veganCount' => $veganCount
                     ))
-                    ->save('pdf/'.$booking->tour->season.'/'.$booking->tour->slug.'-'.$booking->tour->start_date.'/'.$titleSlug.'.pdf');
+                    ->save('pdf/'.$booking->tour->season.'/'.$booking->tour->slug.'-'.$booking->tour->start_date.'/invoice-'.$titleSlug.'.pdf');
 
                 // return $pdf->stream();
             }
@@ -302,23 +300,31 @@ class BookingController extends Controller
             if ($allInput['update-type'] === 'send-documents') {
                 $title = $booking->last_name;
                 $titleSlug = Str::slug($title, '-');
-                $pathToAgreementFile = 'http://bikeplanet-bookings.test/pdf/'.$booking->tour->season.'/'.$booking->tour->slug.'-'.$booking->tour->start_date.'/'.$titleSlug.'-agreement.pdf';
-                $pathToInvoice = 'http://bikeplanet-bookings.test/pdf/'.$booking->tour->season.'/'.$booking->tour->slug.'-'.$booking->tour->start_date.'/'.$titleSlug.'.pdf';
 
-                Mail::send('email.test', ['booking' => $booking], function ($m) use ($booking, $pathToAgreementFile, $pathToInvoice) {
-                    $m->from('hello@app.com', 'Your Application');
-                    $m->to('tim@lamalama.nl', 'Tim')->subject('Your Reminder!');
-                    dd($pathToAgreementFile);
-                    $m->attach($pathToAgreementFile);
-                    $m->attach($pathToInvoice);
+                $files = [
+                    public_path('pdf/'.$booking->tour->season.'/'.$booking->tour->slug.'-'.$booking->tour->start_date.'/agreement-'.$titleSlug.'.pdf'),
+                    public_path('pdf/'.$booking->tour->season.'/'.$booking->tour->slug.'-'.$booking->tour->start_date.'/invoice-'.$titleSlug.'.pdf'),
+                ];
+
+                Mail::send('email.test', ['booking' => $booking], function ($m) use ($booking, $files) {
+                    $m->from('info@bikeplanet-bookings.nl', 'Bikeplanet bookings');
+                    $m->to('vandenbergtp@gmail.com', 'Tim')->subject('Documents to lenny');
+                    foreach ($files as $file){
+                        $m->attach($file);
+                    }
                 });
 
-                // $booking->update([
-                //     'documents_sent' => 1,
-                // ]);
+                Mail::send('email.guest', ['booking' => $booking], function ($m) use ($booking, $files) {
+                    $m->from('info@bikeplanet-bookings.nl', 'Bikeplanet bookings');
+                    $m->to($booking->email, $booking->first_name)->subject('Thankyou for booking with us');
+                    foreach ($files as $file) {
+                        $m->attach($file);
+                    }
+                });
 
-                var_dump('sendded');
-                die();
+                 $booking->update([
+                     'documents_sent' => 1,
+                 ]);
             }
 
             if ($allInput['update-type'] === 'has-payed') {

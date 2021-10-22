@@ -47,7 +47,7 @@
                     <table class="mb-8 flex-00 whitespace-nowrap">
                         <thead>
                             <tr>
-                                <th>Documents</th>
+                                <th>Documents send</th>
                                 <th>Is paying</th>
                                 <th>Has payed</th>
                             </tr>
@@ -55,7 +55,7 @@
                         <tbody>
                             <tr>
                                 <td>
-                                    @if($booking->documents === 1)
+                                    @if($booking->documents_sent === 1)
                                     <span class="text-green-500 font-bold">V</span>
                                     @else
                                     <span class="text-red-500 font-bold">X</span>
@@ -110,10 +110,10 @@
 
                 @if($user_role === 'admin')
                     <div class="relative border-t-2 pt-8 p-6">
-                        <p class="text-4xl font-bold w-full mb-4">Invoice</p>
-                        <div class="flex justify-between flex-wrap">
+                        <h3 class="text-2xl font-bold w-full mb-4">Invoice actions</h3>
+                        <div class="flex flex-wrap">
                             @if($booking->documents === 0 && $booking->active === 1)
-                            <form method="post" action="{{ route('booking.update', $booking) }}">
+                            <form method="post" action="{{ route('booking.update', $booking) }}" class="mr-1">
                                 @csrf
                                 <input type="hidden" name="_method" value="put">
                                 <input type="hidden" name="update-type" value="create-documents">
@@ -141,36 +141,68 @@
                                 </div>
                             </form>
                             @else
-                            <form method="post" action="{{ route('booking.update', $booking) }}">
-                                @csrf
-                                <input type="hidden" name="_method" value="put">
-                                <input type="hidden" name="update-type" value="create-documents-again">
-                                <button type="submit" class="relative inline-block w-auto select-none font-bold whitespace-no-wrap px-6 py-2 border-orange-500 border rounded-lg text-base leading-normal no-underline text-gray-100 bg-orange-500 hover:bg-orange-700 mb-2 sm:mb-0">Change price</button>
-                            </form>
+                                @if($booking->documents_sent !== 1)
+                                <form method="post" action="{{ route('booking.update', $booking) }}" class="mr-1">
+                                    @csrf
+                                    <input type="hidden" name="_method" value="put">
+                                    <input type="hidden" name="update-type" value="create-documents-again">
+                                    <button type="submit" class="relative inline-block w-auto select-none font-bold whitespace-no-wrap px-6 py-2 border-orange-500 border rounded-lg text-base leading-normal no-underline text-gray-100 bg-orange-500 hover:bg-orange-700 mb-2 sm:mb-0">Change price</button>
+                                </form>
 
-                            <form method="post" action="{{ route('booking.update', $booking) }}">
-                                @csrf
-                                <input type="hidden" name="_method" value="put">
-                                <input type="hidden" name="update-type" value="send-documents">
-                                <button type="submit" class="relative inline-block w-auto select-none font-bold whitespace-no-wrap px-6 py-2 border-orange-500 border rounded-lg text-base leading-normal no-underline text-gray-100 bg-orange-500 hover:bg-orange-700 mb-2 sm:mb-0">Send Documents</button>
-                            </form>
+
+                                <form method="post" action="{{ route('booking.update', $booking) }}" class="mr-1">
+                                    @csrf
+                                    <input type="hidden" name="_method" value="put">
+                                    <input type="hidden" name="update-type" value="send-documents">
+                                    <button
+                                        type="submit"
+                                        class="relative inline-block w-auto select-none font-bold whitespace-no-wrap px-6 py-2 border-orange-500 border rounded-lg text-base leading-normal no-underline text-gray-100 bg-orange-500 hover:bg-orange-700 mb-2 sm:mb-0"
+                                    >
+                                        Send Documents
+                                    </button>
+                                </form>
+                                @endif
                             @endif
 
                             @if($booking->completed === 0 && $booking->documents === 1 && $booking->active === 1)
-                            <form method="post" action="{{ route('booking.update', $booking) }}">
+                            <form method="post" action="{{ route('booking.update', $booking) }}" class="mr-1">
                                 @csrf
                                 <input type="hidden" name="_method" value="put">
                                 <input type="hidden" name="update-type" value="has-payed">
 
-                                <button type="submit" class="relative inline-block w-auto select-none font-bold whitespace-no-wrap px-6 py-2 border-orange-500 border rounded-lg text-base leading-normal no-underline text-gray-100 bg-orange-500 hover:bg-orange-700">Mark as payed</button>
+                                <button
+                                    type="submit"
+                                    class="relative inline-block w-auto select-none font-bold whitespace-no-wrap px-6 py-2 border-orange-500 border rounded-lg text-base leading-normal no-underline text-gray-100 bg-orange-500 hover:bg-orange-700"
+                                >
+                                    Mark as payed
+                                </button>
                             </form>
                             @endif
 
                             @if($booking->documents === 1 && $booking->active === 1)
-                            <div class="relative">
-                                <a href="/pdf/{{ $booking->tour->season }}/{{ $booking->tour->slug }}-{{ $booking->tour->start_date }}/{{ str_slug($booking->last_name) }}-agreement.pdf" target="_blank" rel="noopener noreferrer" class="relative inline-block w-auto select-none font-bold whitespace-no-wrap px-6 py-2 border-blue-500 border rounded-lg text-base leading-normal no-underline text-gray-100 bg-blue-500 hover:bg-blue-700">See Agreement</a>
 
-                                <a href="/pdf/{{ $booking->tour->season }}/{{ $booking->tour->slug }}-{{ $booking->tour->start_date }}/{{ str_slug($booking->last_name) }}.pdf" target="_blank" rel="noopener noreferrer" class="relative inline-block w-auto select-none font-bold whitespace-no-wrap px-6 py-2 border-blue-500 border rounded-lg text-base leading-normal no-underline text-gray-100 bg-blue-500 hover:bg-blue-700">See invoice</a>
+                            <div class="relative w-full">
+                                <h3 class="text-2xl font-bold w-full my-4">View documents</h3>
+                            </div>
+
+                            <div class="relative">
+                                <a
+                                    href="/pdf/{{ $booking->tour->season }}/{{ $booking->tour->slug }}-{{ $booking->tour->start_date }}/agreement-{{ str_slug($booking->last_name) }}.pdf"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    class="relative inline-block w-auto select-none font-bold whitespace-no-wrap px-6 py-2 border-blue-500 border rounded-lg text-base leading-normal no-underline text-gray-100 bg-blue-500 hover:bg-blue-700"
+                                >
+                                    Agreement
+                                </a>
+
+                                <a
+                                    href="/pdf/{{ $booking->tour->season }}/{{ $booking->tour->slug }}-{{ $booking->tour->start_date }}/invoice-{{ str_slug($booking->last_name) }}.pdf"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    class="relative inline-block w-auto select-none font-bold whitespace-no-wrap px-6 py-2 border-blue-500 border rounded-lg text-base leading-normal no-underline text-gray-100 bg-blue-500 hover:bg-blue-700"
+                                >
+                                    invoice
+                                </a>
                             </div>
                             @endif
                         </div>
