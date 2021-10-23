@@ -16,7 +16,7 @@
                         <div class="mb-4">
                             <h1 class="inline text-4xl mr-2">{{$tour->title}}</h1>
                             <h2 class="inline text-2xl mr-2"> ( {{$tour->season}} )</h2>
-                            <a class="inline font-normal text-sm text-orange-700" href="http://{{$_SERVER['HTTP_HOST']}}/booking/new/{{ $tour->season }}/{{ $tour->slug }}" target="_blank" rel="noopener noreferrer">
+                            <a class="inline font-normal text-sm text-orange-700" href="http://{{$_SERVER['HTTP_HOST']}}/new-booking/{{ $tour->season }}/{{ $tour->slug }}" target="_blank" rel="noopener noreferrer">
                                 [ go to apply form ]
                             </a>
                         </div>
@@ -80,7 +80,7 @@
 
             @if(isset($bookings))
             <div class="w-full p-6 pb-0">
-                <p class="text-xl font-bold w-full mb-2">Actieve bookingen</p>
+                <p class="text-xl font-bold w-full mb-2">Active Bookings</p>
             </div>
             <div class="w-full p-6 pt-0 flex md:flex-wrap overflow-x-auto md:overflow-visible">
                 <?php $isCancelled = false; ?>
@@ -90,7 +90,7 @@
 
             @if(isset($cancelled) && count($cancelled) !== 0)
             <div class="w-full p-6">
-                <p class="text-xl font-bold w-full mb-2">Geannuleerde bookingen</p>
+                <p class="text-xl font-bold w-full mb-2">Cancelled bookings</p>
 
                 <?php
                 $isCancelled = true;

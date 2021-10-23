@@ -44,7 +44,7 @@
             <div class="w-full py-6">
                 <h4 class="text-2xl font-semibold mb-4 px-6">Booking status</h4>
                 <div class="w-full flex md:flex-wrap overflow-x-auto md:overflow-visible px-6">
-                    <table class="mb-8 flex-00 whitespace-nowrap">
+                    <table class="mb-8 flex-00 whitespace-nowrap styled-table">
                         <thead>
                             <tr>
                                 <th>Documents send</th>
@@ -76,7 +76,7 @@
 
                 <h4 class="text-2xl font-semibold mb-4 px-6">Booking info</h4>
                 <div class="w-full flex md:flex-wrap overflow-x-auto md:overflow-visible px-6">
-                    <table class="mb-8 flex-00 whitespace-nowrap">
+                    <table class="mb-8 flex-00 whitespace-nowrap styled-table">
                         <thead>
                             <tr>
                                 <th>Person</th>
@@ -99,7 +99,7 @@
                                 <td>{{ $person->first_name }} {{ $person->last_name }}</td>
                                 <td>{{ $person->bike }}</td>
                                 <td>{{ $person->food }}</td>
-                                <td>{{ $person->room }}</td>
+                                <td>{{ $person->cabin }}</td>
                             </tr>
                             @endforeach
                             @endif

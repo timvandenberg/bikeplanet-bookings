@@ -41,21 +41,19 @@ class BookingController extends Controller
 
     public function book(Tour $tour, $season, $slug)
     {
-        // dd($slug);
         $tour = Tour::with('bookings')
             ->where('slug', '=', $slug)
             ->where('season', '=', $season)
-            ->get();
+            ->first();
 
-        $bookings = Booking::with('persons')
-            ->where('tour_id', '=', $tour[0]->id)
-            ->where('active', '=', 1)
-            ->get();
+        if(!$tour) {
+            return view('404');
+        }
 
-        $bookingCount = count($bookings);
+        $bookingCount = count($tour->bookings);
 
         return view('booking.book-part1', [
-            'tour' => $tour[0],
+            'tour' => $tour,
             'bookingCount' => $bookingCount
         ]);
     }
@@ -67,7 +65,34 @@ class BookingController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function part1(Request $request)
+    public function part2(Request $request)
+    {
+        $request->validate([
+            'tour_id' => 'required',
+            'referral_code' => 'required',
+        ]);
+
+        $tour = Tour::with('bookings')
+            ->where('id', $request->tour_id)
+            ->first();
+
+        if ($request->referral_code !== $tour->referral_code) {
+            return view('404');
+        }
+
+        return view('booking.book-part2', [
+            'tour' => $tour
+        ]);
+    }
+
+    /**
+     * step2
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+
+    public function part3(Request $request)
     {
         $request->validate([
             'tour_id' => 'required',
@@ -80,9 +105,9 @@ class BookingController extends Controller
         // dd($request->all());
 
         $request->session()->put('key', 'value');
-        $request->session()->push('allPart1', $request->all());
+        $request->session()->push('allPart2', $request->all());
 
-        return view('booking.book-part2', [
+        return view('booking.book-part3', [
             'first_name_1' => $request->first_name,
             'last_name_1' => $request->last_name,
             'birth_date_1' => $request->birth_date,
@@ -96,17 +121,17 @@ class BookingController extends Controller
     }
 
     /**
-     * step1
+     * step3
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
 
-    public function part2(Request $request)
+    public function part4(Request $request)
     {
-        $request->session()->push('allPart2', $request->all());
+        $request->session()->push('allPart3', $request->all());
 
-        return view('booking.book-part3');
+        return view('booking.book-part4');
     }
 
     /**
@@ -117,8 +142,8 @@ class BookingController extends Controller
      */
     public function store(Request $request)
     {
-        $allPart1 = $request->session()->all()['allPart1'][array_key_last($request->session()->all()['allPart1'])];
-        $allPart2 = $request->session()->all()['allPart2'][array_key_last($request->session()->all()['allPart2'])];
+        $allPart1 = $request->session()->all()['allPart2'][array_key_last($request->session()->all()['allPart2'])];
+        $allPart2 = $request->session()->all()['allPart3'][array_key_last($request->session()->all()['allPart3'])];
         $allPart3 = $request->all();
 
         $newBooking = new Booking;
@@ -169,8 +194,29 @@ class BookingController extends Controller
         $travelers = Traveler::where('booking_id', '=', $newBooking->id)
             ->get();
 
+        $bookingUrl = url('/').'/booking/'.$newBooking->id;
+
+        Mail::send('email.admin-new-booking', [
+            'booking' => $newBooking,
+            'bookingUrl' => $bookingUrl,
+            'tourTitle' => $newBooking->tour->title
+        ], function ($m) {
+            $m->from('info@bikeplanet-bookings.nl', 'Bikeplanet bookings');
+            $m->to('vandenbergtp@gmail.com', 'Tim')->subject('Documents to lenny');
+        });
+
+        Mail::send('email.guest-new-booking', ['booking' => $newBooking], function ($m) use ($newBooking) {
+            $m->from('info@bikeplanet-bookings.nl', 'Bikeplanet bookings');
+            $m->to($newBooking->email, $newBooking->first_name)->subject('Thankyou for booking with us');
+        });
+
+        $tour = Tour::findOrFail($allPart1['tour_id']);
+        if(!$tour) {
+            dd('no tour found');
+        }
+
         return view('booking.thankyou', [
-            'tour' => Tour::findOrFail($allPart1['tour_id']),
+            'tour' => $tour,
             'booking' => $allPart1,
             'travelers' => $travelers
         ]);
@@ -188,16 +234,20 @@ class BookingController extends Controller
             ->where('id', '=', $booking->id)
             ->get();
 
-        $user = auth()->user();
-
         $titleSlug = Str::slug($bookingTour[0]->name, '-');
 
         $persons = Traveler::where('booking_id', '=', $booking->id)
             ->get();
 
+        $user = auth()->user();
+        $userRole = $user->roles[0]->name;
+        if(!$userRole) {
+            dd('no role');
+        }
+
         return view('booking.show', [
             'booking' => $bookingTour[0],
-            'user_role' => $user->roles[0]->name,
+            'user_role' => $userRole,
             'titleSlug' => $titleSlug,
             'persons' => $persons
         ]);
@@ -306,17 +356,9 @@ class BookingController extends Controller
                     public_path('pdf/'.$booking->tour->season.'/'.$booking->tour->slug.'-'.$booking->tour->start_date.'/invoice-'.$titleSlug.'.pdf'),
                 ];
 
-                Mail::send('email.test', ['booking' => $booking], function ($m) use ($booking, $files) {
+                Mail::send('email.guest-documents', ['booking' => $booking], function ($m) use ($booking, $files) {
                     $m->from('info@bikeplanet-bookings.nl', 'Bikeplanet bookings');
-                    $m->to('vandenbergtp@gmail.com', 'Tim')->subject('Documents to lenny');
-                    foreach ($files as $file){
-                        $m->attach($file);
-                    }
-                });
-
-                Mail::send('email.guest', ['booking' => $booking], function ($m) use ($booking, $files) {
-                    $m->from('info@bikeplanet-bookings.nl', 'Bikeplanet bookings');
-                    $m->to($booking->email, $booking->first_name)->subject('Thankyou for booking with us');
+                    $m->to($booking->email, $booking->first_name)->subject('Your booking documents');
                     foreach ($files as $file) {
                         $m->attach($file);
                     }

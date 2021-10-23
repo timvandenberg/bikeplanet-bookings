@@ -28,6 +28,7 @@ class CreateToursTable extends Migration
             $table->date('end_date')->nullable();
             $table->string('booking_form')->nullable();
             $table->longText('invoice_text')->nullable();
+            $table->string('referral_code')->nullable();
             $table->timestamps();
         });
     }

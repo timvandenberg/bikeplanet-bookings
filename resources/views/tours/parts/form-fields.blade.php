@@ -114,6 +114,15 @@
         </textarea>
     </div>
 
+    <div class="w-full mb-4">
+        <label for="referral_code" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4">
+            {{ __('Referral code') }}
+        </label>
+
+        <input id="referral_code" type="text" class="form-input w-full @error('referral_code') border-red-500 @enderror"
+               name="referral_code" value="@if(isset($tour->referral_code)){{$tour->referral_code}}@endif" required autocomplete="referral_code" autofocus>
+    </div>
+
     @error('title')
     <p class="text-red-500 text-xs italic mt-4">
         {{ $message }}

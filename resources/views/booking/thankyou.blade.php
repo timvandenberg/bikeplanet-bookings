@@ -20,7 +20,7 @@
 
             <div class="w-full p-6">
                 <h2 class="text-2xl font-semibold mb-2">Booking info</h2>
-                <table>
+                <table class="styled-table">
                     @foreach($booking as $key => $row)
                     @if($key !== '_token' && $key !== 'tour_id' && $key !== 'input_total_person_count')
                     <tr>
@@ -34,7 +34,7 @@
 
             <div class="w-full p-6">
                 <h2 class="text-2xl font-semibold mb-2">Travelers</h2>
-                <table>
+                <table class="styled-table">
                     @foreach($travelers as $key => $row)
                     <tr>
                         <td>{{$row->first_name}}</td>

@@ -25,32 +25,39 @@
                     </div>
 
                     <div class="relative mt-4 w-full sm:w-auto">
-                        <a href="/tours/create" class="relative inline-block w-auto select-none font-bold whitespace-no-wrap px-6 py-2 border-orange-500 border rounded-lg text-base leading-normal no-underline text-gray-100 bg-orange-500 hover:bg-orange-700 w-full sm:w-auto text-center">Nieuwe Tour</a>
+                        <a
+                            href="/tours/create"
+                            class="relative inline-block w-auto select-none font-bold whitespace-no-wrap px-6 py-2 border-orange-500 border rounded-lg text-base leading-normal no-underline text-gray-100 bg-orange-500 hover:bg-orange-700 w-full sm:w-auto text-center"
+                        >
+                            New Tour
+                        </a>
                     </div>
                 </div>
             </header>
 
             <div class="w-full p-6 flex md:flex-wrap overflow-x-auto md:overflow-visible">
                 @if(isset($tours))
-                <table class="flex-00">
+                <table class="flex-00 styled-table">
                     <thead>
                         <tr>
                             <th class="text-lg">Tour&nbsp;title</th>
                             <th class="text-lg">Start date</th>
                             <th class="text-lg">Pending</th>
                             <th class="text-lg">Booked</th>
-                            <th class="text-lg">Plekken&nbsp;over</th>
+                            <th class="text-lg">Spots left</th>
                         </tr>
                     </thead>
-                    @foreach($tours as $key => $tour)
-                    <tr class="season-row season-{{ $tour['season'] }}" <?php if(date("Y") != $tour['season']) { echo 'style="display: none"'; }?>>
-                        <td><a href="/tours/{{ $tour['id'] }}" class="text-orange-500 font-bold">{{ $tour['title'] }}</a></td>
-                        <td>{{ $tour['start_date'] }}</td>
-                        <td>{{ $tour['pending'] }}</td>
-                        <td>{{ $tour['completed'] }}</td>
-                        <td>{{ $tour['spots_left'] }}</td>
-                    </tr>
-                    @endforeach
+                    <tbody>
+                        @foreach($tours as $key => $tour)
+                        <tr class="season-row season-{{ $tour['season'] }}" <?php if(date("Y") != $tour['season']) { echo 'style="display: none"'; }?>>
+                            <td><a href="/tours/{{ $tour['id'] }}" class="text-orange-500 font-bold">{{ $tour['title'] }}</a></td>
+                            <td>{{ $tour['start_date'] }}</td>
+                            <td>{{ $tour['pending'] }}</td>
+                            <td>{{ $tour['completed'] }}</td>
+                            <td>{{ $tour['spots_left'] }}</td>
+                        </tr>
+                        @endforeach
+                    </tbody>
                 </table>
                 @endif
             </div>
