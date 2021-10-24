@@ -8,12 +8,14 @@
 
             <header class="flex justify-between bg-gray-200 py-5 px-6 sm:py-6 sm:rounded-t-md">
                 <h1 class="text-4xl font-semibold mb-2 text-gray-700">
-                    Book your <span class="text-orange-500">{{ $tour->title }}</span> now!
+                    Contact information
                 </h1>
-                <div class="flex flex-col justify-end">
-                    <h3 class="text-md font-semibold mb-2 text-gray-700">
-                        page 2 of 4
-                    </h3>
+                <div class="w-1/3 flex justify-end items-start">
+                    <div class="flex flex-col justify-end">
+                        <h3 class="text-md font-semibold mb-2 pt-2 text-gray-700">
+                            page 2 of 4
+                        </h3>
+                    </div>
                 </div>
             </header>
 
@@ -22,10 +24,6 @@
                     action="{{ route('booking.part3') }}">
                     @csrf
                     <input type="hidden" name="tour_id" value="{{$tour->id}}">
-
-                    <div class="w-full">
-                        <h3 class="text-2xl font-semibold mb-2 text-gray-700">Contact information</h3>
-                    </div>
 
                     @if($tour->booking_form === 'normal')
                     @include('booking.forms.normal')

@@ -54,7 +54,8 @@ class BookingController extends Controller
 
         return view('booking.book-part1', [
             'tour' => $tour,
-            'bookingCount' => $bookingCount
+            'bookingCount' => $bookingCount,
+            'referralCode' => true
         ]);
     }
 
@@ -77,7 +78,12 @@ class BookingController extends Controller
             ->first();
 
         if ($request->referral_code !== $tour->referral_code) {
-            return view('404');
+            $bookingCount = count($tour->bookings);
+            return view('booking.book-part1', [
+                'tour' => $tour,
+                'bookingCount' => $bookingCount,
+                'referralCode' => false
+            ]);
         }
 
         return view('booking.book-part2', [
@@ -232,12 +238,11 @@ class BookingController extends Controller
     {
         $bookingTour = Booking::with('tour')
             ->where('id', '=', $booking->id)
-            ->get();
+            ->first();
 
-        $titleSlug = Str::slug($bookingTour[0]->name, '-');
+        $titleSlug = Str::slug($bookingTour->name, '-');
 
-        $persons = Traveler::where('booking_id', '=', $booking->id)
-            ->get();
+        $travelers = $bookingTour->travelers;
 
         $user = auth()->user();
         $userRole = $user->roles[0]->name;
@@ -246,10 +251,10 @@ class BookingController extends Controller
         }
 
         return view('booking.show', [
-            'booking' => $bookingTour[0],
+            'booking' => $bookingTour,
             'user_role' => $userRole,
             'titleSlug' => $titleSlug,
-            'persons' => $persons
+            'travelers' => $travelers
         ]);
     }
 

@@ -4,9 +4,19 @@
 
 @import "tailwindcss/utilities";
 
-/*.btn {
-  @apply select-none font-bold whitespace-no-wrap p-3 rounded-lg text-base leading-normal no-underline text-gray-100 bg-orange-500 hover:bg-orange-700 sm:py-4;
-}*/
+.btn-primary {
+  box-shadow: 0 0 0 rgba(0,0,0,0);
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  box-shadow: 0 0 7px rgba(0,0,0,0.4);
+}
+
+.inactive {
+  pointer-events: none !important;
+  opacity: 0.6 !important;
+}
 
 .styled-table {
   width: 100%;
@@ -46,30 +56,6 @@
   font-weight: bold;
   color: #074161;
 }
-
-/*table, td, th {*/
-/*  border: 1px solid #000;*/
-/*  border-radius: 4px;*/
-/*  text-align: left;*/
-/*}*/
-
-/*table {*/
-/*  width: 100%;*/
-/*  border-radius: 4px;*/
-/*}*/
-
-/*td,th {*/
-/*  padding: 10px 20px;*/
-/*  white-space: nowrap;*/
-/*}*/
-
-/*select {*/
-/*  cursor: pointer;*/
-/*}*/
-
-/*.btn-orange {
-  @apply relative inline-block w-auto select-none font-bold whitespace-no-wrap p-4 rounded-lg text-base leading-small no-underline text-gray-100 bg-orange-500 hover:bg-orange-700;
-}*/
 
 .btn-active {
   background-color: #074161 !important;

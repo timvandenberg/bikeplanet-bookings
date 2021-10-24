@@ -27,7 +27,7 @@ class Booking extends Model
         return $this->belongsTo('App\Models\Tour');
     }
 
-    public function persons()
+    public function travelers()
     {
         return $this->hasMany('App\Models\Traveler');
     }

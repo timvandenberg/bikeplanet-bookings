@@ -10,10 +10,12 @@
                 <h1 class="text-4xl font-semibold mb-2 text-gray-700">
                     Remarks
                 </h1>
-                <div class="flex flex-col justify-end">
-                    <h3 class="text-md font-semibold mb-2 text-gray-700">
-                        page 4 of 4
-                    </h3>
+                <div class="w-1/3 flex justify-end items-start">
+                    <div class="flex flex-col justify-end">
+                        <h3 class="text-md font-semibold mb-2 pt-2 text-gray-700">
+                            page 4 of 4
+                        </h3>
+                    </div>
                 </div>
             </header>
 

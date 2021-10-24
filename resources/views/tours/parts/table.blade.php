@@ -3,9 +3,10 @@
     <thead>
         <tr>
             <th>Last name</th>
-            <th>Documents sent</th>
-            <th>Is payed</th>
-            <th>Ingeschreven op</th>
+            <th>Person Count</th>
+            <th>Country</th>
+            <th>Registered on</th>
+            <th>Status</th>
         </tr>
     </thead>
 
@@ -18,21 +19,17 @@
                         {{ $booking->last_name }}
                     </a>
                 </td>
-                <td>
-                    @if($booking->documents_sent === 1)
-                    <span class="text-green-500 font-bold">V</span>
-                    @else
-                    <span class="text-red-500 font-bold">X</span>
-                    @endif
-                </td>
-                <td>
-                    @if($booking->completed === 1)
-                    <span class="text-green-500 font-bold">V</span>
-                    @else
-                    <span class="text-red-500 font-bold">X</span>
-                    @endif
-                </td>
+                <td>{{count($booking->travelers)}}</td>
+                <td>{{$booking->country}}</td>
                 <td>{{ $booking->created_at }}</td>
+                <td>
+                    <span
+                        class="block w-4 h-4 rounded-full bg-red-500
+                            @if($booking->documents_sent === 1) bg-orange-500 @endif
+                            @if($booking->completed === 1) bg-green-500 @endif
+                                "
+                    ></span>
+                </td>
             </tr>
         @endif
     @endforeach
