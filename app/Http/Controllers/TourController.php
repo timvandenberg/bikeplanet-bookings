@@ -131,4 +131,16 @@ class TourController extends Controller
     {
         //
     }
+
+    /**
+     * export
+     *
+     * @param  \App\Models\Tour  $tour
+     * @return \Illuminate\Http\Response
+     */
+    public function export($tourID)
+    {
+        $tour = Tour::where('id', $tourID)->first();
+        dd($tour->bookings);
+    }
 }

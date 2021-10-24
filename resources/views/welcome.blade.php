@@ -17,14 +17,16 @@
 <div class="flex flex-col">
     @if(Route::has('login'))
         <div class="absolute top-0 right-0 mt-4 mr-4 space-x-4 sm:mt-6 sm:mr-6 sm:space-x-6">
-            @auth
-                <a href="{{ url('/home') }}" class="no-underline hover:underline text-sm font-normal text-teal-800 uppercase">{{ __('Home') }}</a>
-            @else
-                <a href="{{ route('login') }}" class="no-underline hover:underline text-sm font-normal text-teal-800 uppercase">{{ __('Login') }}</a>
-                @if (Route::has('register'))
-                    <a href="{{ route('register') }}" class="no-underline hover:underline text-sm font-normal text-teal-800 uppercase">{{ __('Register') }}</a>
-                @endif
-            @endauth
+            @if(false)
+                @auth
+                    <a href="{{ url('/home') }}" class="no-underline hover:underline text-sm font-normal text-teal-800 uppercase">{{ __('Home') }}</a>
+                @else
+                    <a href="{{ route('login') }}" class="no-underline hover:underline text-sm font-normal text-teal-800 uppercase">{{ __('Login') }}</a>
+                    @if (Route::has('register'))
+                        <a href="{{ route('register') }}" class="no-underline hover:underline text-sm font-normal text-teal-800 uppercase">{{ __('Register') }}</a>
+                    @endif
+                @endauth
+            @endif
         </div>
     @endif
 
@@ -34,7 +36,7 @@
                 <h1 class="mb-6 text-center font-bold tracking-wider text-4xl sm:mb-8 sm:text-6xl">
                     <span style="color: #074161">BIKE</span>
                     <span style="color: #F19C26">PLANET</span>
-                    <span style="color: #074161">bookings</span>
+                    <span style="color: #074161">booking</span>
                 </h1>
             </div>
         </div>

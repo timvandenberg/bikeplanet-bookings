@@ -18,20 +18,21 @@
 <body class="bg-gray-100 h-screen antialiased leading-none font-sans">
     <div id="app">
         <header class="bg-blue-500 py-6">
-            <div class="container mx-auto flex justify-between items-center px-6">
+            <div class="container mx-auto flex justify-center items-center px-6">
                 <div>
                     <a href="{{ url('/home') }}" class="text-lg font-semibold text-gray-100 no-underline">
                         <span class="text-white">BIKE</span>
                         <span class="text-orange-500">PLANET</span>
-                        <span class="text-white">bookings</span>
+                        <span class="text-white">booking</span>
                     </a>
                 </div>
-                <nav class="space-x-4 text-gray-300 text-sm sm:text-base">
+                <nav class="absolute right-6 space-x-4 text-gray-300 text-sm sm:text-base">
                     @guest
-                        <a class="no-underline hover:underline" href="{{ route('login') }}">{{ __('Login') }}</a>
-                        @if (Route::has('register'))
-                            <a class="no-underline hover:underline" href="{{ route('register') }}">{{ __('Register') }}</a>
-                        @endif
+{{--                        <a class="no-underline hover:underline" href="{{ route('login') }}">{{ __('Login') }}</a>--}}
+{{--                        @if (Route::has('register'))--}}
+{{--                            <a class="no-underline hover:underline" href="{{ route('register') }}">{{ __('Register') }}</a>--}}
+{{--                        @endif--}}
+                        <a href="https://www.bikeplanet.tours/bike-tours/" target="_blank">See all tours</a>
                     @else
                         <span>{{ Auth::user()->name }}</span>
 

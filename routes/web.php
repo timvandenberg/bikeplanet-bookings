@@ -22,16 +22,18 @@ Auth::routes();
 Route::get('/home', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::middleware(['auth'])->group(function () {
-  Route::resource('/tours', 'App\Http\Controllers\TourController');
-  // Route::get('/tours/edit/{slug}', 'App\Http\Controllers\TourController@edit');
-  // Route::get('/home-client', function () { return view('home-client'); });
+    Route::resource('/tours', 'App\Http\Controllers\TourController');
+    Route::get('/tours/export/{id}', 'App\Http\Controllers\TourController@export')->name('tours.export');
 
+    Route::resource('/booking', 'App\Http\Controllers\BookingController');
+    // Route::get('/tours/edit/{slug}', 'App\Http\Controllers\TourController@edit');
+    // Route::get('/home-client', function () { return view('home-client'); });
 });
 
-Route::resource('/booking', 'App\Http\Controllers\BookingController');
-Route::get('/booking/new/{season}/{slug}', 'App\Http\Controllers\BookingController@book');
-Route::post('/booking/part1', 'App\Http\Controllers\BookingController@part1')->name('booking.part1');
+Route::get('/new-booking/{season}/{slug}', 'App\Http\Controllers\BookingController@book');
 Route::post('/booking/part2', 'App\Http\Controllers\BookingController@part2')->name('booking.part2');
+Route::post('/booking/part3', 'App\Http\Controllers\BookingController@part3')->name('booking.part3');
+Route::post('/booking/part4', 'App\Http\Controllers\BookingController@part4')->name('booking.part4');
 // Route::post('/booking/send-documents/{id}', 'App\Http\Controllers\BookingController@documents');
 
 Route::get('/register-tour', function () {
