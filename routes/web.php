@@ -24,11 +24,12 @@ Route::get('/home', [\App\Http\Controllers\HomeController::class, 'index'])->nam
 Route::middleware(['auth'])->group(function () {
     Route::resource('/tours', 'App\Http\Controllers\TourController');
     Route::get('/tours/export/{id}', 'App\Http\Controllers\TourController@export')->name('tours.export');
-
-    Route::resource('/booking', 'App\Http\Controllers\BookingController');
+    
     // Route::get('/tours/edit/{slug}', 'App\Http\Controllers\TourController@edit');
     // Route::get('/home-client', function () { return view('home-client'); });
 });
+
+Route::resource('/booking', 'App\Http\Controllers\BookingController');
 
 Route::get('/new-booking/{season}/{slug}', 'App\Http\Controllers\BookingController@book');
 Route::post('/booking/part2', 'App\Http\Controllers\BookingController@part2')->name('booking.part2');
