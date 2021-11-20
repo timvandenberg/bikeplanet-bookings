@@ -282,7 +282,6 @@
             </div>
         </section>
         @endif
-
     </div>
 </main>
 @endsection
