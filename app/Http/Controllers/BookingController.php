@@ -362,11 +362,12 @@ class BookingController extends Controller
                     public_path('pdf/'.$booking->tour->season.'/'.$booking->tour->slug.'-'.$booking->tour->start_date.'/invoice-'.$titleSlug.'.pdf'),
                 ];
 
-                Mail::send('email.guest-documents', ['booking' => $booking], function ($m) use ($booking, $files) {
-                    $m->from('info@bikeplanetbooking.com', 'Bikeplanet booking');
-                    $m->to($booking->email, $booking->first_name)->subject('Your booking documents');
-                    foreach ($files as $file) {
-                        $m->attach($file);
+                Mail::send('email.guest-documents', ['booking' => $booking],
+                    function ($m) use ($booking, $files) {
+                        $m->from('info@bikeplanetbooking.com', 'Bikeplanet booking');
+                        $m->to($booking->email, $booking->first_name)->subject('Your booking documents');
+                        foreach ($files as $file) {
+                            $m->attach($file);
                     }
                 });
 
