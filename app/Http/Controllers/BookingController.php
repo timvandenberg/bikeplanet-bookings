@@ -5,10 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Booking;
 use App\Models\Traveler;
 use App\Models\Tour;
+use Illuminate\Support\Facades\Mail;
 use PDF;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use Mail;
+//use Mail;
 
 class BookingController extends Controller
 {
@@ -202,19 +203,19 @@ class BookingController extends Controller
 
         $bookingUrl = url('/').'/booking/'.$newBooking->id;
 
-//        Mail::send('email.admin-new-booking', [
-//            'booking' => $newBooking,
-//            'bookingUrl' => $bookingUrl,
-//            'tourTitle' => $newBooking->tour->title
-//        ], function ($m) {
-//            $m->from('info@bikeplanet-bookings.nl', 'Bikeplanet bookings');
-//            $m->to('vandenbergtp@gmail.com', 'Tim')->subject('Documents to lenny');
-//        });
-//
-//        Mail::send('email.guest-new-booking', ['booking' => $newBooking], function ($m) use ($newBooking) {
-//            $m->from('info@bikeplanet-bookings.nl', 'Bikeplanet bookings');
-//            $m->to($newBooking->email, $newBooking->first_name)->subject('Thankyou for booking with us');
-//        });
+        Mail::send('email.admin-new-booking', [
+            'booking' => $newBooking,
+            'bookingUrl' => $bookingUrl,
+            'tourTitle' => $newBooking->tour->title
+        ], function ($m) use ($newBooking) {
+            $m->from('info@bikeplanetbookings.com', 'Bikeplanet booking');
+            $m->to('vandenbergtp@gmail.com', 'Tim')->subject('New booking for '.$newBooking->tour->title);
+        });
+
+        Mail::send('email.guest-new-booking', ['booking' => $newBooking], function ($m) use ($newBooking) {
+            $m->from('info@bikeplanetbookings.com', 'Bikeplanet bookings');
+            $m->to($newBooking->email, $newBooking->first_name)->subject('Thankyou for booking with us');
+        });
 
         $tour = Tour::findOrFail($allPart1['tour_id']);
         if(!$tour) {
@@ -361,13 +362,13 @@ class BookingController extends Controller
                     public_path('pdf/'.$booking->tour->season.'/'.$booking->tour->slug.'-'.$booking->tour->start_date.'/invoice-'.$titleSlug.'.pdf'),
                 ];
 
-//                Mail::send('email.guest-documents', ['booking' => $booking], function ($m) use ($booking, $files) {
-//                    $m->from('info@bikeplanet-bookings.nl', 'Bikeplanet bookings');
-//                    $m->to($booking->email, $booking->first_name)->subject('Your booking documents');
-//                    foreach ($files as $file) {
-//                        $m->attach($file);
-//                    }
-//                });
+                Mail::send('email.guest-documents', ['booking' => $booking], function ($m) use ($booking, $files) {
+                    $m->from('info@bikeplanetbooking.com', 'Bikeplanet bookings');
+                    $m->to($booking->email, $booking->first_name)->subject('Your booking documents');
+                    foreach ($files as $file) {
+                        $m->attach($file);
+                    }
+                });
 
                  $booking->update([
                      'documents_sent' => 1,
