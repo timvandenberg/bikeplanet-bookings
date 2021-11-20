@@ -208,12 +208,12 @@ class BookingController extends Controller
             'bookingUrl' => $bookingUrl,
             'tourTitle' => $newBooking->tour->title
         ], function ($m) use ($newBooking) {
-            $m->from('info@bikeplanetbookings.com', 'Bikeplanet booking');
+            $m->from('info@bikeplanetbooking.com', 'Bikeplanet booking');
             $m->to('vandenbergtp@gmail.com', 'Tim')->subject('New booking for '.$newBooking->tour->title);
         });
 
         Mail::send('email.guest-new-booking', ['booking' => $newBooking], function ($m) use ($newBooking) {
-            $m->from('info@bikeplanetbookings.com', 'Bikeplanet bookings');
+            $m->from('info@bikeplanetbooking.com', 'Bikeplanet booking');
             $m->to($newBooking->email, $newBooking->first_name)->subject('Thankyou for booking with us');
         });
 
@@ -363,7 +363,7 @@ class BookingController extends Controller
                 ];
 
                 Mail::send('email.guest-documents', ['booking' => $booking], function ($m) use ($booking, $files) {
-                    $m->from('info@bikeplanetbooking.com', 'Bikeplanet bookings');
+                    $m->from('info@bikeplanetbooking.com', 'Bikeplanet booking');
                     $m->to($booking->email, $booking->first_name)->subject('Your booking documents');
                     foreach ($files as $file) {
                         $m->attach($file);
