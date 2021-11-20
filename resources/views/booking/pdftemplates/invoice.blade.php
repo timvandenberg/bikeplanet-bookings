@@ -71,7 +71,6 @@
     </style>
 </head>
 <body>
-
     @php( $tourPrice = $person_count*$price )
     @php( $subTotal = $tourPrice )
     @php( $subTotal += ($ebikeCount*150) )

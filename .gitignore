@@ -2,6 +2,8 @@
 /public/hot
 /public/storage
 /storage/*.key
+/public/pdf/*
+/public/pdf/
 /vendor
 .env
 .env.backup
