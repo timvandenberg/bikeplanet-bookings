@@ -26,7 +26,7 @@ class CreateToursTable extends Migration
             $table->date('start_date')->nullable();
             $table->string('end_location')->nullable();
             $table->date('end_date')->nullable();
-            $table->string('booking_form')->nullable();
+            $table->string('tour_type')->nullable();
             $table->longText('invoice_text')->nullable();
             $table->string('form_title')->nullable();
             $table->string('form_text')->nullable();

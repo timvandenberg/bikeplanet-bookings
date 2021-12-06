@@ -12,7 +12,7 @@
 
             <div class="flex w-full">
                 <input id="input_female" type="radio" name="gender" value="female" required>
-                <label for="input_female" class="pl-1 text-gray-700 text-sm font-semibold">Miss.</label>
+                <label for="input_female" class="pl-1 text-gray-700 text-sm font-semibold">Ms.</label>
             </div>
         </div>
 

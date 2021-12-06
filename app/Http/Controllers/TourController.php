@@ -44,7 +44,7 @@ class TourController extends Controller
             'price' => 'required',
             'season' => 'required',
             'max_bookings' => 'required',
-            'booking_form' => 'required'
+            'tour_type' => 'required'
         ]);
 
         $allInput = $request->all();
@@ -109,7 +109,7 @@ class TourController extends Controller
             'price' => 'required',
             'season' => 'required',
             'max_bookings' => 'required',
-            'booking_form' => 'required'
+            'tour_type' => 'required'
         ]);
 
         $allInput = $request->all();
