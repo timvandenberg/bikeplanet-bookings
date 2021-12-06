@@ -85,12 +85,13 @@
     </div>
 
     <div class="w-32 mb-4">
-        <label for="booking_form" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4">
-            {{ __('Formulier') }}
+        <label for="tour_type" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4">
+            {{ __('Tour type') }}
         </label>
-        <select name="booking_form" id="booking_form" required  class="form-input w-full @error('booking_form') border-red-500 @enderror">
-            <option @if(isset($tour->booking_form) && $tour->booking_form === 'normal') selected @endif value="normal">Normaal</option>
-            <option @if(isset($tour->booking_form) && $tour->booking_form === 'hotel-form') selected @endif value="hotel-form">Hotel Form</option>
+        <select name="tour_type" id="tour_type" required  class="form-input w-full @error('tour_type') border-red-500 @enderror">
+            <option @if(isset($tour->tour_type) && $tour->tour_type === 'iris') selected @endif value="iris">Iris</option>
+            <option @if(isset($tour->tour_type) && $tour->tour_type === 'normal') selected @endif value="primadonna">Primadonna</option>
+            <option @if(isset($tour->tour_type) && $tour->tour_type === 'hotel-form') selected @endif value="hotel-form">Hotel Form</option>
         </select>
     </div>
 

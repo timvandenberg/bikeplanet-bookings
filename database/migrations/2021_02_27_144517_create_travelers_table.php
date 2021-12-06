@@ -27,8 +27,9 @@ class CreateTravelersTable extends Migration
             $table->string('country')->nullable();
             $table->string('bike')->nullable();
             $table->string('height')->nullable();
-            $table->string('food')->nullable();
             $table->string('cabin')->nullable();
+            $table->string('diet')->nullable();
+            $table->string('diet_remarks')->nullable();
             $table->timestamps();
         });
     }

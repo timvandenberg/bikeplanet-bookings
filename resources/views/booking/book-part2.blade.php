@@ -25,12 +25,16 @@
                     @csrf
                     <input type="hidden" name="tour_id" value="{{$tour->id}}">
 
-                    @if($tour->booking_form === 'normal')
-                    @include('booking.forms.normal')
+                    @if($tour->tour_type === 'iris')
+                        @include('booking.forms.normal')
                     @endif
 
-                    @if($tour->booking_form === 'hotel-form')
-                    @include('booking.forms.hotel-form')
+                    @if($tour->tour_type === 'primadonna')
+                        @include('booking.forms.normal')
+                    @endif
+
+                    @if($tour->tour_type === 'hotel-form')
+                        @include('booking.forms.hotel-form')
                     @endif
 
                     <div class="flex flex-wrap">

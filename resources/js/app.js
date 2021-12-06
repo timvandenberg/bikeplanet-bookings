@@ -13,10 +13,9 @@ const initApp = function () {
 }
 
 function initPrefilPerson1() {
-  if (typeof(prefilledMame1) !== undefined && typeof(prefilledEmail1) !== undefined) {
+  if (typeof(prefilledFirstMame1) !== undefined && typeof(prefilledEmail1) !== undefined) {
     $('#first_name_person_1').val(prefilledFirstMame1)
     $('#last_name_person_1').val(prefilledLastMame1)
-    console.log(prefilledBirthDate1)
     $('#birth_date_person_1').val(prefilledBirthDate1)
     $('#email_person_1').val(prefilledEmail1)
     $('#phone_person_1').val(prefilledPhone1)

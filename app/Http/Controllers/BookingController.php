@@ -109,12 +109,13 @@ class BookingController extends Controller
             'email' => 'required',
         ]);
 
-        // dd($request->all());
+        $tour = Tour::where('id', $request->tour_id)->first();
 
         $request->session()->put('key', 'value');
         $request->session()->push('allPart2', $request->all());
 
         return view('booking.book-part3', [
+            'tour' => $tour,
             'first_name_1' => $request->first_name,
             'last_name_1' => $request->last_name,
             'birth_date_1' => $request->birth_date,
@@ -174,7 +175,9 @@ class BookingController extends Controller
             $newTraveler->fill(['phone' => $allPart2['phone_person_'.$i]]);
             $newTraveler->fill(['bike' => $allPart2['bike_person_'.$i]]);
             $newTraveler->fill(['height' => $allPart2['height_person_'.$i]]);
-            $newTraveler->fill(['food' => $allPart2['food_person_'.$i]]);
+            $newTraveler->fill(['diet' => $allPart2['diet_person_'.$i]]);
+            $newTraveler->fill(['diet_remarks' => $allPart2['diet_remarks_person_'.$i]]);
+
 
             // set same address as person -1
             if(($i === 2 || $i === 4 || $i === 6 || $i === 8) && !isset($allPart2['different_address_'.$i])) {
@@ -322,10 +325,10 @@ class BookingController extends Controller
                     if ($traveler->bike === 'no-bike') {
                         $noCount++;
                     }
-                    if ($traveler->food === 'vegetarian') {
+                    if ($traveler->diet === 'vegetarian') {
                         $vegetarianCount++;
                     }
-                    if ($traveler->food === 'vegan') {
+                    if ($traveler->diet === 'vegan') {
                         $veganCount++;
                     }
                 }

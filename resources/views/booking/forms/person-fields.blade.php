@@ -83,18 +83,24 @@
         </div>
     </div>
 
-    <div class="w-full flex">
-        <div class="w-bike pr-2">
+    <div class="w-full flex mb-4">
+        <div class="w-1/3 pr-2">
             <label for="bike_person_{{$nr}}" class="block text-gray-700 text-sm font-semibold mb-1 js_required">Bike</label>
             <select name="bike_person_{{$nr}}" id="bike_person_{{$nr}}" class="form-input w-full @error('bike_person_'.$nr)  border-red-500 @enderror">
                 <option value=""></option>
+                @if($tour->tour_type === 'iris')
                 <option value="e-bike">E-bike (+ &euro;180,-)</option>
                 <option value="hybrid-bike">Hybrid bike (+ &euro;150,-)</option>
-                <option value="no-bike">No bike</option>
+                @endif
+                @if($tour->tour_type === 'primadonna')
+                <option value="regular-bike">Regular bike (+ &euro;0,-)</option>
+                <option value="e-bike">E-bike (+ &euro;100,-)</option>
+                @endif
+                <option value="no-bike">No bike (no discount)</option>
             </select>
         </div>
 
-        <div class="w-height pr-2">
+        <div class="w-1/3 pr-2">
             <label for="height_person_{{$nr}}" class="block text-gray-700 text-sm font-semibold mb-1">Body height</label>
 
             <select class="form-input w-full js_required" id="height_person_{{$nr}}" name="height_person_{{$nr}}">
@@ -102,28 +108,54 @@
             </select>
         </div>
 
-        <div class="w-food pr-2">
-            <label for="food_person_{{$nr}}" class="block text-gray-700 text-sm font-semibold mb-1">Diet</label>
+        <div class="w-1/3">
+            @if($tour->tour_type === 'iris')
+                <label for="cabin_person_{{$nr}}" class="block text-gray-700 text-sm font-semibold mb-1"><span class="font-semibold">Cabin</span><span class="text-xs pl-1 leading-4">(for pers. @if($nr%2===1) {{$nr}} & {{$nr+1}} @else {{$nr-1}} & {{$nr}} @endif)</span></label>
+                @if($nr%2===1)
+                <select name="cabin_person_{{$nr}}" id="cabin_person_{{$nr}}" class="form-input w-full js_coupled_room_select js_required" data-nr="{{$nr}}">
+                    <option value=""></option>
+                    <option value="Twin cabin (separate beds)">Twin cabin (separate beds)</option>
+                    <option value="Double bed cabin">Double bed cabin</option>
+                </select>
+                @else
+                <input class="form-input w-full coupled_room_input" type="text" name="coupled_cabin_person_{{$nr}}" id="coupled_cabin_person_{{$nr}}" value="">
+                @endif
+            @endif
 
-            <select class="form-input w-full js_required" name="food_person_{{$nr}}" id="food_person_{{$nr}}">
+            @if($tour->tour_type === 'primadonna')
+                <label for="cabin_person_{{$nr}}" class="block text-gray-700 text-sm font-semibold mb-1"><span class="font-semibold">Cabin</span><span class="text-xs pl-1 leading-4">(for pers. @if($nr%2===1) {{$nr}} & {{$nr+1}} @else {{$nr-1}} & {{$nr}} @endif)</span></label>
+                @if($nr%2===1)
+                    <select name="cabin_person_{{$nr}}" id="cabin_person_{{$nr}}" class="form-input w-full js_coupled_room_select js_required" data-nr="{{$nr}}">
+                        <option value=""></option>
+                        <option value="Promenade Deck">Promenade Deck</option>
+                        <option value="Upper Deck">Upper Deck</option>
+                        <option value="Upper Deck for 3 Guests">Upper Deck for 3 Guests</option>
+                        <option value="Main Deck">Main Deck</option>
+                        <option value="Main Deck ECO">Main Deck ECO</option>
+                    </select>
+                @else
+                    <input class="form-input w-full coupled_room_input" type="text" name="coupled_cabin_person_{{$nr}}" id="coupled_cabin_person_{{$nr}}" value="">
+                @endif
+            @endif
+        </div>
+    </div>
+
+    <div class="w-full flex mb-4">
+        <div class="w-1/3 pr-2">
+            <label for="diet_person_{{$nr}}" class="block text-gray-700 text-sm font-semibold mb-1">Diet</label>
+
+            <select class="form-input w-full js_required" name="diet_person_{{$nr}}" id="diet_person_{{$nr}}">
                 <option value=""></option>
-                <option value="normal">Normal</option>
+                <option value="normal">Normal diet</option>
                 <option value="vegetarian">Vegetarian (+ &euro; 50,-)</option>
                 <option value="vegan">Vegan (+ &euro; 100,-)</option>
             </select>
         </div>
-
-        <div class="w-room">
-            <label for="cabin_person_{{$nr}}" class="block text-gray-700 text-sm font-semibold mb-1"><span class="font-semibold">Cabin</span><span class="text-xs pl-1 leading-4">(for pers. @if($nr%2===1) {{$nr}} & {{$nr+1}} @else {{$nr-1}} & {{$nr}} @endif)</span></label>
-            @if($nr%2===1)
-            <select name="cabin_person_{{$nr}}" id="cabin_person_{{$nr}}" class="form-input w-full js_coupled_room_select js_required" data-nr="{{$nr}}">
-                <option value=""></option>
-                <option value="Twin cabin (separate beds)">Twin cabin (separate beds)</option>
-                <option value="Double bed cabin">Double bed cabin</option>
-            </select>
-            @else
-            <input class="form-input w-full coupled_room_input" type="text" name="coupled_cabin_person_{{$nr}}" id="coupled_cabin_person_{{$nr}}" value="">
-            @endif
+        <div class="w-2/3">
+            <label for="diet_remarks_person_{{$nr}}" class="block text-gray-700 text-sm font-semibold mb-1">
+                {{ __('Diet remarks') }}
+            </label>
+            <textarea name="diet_remarks_person_{{$nr}}" id="diet_remarks_person_{{$nr}}" class="form-input w-full id="" cols="30" rows="3"></textarea>
         </div>
     </div>
 </div>
