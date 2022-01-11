@@ -17,7 +17,6 @@
                     <div class="titlebox">
                         <h1 class="text-2xl md:text-4xl inline mr-2">Dashboard</h1>
                         <select name="season" id="select-season" class="text-xl font-bold inline form-input">
-                            <option value="2021">2021</option>
                             <option value="2022">2022</option>
                             <option value="2023">2023</option>
                             <option value="2024">2024</option>
