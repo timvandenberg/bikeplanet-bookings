@@ -55,7 +55,7 @@ class TourController extends Controller
         $tour->fill(['slug' => $slug]);
         $tour->save();
 
-        $path = public_path().'/pdf/2021/'.$slug.'-'.$allInput['start_date'];
+        $path = public_path().'/pdf/'.$allInput['season'].'/'.$slug.'-'.$allInput['start_date'];
         File::makeDirectory($path, 0777, true, true);
 
         return redirect(route('home'));

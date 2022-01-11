@@ -37,7 +37,7 @@ class TourSeeder extends Seeder
             'referral_code' => 'TESTCODE',
         ]);
 
-        $path = public_path().'/pdf/2021/primadonna-test-tour-2022-12-12';
+        $path = public_path().'/pdf/2022/primadonna-test-tour-2022-12-12';
         File::makeDirectory($path, 0777, true, true);
 
         DB::table('tours')->insert([
@@ -61,7 +61,7 @@ class TourSeeder extends Seeder
             'referral_code' => 'TESTCODE',
         ]);
 
-        $path = public_path().'/pdf/2021/primadonna-test-tour-2022-12-21';
+        $path = public_path().'/pdf/2022/primadonna-test-tour-2022-12-21';
         File::makeDirectory($path, 0777, true, true);
 
         DB::table('tours')->insert([
@@ -85,7 +85,7 @@ class TourSeeder extends Seeder
             'referral_code' => 'TESTCODE',
         ]);
 
-        $path = public_path().'/pdf/2021/iris-test-tour-2022-12-10';
+        $path = public_path().'/pdf/2022/iris-test-tour-2022-12-10';
         File::makeDirectory($path, 0777, true, true);
     }
 }
