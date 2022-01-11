@@ -36,7 +36,22 @@
             </header>
 
             <div class="w-full p-6 flex md:flex-wrap overflow-x-auto md:overflow-visible">
-                @if(isset($tours))
+
+{{--                <livewire:tours-table />--}}
+
+                {{--                <livewire:tours-table--}}
+                {{--                        model="App\Tours"--}}
+                {{--                        with="bookings"--}}
+                {{--                        sort="name|asc"--}}
+                {{--                        include="title, start_date"--}}
+                {{--                        searchable="title, start_date"--}}
+                {{--                        dates="start_date"--}}
+                {{--                        times="bedtime|g:i A"--}}
+                {{--                        hideable="select"--}}
+                {{--                        exportable--}}
+                {{--                />--}}
+
+                @if(true && isset($tours))
                 <table class="flex-00 styled-table">
                     <thead>
                         <tr>
