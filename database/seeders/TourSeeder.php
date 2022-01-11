@@ -19,7 +19,7 @@ class TourSeeder extends Seeder
         DB::table('tours')->insert([
             'title' => 'Primadonna Test Tour',
             'slug' => 'primadonna-test-tour',
-            'season' => '2021',
+            'season' => '2022',
             'price' => '3000',
             'max_bookings' => 50,
             'crew' => 4,
@@ -43,7 +43,7 @@ class TourSeeder extends Seeder
         DB::table('tours')->insert([
             'title' => 'Primadonna Test Tour',
             'slug' => 'primadonna-test-tour',
-            'season' => '2021',
+            'season' => '2022',
             'price' => '3000',
             'max_bookings' => 50,
             'crew' => 4,
@@ -67,7 +67,7 @@ class TourSeeder extends Seeder
         DB::table('tours')->insert([
             'title' => 'Iris Test Tour',
             'slug' => 'iris-test-tour',
-            'season' => '2021',
+            'season' => '2022',
             'price' => '4000',
             'max_bookings' => 50,
             'crew' => 4,
