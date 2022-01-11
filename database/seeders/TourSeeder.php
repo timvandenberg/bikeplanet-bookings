@@ -25,9 +25,9 @@ class TourSeeder extends Seeder
             'crew' => 4,
             'guides' => 2,
             'start_location' => 'amsterdam',
-            'start_date' => '2021-12-12',
+            'start_date' => '2022-12-12',
             'end_location' => 'groningen',
-            'end_date' => '2021-12-20',
+            'end_date' => '2022-12-20',
             'tour_type' => 'primadonna',
             'invoice_text' => Str::random(100),
             'form_title' => 'Title page 1',
@@ -37,7 +37,7 @@ class TourSeeder extends Seeder
             'referral_code' => 'TESTCODE',
         ]);
 
-        $path = public_path().'/pdf/2021/primadonna-test-tour-2021-12-12';
+        $path = public_path().'/pdf/2021/primadonna-test-tour-2022-12-12';
         File::makeDirectory($path, 0777, true, true);
 
         DB::table('tours')->insert([
@@ -49,9 +49,9 @@ class TourSeeder extends Seeder
             'crew' => 4,
             'guides' => 2,
             'start_location' => 'amsterdam',
-            'start_date' => '2021-12-21',
+            'start_date' => '2022-12-21',
             'end_location' => 'groningen',
-            'end_date' => '2021-12-29',
+            'end_date' => '2022-12-29',
             'tour_type' => 'primadonna',
             'invoice_text' => Str::random(100),
             'form_title' => 'Title page 1',
@@ -61,7 +61,7 @@ class TourSeeder extends Seeder
             'referral_code' => 'TESTCODE',
         ]);
 
-        $path = public_path().'/pdf/2021/primadonna-test-tour-2021-12-21';
+        $path = public_path().'/pdf/2021/primadonna-test-tour-2022-12-21';
         File::makeDirectory($path, 0777, true, true);
 
         DB::table('tours')->insert([
@@ -73,9 +73,9 @@ class TourSeeder extends Seeder
             'crew' => 4,
             'guides' => 2,
             'start_location' => 'amsterdam',
-            'start_date' => '2021-12-10',
+            'start_date' => '2022-12-10',
             'end_location' => 'groningen',
-            'end_date' => '2021-12-18',
+            'end_date' => '2022-12-18',
             'tour_type' => 'primadonna',
             'invoice_text' => Str::random(100),
             'form_title' => 'Title page 1',
@@ -85,7 +85,7 @@ class TourSeeder extends Seeder
             'referral_code' => 'TESTCODE',
         ]);
 
-        $path = public_path().'/pdf/2021/iris-test-tour-2021-12-10';
+        $path = public_path().'/pdf/2021/iris-test-tour-2022-12-10';
         File::makeDirectory($path, 0777, true, true);
     }
 }
