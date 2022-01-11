@@ -211,12 +211,12 @@ class BookingController extends Controller
             'bookingUrl' => $bookingUrl,
             'tourTitle' => $newBooking->tour->title
         ], function ($m) use ($newBooking) {
-            $m->from('info@bikeplanetbooking.com', 'Bikeplanet booking');
-            $m->to('vandenbergtp@gmail.com', 'Tim')->subject('New booking for '.$newBooking->tour->title);
+            $m->from('info@bikeplanetbooking.com', 'Bikeplanet Booking');
+            $m->to('bikeplanettours@gmail.com', 'Tim')->subject('New booking for '.$newBooking->tour->title);
         });
 
         Mail::send('email.guest-new-booking', ['booking' => $newBooking], function ($m) use ($newBooking) {
-            $m->from('info@bikeplanetbooking.com', 'Bikeplanet booking');
+            $m->from('info@bikeplanetbooking.com', 'Bikeplanet Booking');
             $m->to($newBooking->email, $newBooking->first_name)->subject('Thankyou for booking with us');
         });
 
