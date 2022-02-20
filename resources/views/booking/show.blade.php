@@ -78,7 +78,8 @@
                         <thead>
                             <tr>
                                 <th>Documents send</th>
-                                <th>Is paying</th>
+                                <th>Is paying (pp)</th>
+                                <th>Discount (%)</th>
                                 <th>Has payed</th>
                             </tr>
                         </thead>
@@ -92,6 +93,7 @@
                                     @endif
                                 </td>
                                 <td>{{ $booking->price }}</td>
+                                <td>{{ $booking->discount }}</td>
                                 <td>
                                     @if($booking->completed === 1)
                                     <span class="text-green-500 font-bold">V</span>

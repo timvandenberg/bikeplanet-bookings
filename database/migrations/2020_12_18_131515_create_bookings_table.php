@@ -31,6 +31,7 @@ class CreateBookingsTable extends Migration
             $table->longtext('extra_comments')->nullable();
             $table->string('hotel')->nullable();
             $table->integer('price')->nullable();
+            $table->integer('discount')->nullable();
             $table->boolean('documents')->default(0);
             $table->boolean('documents_sent')->default(0);
             $table->boolean('completed')->default(0);
