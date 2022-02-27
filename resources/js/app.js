@@ -4,7 +4,6 @@ import { initForm } from './form.js'
 
 const initApp = function () {
   initSeasonSelect()
-  initDiscountSelect()
   initPrefilPerson1()
   initBookPersons()
   initDifferentAddresses()
