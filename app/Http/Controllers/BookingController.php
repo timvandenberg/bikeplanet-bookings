@@ -213,7 +213,7 @@ class BookingController extends Controller
             'tourTitle' => $newBooking->tour->title
         ], function ($m) use ($newBooking) {
             $m->from('info@bikeplanetbooking.com', 'Bikeplanet Booking');
-            $m->to('bikeplanettours@gmail.com', 'Tim')->subject('New booking for '.$newBooking->tour->title);
+            $m->to('bikeplanettours@gmail.com', 'Lenny')->subject('New booking for '.$newBooking->tour->title);
         });
 
         Mail::send('email.guest-new-booking', ['booking' => $newBooking], function ($m) use ($newBooking) {
@@ -285,7 +285,7 @@ class BookingController extends Controller
     {
         if ($allInput = $request->all()) {
             if ($allInput['update-type'] === 'create-documents') {
-                $request->validate([ 'price' => 'required', ]);
+//                $request->validate([ 'price' => 'required', ]);
                 new createPDFs($request, $booking);
             }
 

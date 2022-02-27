@@ -11,13 +11,37 @@ class createPDFs
 {
     public function __construct($request, $booking)
     {
+        $this->checkDiscountAndSetPrice($request, $booking);
+        $this->primmadonnaPDFs($booking);
+    }
+
+    private function checkDiscountAndSetPrice($request, $booking) {
+        $bookedTour = Tour::where('id', '=', $booking->tour_id)
+            ->first();
+
+        $travelers = Traveler::where('booking_id', '=', $booking->id)
+            ->get();
+
+        $travelerCount = count($travelers);
+        $bookingPrice = $travelerCount * $bookedTour->price;
+        $finalPrice = $bookingPrice;
+        $bikePrice = 0;
+        foreach($travelers as $traveler) {
+            if($traveler->bike === 'e-bike') {
+                $bikePrice += 100;
+            }
+        }
+        $finalPrice += $bikePrice;
+
+        if($request->discount) {
+            $finalPrice -= (int)$request->discount;
+        }
+
         $booking->update([
             'documents' => 1,
-            'price' => $request->price,
+            'price' => $finalPrice,
             'discount' => $request->discount
         ]);
-
-        $this->primmadonnaPDFs($booking);
     }
 
     private function primmadonnaPDFs($booking) {
@@ -30,7 +54,7 @@ class createPDFs
 
         $title = $booking->last_name;
         $titleSlug = Str::slug($title, '-');
-        $price = $booking->price;
+//        $price = $booking->price;x
 
         $pdf = PDF::loadView('booking.pdftemplates.'.$bookedTour->tour_type.'.agreement', array(
             'booking' => $booking,

@@ -1,6 +1,3 @@
-
-
-
 <!doctype html>
 <html lang="en">
 <head>
@@ -47,8 +44,12 @@
         }
         td, th {
             border: 1px solid #999;
-            padding: 5px;
+            padding: 5px 10px;
             text-align: left;
+        }
+        td.blank {
+            border-left: 1px solid transparent;
+            border-bottom: 1px solid transparent;
         }
         ul {
             margin-top: 10px;
@@ -61,9 +62,23 @@
 
 @php
     $travelerCount = count($travelers);
-    $bookingPrice = $travelerCount*$booking->price;
-    $bikePrice =  $travelerCount*100;
-    $finalPrice = $bookingPrice+$bikePrice;
+    $bookingPrice = $travelerCount*$tour->price;
+    $finalPrice = $bookingPrice;
+    $subTotal = $finalPrice;
+    $bikePrice = 0;
+    $eBikeCount = 0;
+    foreach($travelers as $traveler) {
+        if($traveler->bike === 'e-bike') {
+            $bikePrice += 100;
+            $eBikeCount += 1;
+        }
+    }
+    $subTotal += $bikePrice;
+    $finalPrice += $bikePrice;
+
+    if($booking->discount) {
+         $finalPrice -= (int)$booking->discount;
+    }
     $allNames = [];
     $cabins = [];
 @endphp
@@ -121,18 +136,34 @@
                 <tbody>
                 <tr>
                     <td>{{ $travelerCount }}</td>
-                    <td>Cabin ({{ $booking->price }})</td>
-                    <td>{{ $bookingPrice }}</td>
+                    <td>
+                        Cabin (&euro; {{ $tour->price }} )
+                    </td>
+                    <td>&euro; {{ $bookingPrice }}</td>
+                </tr>
+                @if($eBikeCount !== 0)
+                <tr>
+                    <td>{{ $eBikeCount }}</td>
+                    <td>E-bike reservation (&euro; 100)</td>
+                    <td>&euro; {{ $bikePrice }}</td>
+                </tr>
+                @endif
+                @if($booking->discount)
+                <tr>
+                    <td class="blank"></td>
+                    <td class="bold">Subtotal</td>
+                    <td class="bold">&euro; {{ $subTotal }}</td>
                 </tr>
                 <tr>
-                    <td>{{ $travelerCount }}</td>
-                    <td>E-bike reservation (100)</td>
-                    <td>{{ $bikePrice }}</td>
+                    <td class="blank"></td>
+                    <td>Voucher-Discount</td>
+                    <td>&euro; {{ $booking->discount }}</td>
                 </tr>
+                @endif
                 <tr>
-                    <td></td>
+                    <td class="blank"></td>
                     <td class="bold">Total</td>
-                    <td class="bold">{{ $finalPrice }}</td>
+                    <td class="bold">&euro; {{ $finalPrice }}</td>
                 </tr>
                 </tbody>
             </table>

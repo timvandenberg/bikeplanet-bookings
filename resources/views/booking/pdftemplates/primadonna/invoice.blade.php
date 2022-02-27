@@ -1,6 +1,3 @@
-
-
-
 <!doctype html>
 <html lang="en">
 <head>
@@ -47,7 +44,7 @@
         }
         td, th {
             border: 1px solid #999;
-            padding: 5px;
+            padding: 5px 10px;
             text-align: left;
         }
         ul {
@@ -61,10 +58,18 @@
 
 @php
     $travelerCount = count($travelers);
-    $bookingPrice = $travelerCount*$booking->price;
-    $bikePrice =  $travelerCount*100;
-    $finalPrice = $bookingPrice+$bikePrice;
-    $discountFactor = (100-(int)$booking->discount)/100;
+    $bookingPrice = $travelerCount*$tour->price;
+    $finalPrice = $bookingPrice;
+    $bikePrice = 0;
+    $eBikeCount = 0;
+    foreach($travelers as $traveler) {
+        if($traveler->bike === 'e-bike') {
+            $bikePrice += 100;
+            $eBikeCount += 1;
+        }
+    }
+    $finalPrice += $bikePrice;
+
     $allNames = [];
 @endphp
 @foreach ($travelers as $traveler)
@@ -98,24 +103,41 @@
         <table>
             <tbody>
                 <tr>
-                    <td>Total tour costs </td>
-                    <td>{{ $finalPrice }}</td>
+                    <td>
+                        Total tour costs
+                    </td>
+                    <td>&euro; {{ $finalPrice }}</td>
                 </tr>
+                @if($booking->discount)
                 <tr>
-                    <td>Discount</td>
-                    <td>{{ $booking->discount }}%</td>
+                    <td>Voucher-Discount</td>
+                    <td>&euro; {{$booking->discount}}</td>
                 </tr>
+                @php
+                if($booking->discount) {
+                     $finalPrice -= (int)$booking->discount;
+                }
+                @endphp
+                @endif
                 <tr>
                     <td>Remainder Due</td>
-                    <td>{{ $finalPrice*$discountFactor }}</td>
+                    <td>&euro; {{ $finalPrice }}</td>
                 </tr>
                 <tr>
-                    <td>20% due within 10days of this Invoice</td>
-                    <td>{{ ($finalPrice*$discountFactor)*0.2 }}</td>
+                    @php
+                    $Date = date('Y-m-d');;
+                    $days10 = date('Y-m-d', strtotime($Date. ' + 10 days'));
+                    @endphp
+                    <td>20% due within 10 days of this Invoice ({{ $days10 }})</td>
+                    <td>&euro; {{ ($finalPrice)*0.2 }}</td>
                 </tr>
                 <tr>
-                    <td>80% due within 10days of this Invoice</td>
-                    <td>{{ ($finalPrice*$discountFactor)*0.8 }}</td>
+                    @php
+                        $Date = date($tour->start_date);
+                        $weeks6 = date('Y-m-d', strtotime($Date. ' - 42 days'));
+                    @endphp
+                    <td>80% due 6 weeks before departure ({{$weeks6}})</td>
+                    <td>&euro; {{ ($finalPrice)*0.8 }}</td>
                 </tr>
             </tbody>
         </table>

@@ -78,8 +78,8 @@
                         <thead>
                             <tr>
                                 <th>Documents send</th>
-                                <th>Is paying (pp)</th>
-                                <th>Discount (%)</th>
+                                <th>Is paying</th>
+                                <th>Voucher discount (in &euro;)</th>
                                 <th>Has payed</th>
                             </tr>
                         </thead>
@@ -108,31 +108,32 @@
 
                 <div class="w-full mb-7 pb-7 border-b-2 flex">
                     @if($booking->documents === 0 && $booking->active === 1)
-                        <form method="post" action="{{ route('booking.update', $booking) }}" class="mr-1">
+                        <form method="post" action="{{ route('booking.update', $booking) }}" class="mr-1 w-full">
                             @csrf
                             <input type="hidden" name="_method" value="put">
                             <input type="hidden" name="update-type" value="create-documents">
 
-                            <div class="inline">
-
-                                <label class="text-gray-700 text-xl font-semibold mb-2 sm:mb-4 mr-2" for="">Price in <span>&euro;</span></label>
-                                <input class="form-input" type="number" id="booking-price" name="price" value="{{ $booking->tour->price }}" data-original-price="{{ $booking->tour->price }}">
-
-                                <div class="inline-block my-2 sm:my-0">
-
-                                    <div class="flex column">
-                                        <label class="radio-container relative inline-block w-auto select-none font-bold whitespace-no-wrap px-6 py-2 border-blue-500 border rounded-lg text-base leading-normal no-underline text-gray-100 bg-blue-500 hover:bg-blue-700 mx-1 cursor-pointer">
-                                            15%
-                                            <input class="discount-radio opacity-0 absolute inset-0" type="radio" name="discount" value="15">
-                                        </label>
-
-                                        <label class="radio-container relative inline-block w-auto select-none font-bold whitespace-no-wrap px-6 py-2 border-blue-500 border rounded-lg text-base leading-normal no-underline text-gray-100 bg-blue-500 hover:bg-blue-700 mx-1 cursor-pointer">
-                                            30%
-                                            <input class="discount-radio opacity-0 absolute inset-0" type="radio" name="discount" value="30">
-                                        </label>
-                                    </div>
-                                </div>
-                                <button type="submit" class="relative inline-block w-auto select-none font-bold whitespace-no-wrap px-6 py-2 border-orange-500 border rounded-lg text-base leading-normal no-underline text-gray-100 bg-orange-500 hover:bg-orange-700">Create documents</button>
+                            <div class="w-full mb-2">
+                                <label class="text-gray-700 text-xl font-semibold mb-2 sm:mb-4 mr-2" for="">
+                                    Price (original): <span>&euro;</span> {{ $booking->tour->price }}
+                                </label>
+                            </div>
+                            <div class="w-full">
+                                <p class="inline text-gray-700 text-xl font-semibold">Voucher discount: <span>&euro;</span></p>
+                                <input
+                                    class="form-input text-gray-700 text-xl font-semibold w-20"
+                                    type="number"
+                                    name="discount"
+                                    value="{{ $booking->discount }}"
+                                >
+                                <button
+                                    type="submit"
+                                    class="relative inline-block w-auto select-none font-bold whitespace-no-wrap px-6
+                                    py-2 border-orange-500 border rounded-lg text-base leading-normal no-underline
+                                    text-gray-100 bg-orange-500 hover:bg-orange-700"
+                                >
+                                    Create documents
+                                </button>
                             </div>
                         </form>
                     @else
@@ -141,7 +142,14 @@
                                 @csrf
                                 <input type="hidden" name="_method" value="put">
                                 <input type="hidden" name="update-type" value="create-documents-again">
-                                <button type="submit" class="relative inline-block w-auto select-none font-bold whitespace-no-wrap px-6 py-2 border-orange-500 border rounded-lg text-base leading-normal no-underline text-gray-100 bg-orange-500 hover:bg-orange-700 mb-2 sm:mb-0">Change price</button>
+                                <button
+                                    type="submit"
+                                    class="relative inline-block w-auto select-none font-bold whitespace-no-wrap px-6
+                                    py-2 border-orange-500 border rounded-lg text-base leading-normal no-underline
+                                    text-gray-100 bg-orange-500 hover:bg-orange-700 mb-2 sm:mb-0"
+                                >
+                                    Change price
+                                </button>
                             </form>
 
 
@@ -150,8 +158,10 @@
                                 <input type="hidden" name="_method" value="put">
                                 <input type="hidden" name="update-type" value="send-documents">
                                 <button
-                                        type="submit"
-                                        class="relative inline-block w-auto select-none font-bold whitespace-no-wrap px-6 py-2 border-orange-500 border rounded-lg text-base leading-normal no-underline text-gray-100 bg-orange-500 hover:bg-orange-700 mb-2 sm:mb-0"
+                                    type="submit"
+                                    class="relative inline-block w-auto select-none font-bold whitespace-no-wrap px-6
+                                    py-2 border-orange-500 border rounded-lg text-base leading-normal no-underline
+                                    text-gray-100 bg-orange-500 hover:bg-orange-700 mb-2 sm:mb-0"
                                 >
                                     Send Documents
                                 </button>
@@ -171,7 +181,9 @@
 
                             <button
                                     type="submit"
-                                    class="relative inline-block w-auto select-none font-bold whitespace-no-wrap px-6 py-2 border-orange-500 border rounded-lg text-base leading-normal no-underline text-gray-100 bg-orange-500 hover:bg-orange-700"
+                                    class="relative inline-block w-auto select-none font-bold whitespace-no-wrap px-6
+                                    py-2 border-orange-500 border rounded-lg text-base leading-normal no-underline
+                                    text-gray-100 bg-orange-500 hover:bg-orange-700"
                             >
                                 Mark as payed
                             </button>
