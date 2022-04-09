@@ -43,7 +43,7 @@ return [
     |
     */
 
-    'default_per_page' => 10,
+    'default_per_page' => 25,
 
     /*
     |--------------------------------------------------------------------------
@@ -68,10 +68,10 @@ return [
 
     'default_classes' => [
         'row' => [
-            'even' => 'divide-x divide-gray-100 text-sm text-gray-900 bg-gray-100',
-            'odd' => 'divide-x divide-gray-100 text-sm text-gray-900 bg-gray-50',
-            'selected' => 'divide-x divide-gray-100 text-sm text-gray-900 bg-yellow-100',
+            'even' => 'divide-x divide-gray-100 text-lg text-gray-900 bg-gray-100',
+            'odd' => 'divide-x divide-gray-100 text-lg text-gray-900 bg-gray-50',
+            'selected' => 'divide-x divide-gray-100 text-lg text-gray-900 bg-yellow-100',
         ],
-        'cell' => 'text-sm text-gray-900',
+        'cell' => 'text-lg text-gray-900',
     ],
 ];

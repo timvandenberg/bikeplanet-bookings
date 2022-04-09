@@ -72,11 +72,11 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
         ]);
 
-        if (!Role::where('name', '=', $data['usertype'])->first()) {
-            Role::create(['name' => $data['usertype']]);
-        }
-
-        $user->assignRole($data['usertype']);
+//        if (!Role::where('name', '=', $data['usertype'])->first()) {
+//            Role::create(['name' => $data['usertype']]);
+//        }
+//
+//        $user->assignRole($data['usertype']);
 
         if(isset($data['booking_id'])) {
             $booking = Booking::findOrFail($data['booking_id']);

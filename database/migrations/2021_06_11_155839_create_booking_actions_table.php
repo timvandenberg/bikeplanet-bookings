@@ -16,6 +16,7 @@ class CreateBookingActionsTable extends Migration
         Schema::create('booking_actions', function (Blueprint $table) {
             $table->id();
             $table->integer('booking_id')->nullable();
+            $table->string('action')->nullable();
             $table->dateTime('date')->nullable();
             $table->string('who')->nullable();
             $table->timestamps();

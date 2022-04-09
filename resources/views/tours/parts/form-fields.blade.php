@@ -90,7 +90,7 @@
         </label>
         <select name="tour_type" id="tour_type" required  class="form-input w-full @error('tour_type') border-red-500 @enderror">
             <option @if(isset($tour->tour_type) && $tour->tour_type === 'iris') selected @endif value="iris">Iris</option>
-            <option @if(isset($tour->tour_type) && $tour->tour_type === 'normal') selected @endif value="primadonna">Primadonna</option>
+            <option @if(isset($tour->tour_type) && $tour->tour_type === 'primadonna') selected @endif value="primadonna">Primadonna</option>
             <option @if(isset($tour->tour_type) && $tour->tour_type === 'hotel-form') selected @endif value="hotel-form">Hotel Form</option>
         </select>
     </div>

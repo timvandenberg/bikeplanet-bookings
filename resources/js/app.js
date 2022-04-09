@@ -3,7 +3,7 @@ import $ from 'jquery'
 import { initForm } from './form.js'
 
 const initApp = function () {
-  initSeasonSelect()
+  // initSeasonSelect()
   initPrefilPerson1()
   initBookPersons()
   initDifferentAddresses()

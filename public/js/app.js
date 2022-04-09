@@ -30295,8 +30295,7 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 
 var initApp = function initApp() {
-  initSeasonSelect();
-  initDiscountSelect();
+  // initSeasonSelect()
   initPrefilPerson1();
   initBookPersons();
   initDifferentAddresses();

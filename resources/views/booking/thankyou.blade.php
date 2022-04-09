@@ -12,19 +12,33 @@
             </header>
 
             <div class="w-full p-6">
-                <p class="text-lg inline">
-                    Thanks for signing up for {{ $tour->title }}.<br>
-                    See below the information we recieved.<br><br>
-                    You will recieve further information by Email.</p>
+                <p class="text-lg inline leading-6">
+                    Thanks for signing up for <span class="bold">{{ $tour->title }}.</span><br>
+                    See below some of information we recieved.<br><br>
+                    You will recieve further <span class="bold">information by Email</span>.
+                </p>
             </div>
 
             <div class="w-full p-6">
-                <h2 class="text-2xl font-semibold mb-2">Booking info</h2>
+                <h2 class="text-2xl font-semibold mb-2">Booking contact info</h2>
                 <table class="styled-table">
                     @foreach($booking as $key => $row)
-                    @if($key !== '_token' && $key !== 'tour_id' && $key !== 'input_total_person_count')
+                    @php
+                    $keyObj = [
+                        'first_name' => 'First name',
+                        'last_name' => 'Last name',
+                        'birth_date' => 'date of Birth',
+                        'email' => 'Email',
+                        'phone' => 'Phone',
+                        'street' => 'Street',
+                        'postal_code' => 'Postal code',
+                        'town' => 'Town',
+                        'country' => 'Country'
+                    ]
+                    @endphp
+                    @if($key !== '_token' && $key !== 'tour_id' && $key !== 'input_total_person_count' && $key !== 'gender')
                     <tr>
-                        <td>{{$key}}</td>
+                        <td>{{$keyObj[$key]}}</td>
                         <td>{{$row}}</td>
                     </tr>
                     @endif
@@ -33,7 +47,7 @@
             </div>
 
             <div class="w-full p-6">
-                <h2 class="text-2xl font-semibold mb-2">Travelers</h2>
+                <h2 class="text-2xl font-semibold mb-2">All travelers</h2>
                 <table class="styled-table">
                     @foreach($travelers as $key => $row)
                     <tr>
