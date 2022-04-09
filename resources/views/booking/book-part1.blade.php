@@ -29,7 +29,7 @@
                         <div class="flex">
                             <div class="w-1/2 mb-4 pr-4">
                                 <h2 class="text-3xl font-semibold mb-4">{{ $tour->form_title }}</h2>
-                                <p class="text-md leading-5 text-gray-700">
+                                <p class="text-md text-gray-700">
                                     {{ $tour->form_text }}
                                 </p>
                             </div>

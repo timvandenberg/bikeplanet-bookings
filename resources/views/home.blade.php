@@ -16,17 +16,12 @@
                 <div class="flex justify-between flex-wrap sm:flex-nowrap">
                     <div class="titlebox">
                         <h1 class="text-2xl md:text-4xl inline mr-2">Dashboard</h1>
-                        <select name="season" id="select-season" class="text-xl font-bold inline form-input">
-                            <option value="2022">2022</option>
-                            <option value="2023">2023</option>
-                            <option value="2024">2024</option>
-                        </select>
                     </div>
 
                     <div class="relative mt-4 w-full sm:w-auto">
                         <a
                             href="/tours/create"
-                            class="btn-primary relative inline-block w-auto select-none font-bold whitespace-no-wrap px-6 py-2 border-orange-500 border rounded-lg text-base leading-normal no-underline text-gray-100 bg-orange-500 text-center"
+                            class="btn-primary relative inline-block w-auto select-none bold whitespace-no-wrap px-6 py-2 border-orange-500 border rounded-lg text-base leading-normal no-underline text-gray-100 bg-orange-500 text-center"
                         >
                             New Tour
                         </a>
@@ -36,21 +31,9 @@
 
             <div class="w-full p-6 flex md:flex-wrap overflow-x-auto md:overflow-visible">
 
-{{--                <livewire:tours-table />--}}
+                <livewire:tours-table />
 
-                {{--                <livewire:tours-table--}}
-                {{--                        model="App\Tours"--}}
-                {{--                        with="bookings"--}}
-                {{--                        sort="name|asc"--}}
-                {{--                        include="title, start_date"--}}
-                {{--                        searchable="title, start_date"--}}
-                {{--                        dates="start_date"--}}
-                {{--                        times="bedtime|g:i A"--}}
-                {{--                        hideable="select"--}}
-                {{--                        exportable--}}
-                {{--                />--}}
-
-                @if(true && isset($tours))
+                @if(false && isset($tours))
                 <table class="flex-00 styled-table">
                     <thead>
                         <tr>
@@ -64,7 +47,7 @@
                     <tbody>
                         @foreach($tours as $key => $tour)
                         <tr class="season-row season-{{ $tour['season'] }}" <?php if(date("Y") != $tour['season']) { echo 'style="display: none"'; }?>>
-                            <td><a href="/tours/{{ $tour['id'] }}" class="text-orange-500 font-bold">{{ $tour['title'] }}</a></td>
+                            <td><a href="/tours/{{ $tour['id'] }}" class="text-orange-500 bold">{{ $tour['title'] }}</a></td>
                             <td>{{ $tour['start_date'] }}</td>
                             <td>{{ $tour['pending'] }}</td>
                             <td>{{ $tour['completed'] }}</td>

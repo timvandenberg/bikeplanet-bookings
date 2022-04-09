@@ -5,7 +5,7 @@
     <div class="w-full sm:px-6 pb-10">
 
         <div class="bg-gray-100 py-4">
-            <a href="@if($user_role === 'admin')/tours/{{ $booking->tour->id }}@else/home @endif" class="relative inline-block w-auto select-none font-bold whitespace-no-wrap px-6 py-2 border-orange-500 border rounded-lg text-base leading-normal no-underline text-gray-100 bg-orange-500 hover:bg-orange-700 ml-6 sm:ml-0">Back</a>
+            <a href="/tours/{{ $booking->tour->id }}" class="relative inline-block w-auto select-none bold whitespace-no-wrap px-6 py-2 border-orange-500 border rounded-lg text-base leading-normal no-underline text-gray-100 bg-orange-500 hover:bg-orange-700 ml-6 sm:ml-0">Back</a>
         </div>
 
         <section class="flex flex-col break-words bg-white sm:border-1 sm:rounded-md sm:shadow-sm sm:shadow-lg mb-4">
@@ -26,24 +26,24 @@
                                 ></span>
                             </div>
                         </div>
-                        <div class="w-full mb-2">
+                        <div class="w-full">
                             <p class="text-md inline w-full sm:w-auto sm:mt-0">
-                                <span class="font-bold">Tour:</span> <span class="font-normal">{{ $booking->tour->title }} ({{ $booking->tour->season }})</span>
-                            </p>
-                        </div>
-                        <div class="w-full mb-2">
-                            <p class="text-md inline w-full sm:w-auto sm:mt-0">
-                                <span class="font-bold">Email:</span> <span class="font-normal"><a href="mailto:{{$booking->email}}" class="underline">{{ $booking->email }}</a></span>
-                            </p>
-                        </div>
-                        <div class="w-full mb-2">
-                            <p class="text-md inline w-full sm:w-auto sm:mt-0">
-                                <span class="font-bold">Phone:</span> <span class="font-normal"><a href="tel:{{$booking->phone}}" class="underline">{{ $booking->phone }}</a></span>
+                                <span class="bold">Tour:</span> <span class="font-normal">{{ $booking->tour->title }} ({{ $booking->tour->season }})</span>
                             </p>
                         </div>
                         <div class="w-full">
                             <p class="text-md inline w-full sm:w-auto sm:mt-0">
-                                <span class="font-bold">Registerd on:</span> <span class="font-normal">{{ $booking->created_at }}</span>
+                                <span class="bold">Email:</span> <span class="font-normal"><a href="mailto:{{$booking->email}}" class="underline">{{ $booking->email }}</a></span>
+                            </p>
+                        </div>
+                        <div class="w-full">
+                            <p class="text-md inline w-full sm:w-auto sm:mt-0">
+                                <span class="bold">Phone:</span> <span class="font-normal"><a href="tel:{{$booking->phone}}" class="underline">{{ $booking->phone }}</a></span>
+                            </p>
+                        </div>
+                        <div class="w-full">
+                            <p class="text-md inline w-full sm:w-auto sm:mt-0">
+                                <span class="bold">Registerd on:</span> <span class="font-normal">{{ $booking->created_at }}</span>
                             </p>
                         </div>
                     </div>
@@ -53,7 +53,7 @@
                             @csrf
                             <input type="hidden" name="_method" value="put">
                             <input type="hidden" name="update-type" value="cancel_booking">
-                            <button type="submit" class="@if($booking->completed === 1) inactive @endif relative inline-block w-auto select-none font-bold whitespace-no-wrap px-6 py-2 border-orange-500 border rounded-lg text-base leading-normal no-underline text-gray-100 bg-orange-500 hover:bg-orange-700 w-full sm:w-auto text-center">
+                            <button type="submit" class="@if($booking->completed === 1) inactive @endif relative inline-block w-auto select-none bold whitespace-no-wrap px-6 py-2 border-orange-500 border rounded-lg text-base leading-normal no-underline text-gray-100 bg-orange-500 hover:bg-orange-700 w-full sm:w-auto text-center">
                                 Cancel booking
                             </button>
                         </form>
@@ -64,7 +64,7 @@
                             @csrf
                             <input type="hidden" name="_method" value="delete">
 
-                            <button type="submit" class="relative inline-block w-auto select-none font-bold whitespace-no-wrap px-6 py-2 border-red-500 border rounded-lg text-base leading-normal no-underline text-gray-100 bg-red-500 hover:bg-red-700 w-full sm:w-auto text-center">Delete booking</button>
+                            <button type="submit" class="relative inline-block w-auto select-none bold whitespace-no-wrap px-6 py-2 border-red-500 border rounded-lg text-base leading-normal no-underline text-gray-100 bg-red-500 hover:bg-red-700 w-full sm:w-auto text-center">Delete booking</button>
                         </form>
                         @endif
                     </div>
@@ -87,18 +87,18 @@
                             <tr>
                                 <td>
                                     @if($booking->documents_sent === 1)
-                                    <span class="text-green-500 font-bold">V</span>
+                                    <span class="text-green-500 bold">V</span>
                                     @else
-                                    <span class="text-red-500 font-bold">X</span>
+                                    <span class="text-red-500 bold">X</span>
                                     @endif
                                 </td>
                                 <td>{{ $booking->price }}</td>
                                 <td>{{ $booking->discount }}</td>
                                 <td>
                                     @if($booking->completed === 1)
-                                    <span class="text-green-500 font-bold">V</span>
+                                    <span class="text-green-500 bold">V</span>
                                     @else
-                                    <span class="text-red-500 font-bold">X</span>
+                                    <span class="text-red-500 bold">X</span>
                                     @endif
                                 </td>
                             </tr>
@@ -128,7 +128,7 @@
                                 >
                                 <button
                                     type="submit"
-                                    class="relative inline-block w-auto select-none font-bold whitespace-no-wrap px-6
+                                    class="relative inline-block w-auto select-none bold whitespace-no-wrap px-6
                                     py-2 border-orange-500 border rounded-lg text-base leading-normal no-underline
                                     text-gray-100 bg-orange-500 hover:bg-orange-700"
                                 >
@@ -144,7 +144,7 @@
                                 <input type="hidden" name="update-type" value="create-documents-again">
                                 <button
                                     type="submit"
-                                    class="relative inline-block w-auto select-none font-bold whitespace-no-wrap px-6
+                                    class="relative inline-block w-auto select-none bold whitespace-no-wrap px-6
                                     py-2 border-orange-500 border rounded-lg text-base leading-normal no-underline
                                     text-gray-100 bg-orange-500 hover:bg-orange-700 mb-2 sm:mb-0"
                                 >
@@ -159,7 +159,7 @@
                                 <input type="hidden" name="update-type" value="send-documents">
                                 <button
                                     type="submit"
-                                    class="relative inline-block w-auto select-none font-bold whitespace-no-wrap px-6
+                                    class="relative inline-block w-auto select-none bold whitespace-no-wrap px-6
                                     py-2 border-orange-500 border rounded-lg text-base leading-normal no-underline
                                     text-gray-100 bg-orange-500 hover:bg-orange-700 mb-2 sm:mb-0"
                                 >
@@ -181,7 +181,7 @@
 
                             <button
                                     type="submit"
-                                    class="relative inline-block w-auto select-none font-bold whitespace-no-wrap px-6
+                                    class="relative inline-block w-auto select-none bold whitespace-no-wrap px-6
                                     py-2 border-orange-500 border rounded-lg text-base leading-normal no-underline
                                     text-gray-100 bg-orange-500 hover:bg-orange-700"
                             >
@@ -229,7 +229,7 @@
 
                 @if($booking->extra_comments)
                 <div class="w-full mb-7 py-2 border-t-2">
-                    <h3 class="text-2xl font-bold w-full my-4">Extra booking information</h3>
+                    <h3 class="text-2xl bold w-full my-4">Extra booking information</h3>
                     <p class="text-md leading-5 text-gray-700">{{$booking->extra_comments}}</p>
                 </div>
                 @endif
@@ -240,7 +240,7 @@
 
 
                             <div class="relative w-full">
-                                <h3 class="text-2xl font-bold w-full my-4">View documents</h3>
+                                <h3 class="text-2xl bold w-full my-4">View documents</h3>
                             </div>
 
                             <div class="relative">
@@ -248,7 +248,7 @@
                                     href="/pdf/{{ $booking->tour->season }}/{{ $booking->tour->slug }}-{{ $booking->tour->start_date }}/agreement-{{ str_slug($booking->last_name) }}.pdf"
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    class="relative inline-block w-auto select-none font-bold whitespace-no-wrap px-6 py-2 border-blue-500 border rounded-lg text-base leading-normal no-underline text-gray-100 bg-blue-500 hover:bg-blue-700"
+                                    class="btn-primary relative inline-block w-auto select-none bold whitespace-no-wrap px-6 py-2 border-orange-500 border rounded-lg text-base leading-normal no-underline text-gray-100 bg-orange-500 text-center"
                                 >
                                     Agreement
                                 </a>
@@ -257,7 +257,7 @@
                                     href="/pdf/{{ $booking->tour->season }}/{{ $booking->tour->slug }}-{{ $booking->tour->start_date }}/invoice-{{ str_slug($booking->last_name) }}.pdf"
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    class="relative inline-block w-auto select-none font-bold whitespace-no-wrap px-6 py-2 border-blue-500 border rounded-lg text-base leading-normal no-underline text-gray-100 bg-blue-500 hover:bg-blue-700"
+                                    class="btn-primary relative inline-block w-auto select-none bold whitespace-no-wrap px-6 py-2 border-orange-500 border rounded-lg text-base leading-normal no-underline text-gray-100 bg-orange-500 text-center"
                                 >
                                     invoice
                                 </a>
@@ -269,33 +269,37 @@
             </div>
         </section>
 
-        @if(false && $user_role === 'admin')
         <section class="flex flex-col break-words bg-white sm:border-1 sm:rounded-md sm:shadow-sm sm:shadow-lg mt-10">
             <header class="font-semibold bg-gray-200 text-gray-700 py-5 px-6 sm:py-6 sm:px-8 sm:rounded-t-md">
                 <div class="flex justify-between">
                     <div class="relative">
-                        <h1 class="text-2xl inline">Booking actions</h1>
+                        <h1 class="text-2xl inline">Booking action history</h1>
                     </div>
                 </div>
             </header>
             <div class="w-full p-6">
-                <table class="w-full">
+                <table class="w-full flex-00 whitespace-nowrap styled-table">
                     <thead>
                         <tr>
                             <th>Actie</th>
-                            <th>Datum</th>
+                            <th>Date</th>
                             <th>Who</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td></td>
-                        </tr>
+                        @if(isset($bookingActions))
+                            @foreach($bookingActions as $ba)
+                                <tr>
+                                    <td>{{ $ba->action }} </td>
+                                    <td>{{ $ba->date }} </td>
+                                    <td>{{ $ba->who }} </td>
+                                </tr>
+                            @endforeach
+                        @endif
                     </tbody>
                 </table>
             </div>
         </section>
-        @endif
     </div>
 </main>
 @endsection

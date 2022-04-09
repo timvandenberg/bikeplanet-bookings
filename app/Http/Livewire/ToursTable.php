@@ -1,36 +1,74 @@
 <?php
-
 namespace App\Http\Livewire;
 
 use Mediconesystems\LivewireDatatables\Column;
+use Mediconesystems\LivewireDatatables\DateColumn;
 use Mediconesystems\LivewireDatatables\Http\Livewire\LivewireDatatable;
 use App\Models\Tour;
 
 class ToursTable extends LivewireDatatable
 {
+//    public $exportable = true;
+
     public function builder()
     {
-//        return Tour::query()
-//            ->leftJoin('bookings', 'bookings.id', 'tour.bookings');
+        return Tour::query();
     }
 
     public function columns()
     {
-//        return [
+        return [
 //            Column::checkbox(),
-//            Column::name('title')
-//                ->label('Title')
-//                ->filterable()
-//                ->linkTo('tour', 1),
-//            Column::name('start_date')->label('Start Date')->filterable(),
-//            Column::name('tour.bookings.pending')->label('Pending')->filterable(),
-//            Column::callback(['tour.bookings'], function ($bookings) {
-//                $test = 'test';
-//                return $test;
-//            })->label('Pending')->filterable(),
+            Column::callback(['id', 'title'], 'getTourLink')->label('Title')->filterable(),
+            Column::name('season')->label('Season')->filterable(),
+            DateColumn::name('start_date')->label('Start Date')->format('d-m-Y'),
+            Column::callback(['id'],'getPending' )->label('Pending'),
+            Column::callback(['id'], 'getBooked')->label('Booked'),
+            Column::callback(['id'], 'getSpotsLeft')->label('Booked')
+        ];
+    }
 
-//            Column::name('completed')->label('Booking completed')->filterable(),
-//            Column::name('spots_left')->label('Spots Left')->filterable(),
-//        ];
+    public function getTourLink($id) {
+        $tour = Tour::findOrFail($id);
+
+        return "
+            <a href='/tours/$tour->id' class='text-orange-500 bold'>$tour->title</a>
+        ";
+    }
+
+    public function getPending($id) {
+        $tour = Tour::findOrFail($id);
+        $bookings = $tour->bookings;
+        $pending = 0;
+        foreach ($bookings as $key => $booking) {
+            if ($booking['completed'] === 0) {
+                $pending++;
+            }
+        }
+        return $pending;
+    }
+
+    public function getBooked($id) {
+        $tour = Tour::findOrFail($id);
+        $bookings = $tour->bookings;
+        $completed = 0;
+        foreach ($bookings as $key => $booking) {
+            if ($booking['completed'] === 1) {
+                $completed++;
+            }
+        }
+        return $completed;
+    }
+
+    public function getSpotsLeft($id) {
+        $tour = Tour::findOrFail($id);
+        $bookings = $tour->bookings;
+        $spotsLeft = $tour->max_bookings;
+        foreach ($bookings as $key => $booking) {
+            if ($booking['completed'] === 1) {
+                $spotsLeft--;
+            }
+        }
+        return $spotsLeft;
     }
 }

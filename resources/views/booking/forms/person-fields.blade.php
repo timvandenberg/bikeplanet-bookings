@@ -129,7 +129,6 @@
                         <option value=""></option>
                         <option value="Promenade Deck">Promenade Deck</option>
                         <option value="Upper Deck">Upper Deck</option>
-                        <option value="Upper Deck for 3 Guests">Upper Deck for 3 Guests</option>
                         <option value="Main Deck">Main Deck</option>
                         <option value="Main Deck ECO">Main Deck ECO</option>
                     </select>
@@ -146,9 +145,9 @@
 
             <select class="form-input w-full js_required" name="diet_person_{{$nr}}" id="diet_person_{{$nr}}">
                 <option value=""></option>
-                <option value="normal">Normal diet</option>
-                <option value="vegetarian">Vegetarian (+ &euro; 50,-)</option>
-                <option value="vegan">Vegan (+ &euro; 100,-)</option>
+                <option value="varied">Varied diet</option>
+                <option value="vegetarian">Vegetarian</option>
+                <option value="vegan">Vegan</option>
             </select>
         </div>
         <div class="w-2/3">

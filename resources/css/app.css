@@ -1,8 +1,58 @@
 @import "tailwindcss/base";
-
 @import "tailwindcss/components";
-
 @import "tailwindcss/utilities";
+
+@font-face {
+  font-family: 'Raleway-Bold';
+  font-style: normal;
+  font-weight: 600;
+  src: url('../fonts/Raleway-Bold.ttf');
+}
+
+@font-face {
+  font-family: 'Raleway-Black';
+  font-style: normal;
+  font-weight: 600;
+  src: url('../fonts/Raleway-Black.ttf');
+}
+
+@font-face {
+  font-family: 'Raleway-Regular';
+  font-style: normal;
+  font-weight: 600;
+  src: url('../fonts/Raleway-Regular.ttf');
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.black {
+  font-family: 'Raleway-Black';
+}
+
+body,
+table,
+p,
+.regular {
+  font-family: 'Raleway-Regular';
+}
+
+p {
+  line-height: 1.5rem;
+}
+
+form {
+  font-family: 'Raleway-Regular';
+}
+label,
+button,
+#select_total_persons,
+.bold {
+  font-family: 'Raleway-Bold';
+}
 
 .btn-primary {
   box-shadow: 0 0 0 rgba(0,0,0,0);
@@ -158,4 +208,6 @@
   padding-bottom: 0.1em;
 }
 
-
+[x-cloak] {
+  display: none;
+}
