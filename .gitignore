@@ -4,6 +4,7 @@
 /storage/*.key
 /public/pdf/*
 /public/pdf/
+/public/js/
 /vendor
 .env
 .env.backup
