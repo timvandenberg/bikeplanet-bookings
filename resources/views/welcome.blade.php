@@ -33,7 +33,7 @@
     <div class="min-h-screen flex items-center justify-center">
         <div class="flex flex-col justify-around h-full">
             <div>
-                <h1 class="flex mb-6 text-center font-bold tracking-wider text-4xl sm:mb-8 sm:text-6xl">
+                <h1 class="flex mb-6 text-center font-bold tracking-wider text-2xl sm:text-4xl sm:mb-8 sm:text-6xl">
                     <span style="color: #074161">BIKE</span>
                     <span style="color: #F19C26">PLANET</span>
                     <span style="color: #074161">booking</span>

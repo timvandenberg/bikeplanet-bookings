@@ -1,6 +1,6 @@
 <div class="flex flex-wrap">
 
-    <div class="flex justify-between w-full mb-5">
+    <div class="flex justify-between  flex-wrap sm:no-wrap w-full mb-5">
         <div class="form-field-radio">
             <label for="gender" class="block text-gray-700 text-sm font-semibold mb-2">
                 &nbsp;
