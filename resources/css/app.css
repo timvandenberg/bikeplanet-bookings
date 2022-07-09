@@ -68,6 +68,10 @@ button,
   opacity: 0.6 !important;
 }
 
+.table-cell {
+  white-space: nowrap !important;
+}
+
 .styled-table {
   width: 100%;
   border-collapse: collapse;
@@ -76,6 +80,11 @@ button,
   font-family: sans-serif;
   min-width: 400px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  white-space: nowrap !important;
+
+  @media screen and (max-width: 640px) {
+    min-width: 100%;
+  }
 }
 
 .styled-table thead tr {
@@ -88,6 +97,11 @@ button,
 .styled-table td {
   padding: 12px 15px;
   font-size: 1.2em;
+
+  @media screen and (max-width: 640px) {
+    font-size: 1em;
+    padding: 8px 10px;
+  }
 }
 
 .styled-table tbody tr {
@@ -138,6 +152,16 @@ button,
   background-color: rgba(0,0,0,0.04);
 }
 
+#select_total_persons {
+  transform: translateY(-9px);
+  padding-top: 0.1em;
+  padding-bottom: 0.1em;
+}
+
+[x-cloak] {
+  display: none;
+}
+
 .form-field-half {
   width: calc(50% - 5px);
 }
@@ -146,9 +170,11 @@ button,
   width: calc(33% - 5px);
 }
 
-.form-field-quarter {
+.form-field-birthday,
+.form-field-first-name {
   width: calc(25% - 5px);
 }
+
 
 .form-field-sixth {
   width: calc(100% / 6 - 5px);
@@ -160,6 +186,32 @@ button,
 
 .form-field-last-name {
   width: calc(100% - 50% - 60px - 20px);
+}
+
+@media screen and (max-width: 640px) {
+  .form-field-first-name {
+    width: calc(100% - 60px);
+    margin-bottom: 1em;
+  }
+
+  .form-field-birthday {
+    width: 100%;
+  }
+
+  .form-field-last-name,
+  .form-field-half {
+    width: 100%;
+    margin-bottom: 1em;
+  }
+
+  .form-field-third {
+    width: calc(66% - 5px);
+    margin-bottom: 1em;
+  }
+
+  .form-field-sixth {
+    width: calc(100% / 3 - 5px);
+  }
 }
 
 .w-street {
@@ -202,12 +254,22 @@ button,
   width: 25%;
 }
 
-#select_total_persons {
-  transform: translateY(-9px);
-  padding-top: 0.1em;
-  padding-bottom: 0.1em;
+@media screen and (max-width: 640px) {
+  .w-name {
+    width: 40%;
+    margin-bottom: 1em;
+  }
+
+  .w-lastname {
+    width: 60%;
+  }
+
+  .w-birthdate {
+    width: 100%;
+  }
+
+  .w-street {
+    width: 50%;
+  }
 }
 
-[x-cloak] {
-  display: none;
-}

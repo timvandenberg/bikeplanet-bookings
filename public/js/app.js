@@ -30287,8 +30287,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _form_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./form.js */ "./resources/js/form.js");
-function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 
@@ -30304,7 +30302,7 @@ var initApp = function initApp() {
 };
 
 function initPrefilPerson1() {
-  if ((typeof prefilledFirstMame1 === "undefined" ? "undefined" : _typeof(prefilledFirstMame1)) !== undefined && (typeof prefilledEmail1 === "undefined" ? "undefined" : _typeof(prefilledEmail1)) !== undefined) {
+  if (jquery__WEBPACK_IMPORTED_MODULE_0___default()('#first_name_person_1').length !== 0 && jquery__WEBPACK_IMPORTED_MODULE_0___default()('#email_person_1').length !== 0) {
     jquery__WEBPACK_IMPORTED_MODULE_0___default()('#first_name_person_1').val(prefilledFirstMame1);
     jquery__WEBPACK_IMPORTED_MODULE_0___default()('#last_name_person_1').val(prefilledLastMame1);
     jquery__WEBPACK_IMPORTED_MODULE_0___default()('#birth_date_person_1').val(prefilledBirthDate1);

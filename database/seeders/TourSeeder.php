@@ -76,7 +76,7 @@ class TourSeeder extends Seeder
             'start_date' => '2022-12-10',
             'end_location' => 'groningen',
             'end_date' => '2022-12-18',
-            'tour_type' => 'primadonna',
+            'tour_type' => 'iris',
             'invoice_text' => Str::random(100),
             'form_title' => 'Title page 1',
             'form_text' => 'Text page 1',

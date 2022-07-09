@@ -38,6 +38,29 @@
         }
     </style>
 </head>
+
+@php
+    $travelerCount = count($travelers);
+    $bookingPrice = $travelerCount*$tour->price;
+    $finalPrice = $bookingPrice;
+    $bikePrice = 0;
+    $eBikeCount = 0;
+    foreach($travelers as $traveler) {
+        if($traveler->bike === 'e-bike') {
+            $bikePrice += 100;
+            $eBikeCount += 1;
+        }
+    }
+    $finalPrice += $bikePrice;
+
+    $allNames = [];
+@endphp
+@foreach ($travelers as $traveler)
+    @php
+        $allNames[] = $traveler->first_name .' '. $traveler->last_name;
+    @endphp
+@endforeach
+
 <body>
 
     <div class="full header">
@@ -59,7 +82,7 @@
     </div>
 
     <div class="full">
-        <p>{{ $title }}</p>
+        <p>{{ $booking->first_name }} {{ $booking->last_name }}</p>
         <p>Street 123</p>
         <p>1234 LF Amsterdam</p>
         <p>United states of america</p>
@@ -70,14 +93,14 @@
     </div>
 
     <div class="full">
-        <p><strong>RESERVATION NR : A-IRIS-2019-0608-1a-{{ $title }}<br>
+        <p><strong>RESERVATION NR : A-IRIS-2019-0608-1a-{{ $booking->last_name }}<br>
         TOUR : {{ $tour->title }}<br>
-        PASSENGERS: {{ $person_count }}</strong>
+        PASSENGERS: {{ $travelerCount }}</strong>
         </p>
     </div>
 
     <div class="full">
-        <p>Herewith <strong>MPS Iris BV</strong>, operator of the passenger barge Iris set forth below, hereinafter to be referred to as <strong>“SUPPLIER”</strong>, confirms the following agreement between <strong>“SUPPLIER” AND: {{ $title }}</strong> hereinafter referred to as the "CUSTOMER";</p><br>
+        <p>Herewith <strong>MPS Iris BV</strong>, operator of the passenger barge Iris set forth below, hereinafter to be referred to as <strong>“SUPPLIER”</strong>, confirms the following agreement between <strong>“SUPPLIER” AND: {{ $booking->last_name }}</strong> hereinafter referred to as the "CUSTOMER";</p><br>
         <p>The Supplier shall provide to the Customer a Tour ("Voyage") on the Ship Iris, hereinafter
         referred to as the "Ship". The Ship shall correspond to the following description: 45.00 meters
         long, 6.60 meters wide; on lower deck 12 twin guest cabins (all lower, no bunk beds) with
@@ -93,17 +116,17 @@
     </div>
 
     <div class="full">
-        <p><strong>The price for this tour is €&nbsp;{{ $person_count*$price}},-- ( {{ $person_count }} x €&nbsp;{{ $price }},-- + 2 x €&nbsp;85,-- bike rent)<br>
+        <p><strong>The price for this tour is €&nbsp;{{ $travelerCount*$finalPrice}},-- ( {{ $travelerCount }} x €&nbsp;{{ $finalPrice }},-- + 2 x €&nbsp;85,-- bike rent)<br>
         and includes:</strong><br>
         {!! $tour->invoice_text !!}
         {{ $tour->guides }} Guides<br>
-        {{ $person_count }} Bikes including insurance, water bottle and pannier</p>
+        {{ $travelerCount }} Bikes including insurance, water bottle and pannier</p>
     </div>
 
     <div class="full">
         <p>Conditions of payment of the agreed price by customer (Customer will receive invoice):<br>
-        20% of the price = €&nbsp;{{ $person_count*$price*0.2 }},--   to be paid before October 23, 2018, not refundable <br>
-        80% of the price = €&nbsp;{{ $person_count*$price*0.8 }},-- to be paid before April 27, 2019  (6 weeks prior to the departure date)<br>
+        20% of the price = €&nbsp;{{ $travelerCount*$finalPrice*0.2 }},--   to be paid before October 23, 2018, not refundable <br>
+        80% of the price = €&nbsp;{{ $travelerCount*$finalPrice*0.8 }},-- to be paid before April 27, 2019  (6 weeks prior to the departure date)<br>
         <strong>The General Conditions of MPS IRIS BV are applicable to this agreement!</strong>
         </p>
     </div>

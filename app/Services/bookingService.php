@@ -90,13 +90,18 @@ class bookingService
         }
 
         if ($allInput['update-type'] === 'has-payed') {
-            $booking->update(['completed' => 1,]);
+            $booking->update(['completed' => 1]);
             $bookingActions->addHistory($booking->id, 'Mark as payed');
         }
 
         if ($allInput['update-type'] === 'cancel_booking') {
-            $booking->update(['active' => 0,]);
+            $booking->update(['active' => 0]);
             $bookingActions->addHistory($booking->id, 'Booking Canceled');
+        }
+
+        if ($allInput['update-type'] === 'activate_booking') {
+            $booking->update(['active' => 1]);
+            $bookingActions->addHistory($booking->id, 'Booking Activated');
         }
     }
 }

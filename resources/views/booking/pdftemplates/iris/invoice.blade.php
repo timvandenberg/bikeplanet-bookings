@@ -71,13 +71,40 @@
     </style>
 </head>
 <body>
-    @php( $tourPrice = $person_count*$price )
-    @php( $subTotal = $tourPrice )
-    @php( $subTotal += ($ebikeCount*150) )
-    @php( $subTotal += ($hybridCount*150) )
-    @php( $subTotal += ($vegetarianCount*80) )
-    @php( $subTotal += ($veganCount*100) )
-    @php( $finalPrice = $subTotal )
+@php
+    $travelerCount = count($travelers);
+    $bookingPrice = $travelerCount*$tour->price;
+    $finalPrice = $bookingPrice;
+    $subTotal = $finalPrice;
+    $bikePrice = 0;
+    $eBikeCount = 0;
+    foreach($travelers as $traveler) {
+        if($traveler->bike === 'e-bike') {
+            $bikePrice += 100;
+            $eBikeCount += 1;
+        }
+    }
+    $subTotal += $bikePrice;
+    $finalPrice += $bikePrice;
+
+    $hybridCount = 1;
+    $vegetarianCount = 1;
+    $veganCount = 1;
+
+    if($booking->discount) {
+         $finalPrice -= (int)$booking->discount;
+    }
+    $allNames = [];
+    $cabins = [];
+@endphp
+@foreach ($travelers as $traveler)
+    @php
+        $allNames[] = $traveler->first_name .' '. $traveler->last_name;
+        if (!in_array($traveler->cabin, $cabins)) {
+          $cabins[] = $traveler->cabin;
+        }
+    @endphp
+@endforeach
 
     <div class="full header">
         <div class="half">
@@ -99,13 +126,13 @@
 
     <div class="half">
         <h2>Invoice</h2>
-        <p>Date: {{ $date }}</p>
-        <p>Invoice number: I-IRIS-2019-0608-1a-{{$title}}-1</p>
+        <p>Date: 01-01-1011</p>
+        <p>Invoice number: I-IRIS-2019-0608-1a-{{ $booking->last_name }}-1</p>
     </div>
 
     <div class="half">
         <h2>To</h2>
-        <p>{{ $title }}</p>
+        <p>{{ $booking->first_name }} {{ $booking->last_name }}</p>
         <p>Street 123</p>
         <p>1234 LF Amsterdam</p>
         <p>United states of america</p>
@@ -126,17 +153,17 @@
                     <td class="bb bl">
                         Bike & Barge: {{ $tour->title }} |{{ $tour->start_date }} - {{ $tour->end_date }}|
                     </td>
-                    <td class="bl bb">{{ $person_count }}</td>
-                    <td class="br bl">{{ $tourPrice }}</td>
+                    <td class="bl bb">{{ $travelerCount }}</td>
+                    <td class="br bl">{{ $finalPrice }}</td>
                 </tr>
 
-                @if($ebikeCount)
+                @if($eBikeCount)
                 <tr>
                     <td class="bb bl">
                         E-bike
                     </td>
-                    <td class="bl br bb">{{ $ebikeCount }}</td>
-                    <td class="br bt">{{ $ebikeCount*150 }}</td>
+                    <td class="bl br bb">{{ $eBikeCount }}</td>
+                    <td class="br bt">{{ $eBikeCount*150 }}</td>
                 </tr>
                 @endif
 

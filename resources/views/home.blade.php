@@ -10,26 +10,30 @@
             </div>
         @endif
 
-        <section class="flex mt-4 flex-col break-words bg-white sm:border-1 sm:rounded-md sm:shadow-sm sm:shadow-lg">
+        <section class="flex sm:mt-4 flex-col break-words bg-white sm:border-1 sm:rounded-md sm:shadow-sm sm:shadow-lg">
 
             <header class="font-semibold bg-gray-200 text-gray-700 py-5 px-6 sm:py-6 sm:px-8 sm:rounded-t-md">
-                <div class="flex justify-between flex-wrap sm:flex-nowrap">
-                    <div class="titlebox">
-                        <h1 class="text-2xl md:text-4xl inline mr-2">Dashboard</h1>
+                <div class="flex justify-between flex-wrap sm:flex-nowrap ">
+                    <div class="titlebox w-1/2 sm:w-auto mt-2">
+                        <h1 class="text-3xl md:text-4xl inline mr-2">Dashboard</h1>
                     </div>
 
-                    <div class="relative mt-4 w-full sm:w-auto">
-                        <a
-                            href="/tours/create"
-                            class="btn-primary relative inline-block w-auto select-none bold whitespace-no-wrap px-6 py-2 border-orange-500 border rounded-lg text-base leading-normal no-underline text-gray-100 bg-orange-500 text-center"
-                        >
-                            New Tour
-                        </a>
+                    <div class="relative w-1/2 sm:w-auto sm:w-auto flex justify-end items-center sm:block">
+                        <div class="relative">
+                            <a
+                                href="/tours/create"
+                                class="btn-primary relative inline-block w-auto select-none bold whitespace-no-wrap
+                                px-4 sm:px-6 py-1 sm:py-2 border-orange-500 border rounded-lg text-base leading-normal no-underline
+                                text-gray-100 bg-orange-500 text-center"
+                            >
+                                New Tour
+                            </a>
+                        </div>
                     </div>
                 </div>
             </header>
 
-            <div class="w-full p-6 flex md:flex-wrap overflow-x-auto md:overflow-visible">
+            <div class="w-full p-6 pt-2 sm:pt-6 flex md:flex-wrap overflow-x-auto md:overflow-visible">
 
                 <livewire:tours-table />
 

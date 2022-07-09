@@ -16,7 +16,7 @@
             </div>
         </div>
 
-        <div class="form-field-quarter">
+        <div class="form-field-first-name">
             <label for="first_name" class="block text-gray-700 text-sm font-semibold mb-2">
                 {{ __('First name') }}
             </label>
@@ -32,7 +32,7 @@
             name="last_name" value="{{ old('last_name') }}" required autocomplete="last_name" autofocus>
         </div>
 
-        <div class="form-field-quarter">
+        <div class="form-field-birthday">
             <label for="birth_date" class="block text-gray-700 text-sm font-semibold mb-2">
                 {{ __('Birth date') }}
             </label>
@@ -40,7 +40,7 @@
         </div>
     </div>
 
-    <div class="flex justify-between w-full mb-5">
+    <div class="flex justify-between flex-wrap w-full sm:mb-5">
         <div class="form-field-half">
             <label for="email" class="block text-gray-700 text-sm font-semibold mb-2">
                 {{ __('Email') }}
@@ -61,7 +61,7 @@
         </div>
     </div>
 
-    <div class="flex justify-between w-full mb-5">
+    <div class="flex justify-between flex-wrap w-full sm:mb-5">
         <div class="form-field-third">
             <label for="street" class="block text-gray-700 text-sm font-semibold mb-2">
                 {{ __('Street + House nr') }}

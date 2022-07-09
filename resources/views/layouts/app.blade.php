@@ -19,7 +19,14 @@
         <header class="bg-blue-500 py-6">
             <div class="container mx-auto flex sm:justify-center items-center px-6">
                 <div>
-                    <a href="{{ url('/home') }}" class="text-md sm:text-lg font-semibold text-gray-100 no-underline black flex">
+                    <a
+                        @guest
+                        href="{{ url('/') }}"
+                        @else
+                        href="{{ url('/home') }}"
+                        @endguest
+                        class="text-md sm:text-lg font-semibold text-gray-100 no-underline black flex"
+                    >
                         <span class="text-white">BIKE</span>
                         <span class="text-orange-500">PLANET</span>
                         <span class="text-white">booking</span>

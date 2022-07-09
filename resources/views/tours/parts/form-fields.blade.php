@@ -1,5 +1,5 @@
 <div class="flex flex-wrap justify-between">
-    <div class="w-32 mb-4">
+    <div class="w-full sm:w-32 mb-4 pr-2 sm:pr-0">
         <label for="title" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4">
             {{ __('Title') }}
         </label>
@@ -7,7 +7,7 @@
         name="title" value="@if(isset($tour->title)){{$tour->title}}@endif" required autocomplete="title" autofocus>
     </div>
 
-    <div class="w-32 mb-4">
+    <div class="w-full sm:w-32 mb-4">
         <label for="season" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4">
             {{ __('Season') }}
         </label>
@@ -20,7 +20,7 @@
         </select>
     </div>
 
-    <div class="w-32 mb-4">
+    <div class="w-1/2 sm:w-32 mb-4 pr-2 sm:pr-0">
         <label for="price" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4">
             {{ __('Price') }}
         </label>
@@ -28,7 +28,7 @@
             name="price" value="@if(isset($tour->price)){{$tour->price}}@endif" required autocomplete="price" autofocus>
     </div>
 
-    <div class="w-32 mb-4">
+    <div class="w-1/2 sm:w-32 mb-4">
         <label for="max_bookings" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4">
             {{ __('Max bookings') }}
         </label>
@@ -36,7 +36,7 @@
             name="max_bookings" value="@if(isset($tour->max_bookings)){{$tour->max_bookings}}@else{{50}}@endif" required autocomplete="max_bookings" autofocus>
     </div>
 
-    <div class="w-32 mb-4">
+    <div class="w-1/2 sm:w-32 mb-4 pr-2 sm:pr-0">
         <label for="guides" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4">
             {{ __('Guides') }}
         </label>
@@ -44,7 +44,7 @@
             name="guides" value="@if(isset($tour->guides)){{$tour->guides}}@else{{2}}@endif" required autocomplete="guides" autofocus>
     </div>
 
-    <div class="w-32 mb-4">
+    <div class="w-1/2 sm:w-32 mb-4">
         <label for="crew" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4">
             {{ __('Crew') }}
         </label>
@@ -52,7 +52,7 @@
             name="crew" value="@if(isset($tour->crew)){{$tour->crew}}@else{{4}}@endif" required autocomplete="crew" autofocus>
     </div>
 
-    <div class="w-49 mb-4">
+    <div class="w-1/2 sm:w-49 mb-4 pr-2 sm:pr-0">
         <label for="start_location" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4">
             {{ __('Start location') }}
         </label>
@@ -60,7 +60,7 @@
             name="start_location" value="@if(isset($tour->start_location)){{$tour->start_location}}@endif" required autocomplete="start_location" autofocus>
     </div>
 
-    <div class="w-49 mb-4">
+    <div class="w-1/2 sm:w-49 mb-4">
         <label for="start_date" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4">
             {{ __('Start date') }}
         </label>
@@ -68,7 +68,7 @@
             name="start_date" value="@if(isset($tour->start_date)){{$tour->start_date}}@endif" required autocomplete="start_date" autofocus>
     </div>
 
-    <div class="w-49 mb-4">
+    <div class="w-1/2 sm:w-49 mb-4 pr-2 sm:pr-0">
         <label for="end_location" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4">
             {{ __('End location') }}
         </label>
@@ -84,7 +84,7 @@
             name="end_date" value="@if(isset($tour->end_date)){{$tour->end_date}}@endif" required autocomplete="end_date" autofocus>
     </div>
 
-    <div class="w-32 mb-4">
+    <div class="w-full sm:w-32 mb-4">
         <label for="tour_type" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4">
             {{ __('Tour type') }}
         </label>
@@ -95,7 +95,7 @@
         </select>
     </div>
 
-    <div class="w-66 mb-4">
+    <div class="w-full sm:w-66 mb-4">
         <label for="invoice_text" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4">
             {{ __('Invoice text') }}
         </label>
@@ -104,7 +104,7 @@
         </textarea>
     </div>
 
-    <div class="w-49 mb-4">
+    <div class="w-full sm:w-49 mb-4">
         <label for="form_title" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4">
             {{ __('Form title') }}
         </label>
@@ -112,7 +112,7 @@
                name="form_title" value="@if(isset($tour->form_title)){{$tour->form_title}}@endif" required autocomplete="form_title" autofocus>
     </div>
 
-    <div class="w-49 mb-4">
+    <div class="w-full sm:w-49 mb-4">
         <label for="form_text" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4">
             {{ __('Form text') }}
         </label>
@@ -122,7 +122,7 @@
 
     </div>
 
-    <div class="w-32 mb-4">
+    <div class="w-full sm:w-32 mb-4">
         <label for="referral_code" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4">
             {{ __('Referral code') }}
         </label>
@@ -130,7 +130,7 @@
                name="referral_code" value="@if(isset($tour->referral_code)){{$tour->referral_code}}@endif" required autocomplete="referral_code" autofocus>
     </div>
 
-    <div class="w-32 mb-4">
+    <div class="w-full sm:w-32 mb-4">
         <label for="tour_website_link" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4">
             {{ __('Tour website link') }}
         </label>
@@ -138,7 +138,7 @@
                name="tour_website_link" value="@if(isset($tour->tour_website_link)){{$tour->tour_website_link}}@endif" required autocomplete="tour_website_link" autofocus>
     </div>
 
-    <div class="w-32 mb-4">
+    <div class="w-full sm:w-32 mb-4">
         <label for="tour_image_link" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4">
             {{ __('Tour image link') }}
         </label>

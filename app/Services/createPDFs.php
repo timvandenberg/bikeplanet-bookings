@@ -54,7 +54,6 @@ class createPDFs
 
         $title = $booking->last_name;
         $titleSlug = Str::slug($title, '-');
-//        $price = $booking->price;x
 
         $pdf = PDF::loadView('booking.pdftemplates.'.$bookedTour->tour_type.'.agreement', array(
             'booking' => $booking,
