@@ -33,12 +33,20 @@
     <div class="min-h-screen flex items-center justify-center">
         <div class="flex flex-col justify-around h-full">
             <div>
-                <h1 class="flex mb-6 text-center font-bold tracking-wider text-4xl sm:mb-8 sm:text-6xl">
+                <p class="text-center bold text-2xl mb-10" style="color: #074161">Welcome at</p>
+                <h1 class="flex mb-6 text-center font-bold tracking-wider text-2xl sm:text-4xl sm:mb-8 sm:text-6xl">
                     <span style="color: #074161">BIKE</span>
                     <span style="color: #F19C26">PLANET</span>
                     <span style="color: #074161">booking</span>
                     <span style="color: #F19C26">.com</span>
                 </h1>
+
+                <p class="text-center bold text-2xl leading-8" style="color: #074161">This is our bookings website.<br>
+                    Visit our tour website for
+                    <a href="https://www.bikeplanet.tours/bike-tours/" target="_blank" class="bold text-2xl" style="color: #F19C26">
+                        all Tours
+                    </a>
+                </p>
             </div>
         </div>
     </div>

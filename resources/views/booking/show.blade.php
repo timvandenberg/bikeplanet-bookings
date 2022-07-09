@@ -5,7 +5,7 @@
     <div class="w-full sm:px-6 pb-10">
 
         <div class="bg-gray-100 py-4">
-            <a href="/tours/{{ $booking->tour->id }}" class="relative inline-block w-auto select-none bold whitespace-no-wrap px-6 py-2 border-orange-500 border rounded-lg text-base leading-normal no-underline text-gray-100 bg-orange-500 hover:bg-orange-700 ml-6 sm:ml-0">Back</a>
+            <a href="/tours/{{ $booking->tour->id }}" class="relative inline-block w-auto select-none bold whitespace-no-wrap px-4 sm:px-6 py-1 sm:py-2 border-orange-500 border rounded-lg text-base leading-normal no-underline text-gray-100 bg-orange-500 hover:bg-orange-700 ml-6 sm:ml-0">Back</a>
         </div>
 
         <section class="flex flex-col break-words bg-white sm:border-1 sm:rounded-md sm:shadow-sm sm:shadow-lg mb-4">
@@ -14,7 +14,7 @@
                 <div class="flex justify-between flex-wrap sm:flex-nowrap">
                     <div class="relative w-full sm:w-auto flex flex-wrap sm:block">
                         <div class="w-full mb-2 flex mb-4">
-                            <h1 class="text-4xl inline mr-4">
+                            <h1 class="text-2xl md:text-4xl inline mr-4">
                                 Booking - @if($booking->gender === 'male') Mr. @else Miss. @endif
                                 {{ $booking->last_name }}, {{ $booking->first_name }}
                             </h1>
@@ -27,22 +27,22 @@
                             </div>
                         </div>
                         <div class="w-full">
-                            <p class="text-md inline w-full sm:w-auto sm:mt-0">
+                            <p class="text-sm sm:text-md inline w-full sm:w-auto sm:mt-0">
                                 <span class="bold">Tour:</span> <span class="font-normal">{{ $booking->tour->title }} ({{ $booking->tour->season }})</span>
                             </p>
                         </div>
                         <div class="w-full">
-                            <p class="text-md inline w-full sm:w-auto sm:mt-0">
+                            <p class="text-sm sm:text-md inline w-full sm:w-auto sm:mt-0">
                                 <span class="bold">Email:</span> <span class="font-normal"><a href="mailto:{{$booking->email}}" class="underline">{{ $booking->email }}</a></span>
                             </p>
                         </div>
                         <div class="w-full">
-                            <p class="text-md inline w-full sm:w-auto sm:mt-0">
+                            <p class="text-sm sm:text-md inline w-full sm:w-auto sm:mt-0">
                                 <span class="bold">Phone:</span> <span class="font-normal"><a href="tel:{{$booking->phone}}" class="underline">{{ $booking->phone }}</a></span>
                             </p>
                         </div>
                         <div class="w-full">
-                            <p class="text-md inline w-full sm:w-auto sm:mt-0">
+                            <p class="text-sm sm:text-md inline w-full sm:w-auto sm:mt-0">
                                 <span class="bold">Registerd on:</span> <span class="font-normal">{{ $booking->created_at }}</span>
                             </p>
                         </div>
@@ -53,26 +53,38 @@
                             @csrf
                             <input type="hidden" name="_method" value="put">
                             <input type="hidden" name="update-type" value="cancel_booking">
-                            <button type="submit" class="@if($booking->completed === 1) inactive @endif relative inline-block w-auto select-none bold whitespace-no-wrap px-6 py-2 border-orange-500 border rounded-lg text-base leading-normal no-underline text-gray-100 bg-orange-500 hover:bg-orange-700 w-full sm:w-auto text-center">
+                            <button type="submit" class="@if($booking->completed === 1) inactive @endif relative inline-block w-auto select-none bold whitespace-no-wrap px-4 sm:px-6 py-1 sm:py-2 border-orange-500 border rounded-lg text-base leading-normal no-underline text-gray-100 bg-orange-500 hover:bg-orange-700 sm:w-auto text-center">
                                 Cancel booking
                             </button>
                         </form>
                         @endif
 
                         @if($booking->active === 0)
-                        <form method="post" action="{{ route('booking.destroy', $booking) }}">
-                            @csrf
-                            <input type="hidden" name="_method" value="delete">
+                        <div class="flex">
+                            <div class="pr-2">
+                                <form method="post" action="{{ route('booking.update', $booking) }}">
+                                    @csrf
+                                    <input type="hidden" name="_method" value="put">
+                                    <input type="hidden" name="update-type" value="activate_booking">
+                                    <button type="submit" class="@if($booking->completed === 1) inactive @endif relative inline-block w-auto select-none bold whitespace-no-wrap px-4 sm:px-6 py-1 sm:py-2 border-orange-500 border rounded-lg text-base leading-normal no-underline text-gray-100 bg-orange-500 hover:bg-orange-700 sm:w-auto text-center">
+                                        Activate booking
+                                    </button>
+                                </form>
+                            </div>
+                            <form method="post" action="{{ route('booking.destroy', $booking) }}">
+                                @csrf
+                                <input type="hidden" name="_method" value="delete">
 
-                            <button type="submit" class="relative inline-block w-auto select-none bold whitespace-no-wrap px-6 py-2 border-red-500 border rounded-lg text-base leading-normal no-underline text-gray-100 bg-red-500 hover:bg-red-700 w-full sm:w-auto text-center">Delete booking</button>
-                        </form>
+                                <button type="submit" class="relative inline-block w-auto select-none bold whitespace-no-wrap px-4 sm:px-6 py-1 sm:py-2 border-red-500 border rounded-lg text-base leading-normal no-underline text-gray-100 bg-red-500 hover:bg-red-700 w-full sm:w-auto text-center">Delete booking</button>
+                            </form>
+                        </div>
                         @endif
                     </div>
                 </div>
             </header>
 
             <div class="w-full p-6">
-                <h4 class="text-2xl font-semibold">Booking status</h4>
+                <h4 class="text-xl sm:text-2xl bold">Booking status</h4>
                 <div class="w-full flex md:flex-wrap overflow-x-auto md:overflow-visible">
                     <table class="flex-00 whitespace-nowrap styled-table mb-0">
                         <thead>
@@ -181,8 +193,8 @@
 
                             <button
                                     type="submit"
-                                    class="relative inline-block w-auto select-none bold whitespace-no-wrap px-6
-                                    py-2 border-orange-500 border rounded-lg text-base leading-normal no-underline
+                                    class="relative inline-block w-auto select-none bold whitespace-no-wrap
+                                    px-4 sm:px-6 py-1 sm:py-2 border-orange-500 border rounded-lg text-base leading-normal no-underline
                                     text-gray-100 bg-orange-500 hover:bg-orange-700"
                             >
                                 Mark as payed
@@ -193,14 +205,14 @@
                 </div>
 
                 <div class="w-full mb-7">
-                    <h4 class="text-2xl font-semibold">Booking info</h4>
+                    <h4 class="text-xl sm:text-2xl bold">Booking info</h4>
                     <div class="w-full flex md:flex-wrap overflow-x-auto md:overflow-visible">
                         <table class="flex-00 whitespace-nowrap styled-table">
                             <thead>
                                 <tr>
                                     <th>Person</th>
                                     <th>Bike</th>
-                                    <th>Food</th>
+                                    <th>Diet</th>
                                     <th>Room</th>
                                 </tr>
                             </thead>
@@ -217,7 +229,7 @@
                                 <tr>
                                     <td>{{ $traveler->first_name }} {{ $traveler->last_name }}</td>
                                     <td>{{ $traveler->bike }}</td>
-                                    <td>{{ $traveler->food }}</td>
+                                    <td>{{ $traveler->diet }}</td>
                                     <td>{{ $traveler->cabin }}</td>
                                 </tr>
                                 @endforeach
@@ -229,8 +241,8 @@
 
                 @if($booking->extra_comments)
                 <div class="w-full mb-7 py-2 border-t-2">
-                    <h3 class="text-2xl bold w-full my-4">Extra booking information</h3>
-                    <p class="text-md leading-5 text-gray-700">{{$booking->extra_comments}}</p>
+                    <h3 class="text-xl sm:text-2xl bold w-full my-4">Extra booking information</h3>
+                    <p class="text-sm sm:text-md leading-5 text-gray-700">{{$booking->extra_comments}}</p>
                 </div>
                 @endif
 
@@ -240,7 +252,7 @@
 
 
                             <div class="relative w-full">
-                                <h3 class="text-2xl bold w-full my-4">View documents</h3>
+                                <h3 class="text-xl sm:text-2xl bold w-full my-4">Documents</h3>
                             </div>
 
                             <div class="relative">
@@ -248,7 +260,7 @@
                                     href="/pdf/{{ $booking->tour->season }}/{{ $booking->tour->slug }}-{{ $booking->tour->start_date }}/agreement-{{ str_slug($booking->last_name) }}.pdf"
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    class="btn-primary relative inline-block w-auto select-none bold whitespace-no-wrap px-6 py-2 border-orange-500 border rounded-lg text-base leading-normal no-underline text-gray-100 bg-orange-500 text-center"
+                                    class="btn-primary relative inline-block w-auto select-none bold whitespace-no-wrap px-4 sm:px-6 py-1 sm:py-2 border-orange-500 border rounded-lg text-base leading-normal no-underline text-gray-100 bg-orange-500 text-center"
                                 >
                                     Agreement
                                 </a>
@@ -257,7 +269,7 @@
                                     href="/pdf/{{ $booking->tour->season }}/{{ $booking->tour->slug }}-{{ $booking->tour->start_date }}/invoice-{{ str_slug($booking->last_name) }}.pdf"
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    class="btn-primary relative inline-block w-auto select-none bold whitespace-no-wrap px-6 py-2 border-orange-500 border rounded-lg text-base leading-normal no-underline text-gray-100 bg-orange-500 text-center"
+                                    class="btn-primary relative inline-block w-auto select-none bold whitespace-no-wrap px-4 sm:px-6 py-1 sm:py-2 border-orange-500 border rounded-lg text-base leading-normal no-underline text-gray-100 bg-orange-500 text-center"
                                 >
                                     invoice
                                 </a>
@@ -273,11 +285,11 @@
             <header class="font-semibold bg-gray-200 text-gray-700 py-5 px-6 sm:py-6 sm:px-8 sm:rounded-t-md">
                 <div class="flex justify-between">
                     <div class="relative">
-                        <h1 class="text-2xl inline">Booking action history</h1>
+                        <h1 class="text-xl sm:text-2xl inline">Booking action history</h1>
                     </div>
                 </div>
             </header>
-            <div class="w-full p-6">
+            <div class="w-full p-6 py-0 sm:py-6">
                 <table class="w-full flex-00 whitespace-nowrap styled-table">
                     <thead>
                         <tr>

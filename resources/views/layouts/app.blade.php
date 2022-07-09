@@ -17,9 +17,16 @@
 <body class="bg-gray-100 h-screen antialiased leading-none regular">
     <div id="app">
         <header class="bg-blue-500 py-6">
-            <div class="container mx-auto flex justify-center items-center px-6">
+            <div class="container mx-auto flex sm:justify-center items-center px-6">
                 <div>
-                    <a href="{{ url('/home') }}" class="text-lg font-semibold text-gray-100 no-underline black flex">
+                    <a
+                        @guest
+                        href="{{ url('/') }}"
+                        @else
+                        href="{{ url('/home') }}"
+                        @endguest
+                        class="text-md sm:text-lg font-semibold text-gray-100 no-underline black flex"
+                    >
                         <span class="text-white">BIKE</span>
                         <span class="text-orange-500">PLANET</span>
                         <span class="text-white">booking</span>
@@ -28,7 +35,7 @@
                 </div>
                 <nav class="absolute right-6 space-x-4 text-gray-300 text-sm sm:text-base">
                     @guest
-                        <a href="https://www.bikeplanet.tours/bike-tours/" target="_blank" class="bold ">All tours in Europe</a>
+                        <a href="https://www.bikeplanet.tours/bike-tours/" target="_blank" class="bold text-xs sm:text-md">All tours in Europe</a>
                     @else
                         <span>{{ Auth::user()->name }}</span>
 

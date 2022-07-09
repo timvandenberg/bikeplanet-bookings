@@ -12,7 +12,8 @@ const initApp = function () {
 }
 
 function initPrefilPerson1() {
-  if (typeof(prefilledFirstMame1) !== undefined && typeof(prefilledEmail1) !== undefined) {
+
+  if ($('#first_name_person_1').length !== 0 && $('#email_person_1').length !== 0) {
     $('#first_name_person_1').val(prefilledFirstMame1)
     $('#last_name_person_1').val(prefilledLastMame1)
     $('#birth_date_person_1').val(prefilledBirthDate1)

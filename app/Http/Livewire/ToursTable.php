@@ -21,6 +21,7 @@ class ToursTable extends LivewireDatatable
 //            Column::checkbox(),
             Column::callback(['id', 'title'], 'getTourLink')->label('Title')->filterable(),
             Column::name('season')->label('Season')->filterable(),
+            Column::name('tour_type')->label('Type')->filterable(),
             DateColumn::name('start_date')->label('Start Date')->format('d-m-Y'),
             Column::callback(['id'],'getPending' )->label('Pending'),
             Column::callback(['id'], 'getBooked')->label('Booked'),
