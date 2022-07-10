@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<main class="sm:container sm:mx-auto sm:mt-12">
+<main class="bike-container sm:mx-auto sm:mt-12">
     <div class="w-full sm:px-6">
 
         @if (session('status'))
@@ -34,33 +34,7 @@
             </header>
 
             <div class="w-full p-6 pt-2 sm:pt-6 flex md:flex-wrap overflow-x-auto md:overflow-visible">
-
                 <livewire:tours-table />
-
-                @if(false && isset($tours))
-                <table class="flex-00 styled-table">
-                    <thead>
-                        <tr>
-                            <th class="text-lg">Tour&nbsp;title</th>
-                            <th class="text-lg">Start date</th>
-                            <th class="text-lg">Pending</th>
-                            <th class="text-lg">Booked</th>
-                            <th class="text-lg">Spots left</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($tours as $key => $tour)
-                        <tr class="season-row season-{{ $tour['season'] }}" <?php if(date("Y") != $tour['season']) { echo 'style="display: none"'; }?>>
-                            <td><a href="/tours/{{ $tour['id'] }}" class="text-orange-500 bold">{{ $tour['title'] }}</a></td>
-                            <td>{{ $tour['start_date'] }}</td>
-                            <td>{{ $tour['pending'] }}</td>
-                            <td>{{ $tour['completed'] }}</td>
-                            <td>{{ $tour['spots_left'] }}</td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-                @endif
             </div>
         </section>
     </div>
