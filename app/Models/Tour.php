@@ -18,6 +18,11 @@ class Tour extends Model
     //   'price',
     // ];
 
+    protected $casts = [
+        'start_date'  => 'date:Y-m-d',
+        'end_date'  => 'date:Y-m-d'
+    ];
+
     public function bookings()
     {
         return $this->hasMany('App\Models\Booking');

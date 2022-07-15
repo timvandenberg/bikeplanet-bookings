@@ -19,6 +19,10 @@ class Booking extends Model
     //   'completed',
     // ];
 
+    protected $casts = [
+        'birth_date'  => 'date:Y-m-d',
+    ];
+
     /**
      * Get the tour.
      */

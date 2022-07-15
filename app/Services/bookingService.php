@@ -73,35 +73,33 @@ class bookingService
     {
         $bookingActions = new bookingActionsService();
 
-        if ($allInput['update-type'] === 'create-documents') {
-            new createPDFs($request, $booking);
-            $bookingActions->addHistory($booking->id, 'Create Documents');
-        }
-
-        if ($allInput['update-type'] === 'create-documents-again') {
-            $booking->update(['documents' => 0,]);
-        }
-
-        if ($allInput['update-type'] === 'send-documents') {
-            $sendEmailService = new sendEmailService();
-            $sendEmailService->sendSendDocumentsEmail($booking);
-            $booking->update(['documents_sent' => 1,]);
-            $bookingActions->addHistory($booking->id, 'Send Documents');
-        }
-
-        if ($allInput['update-type'] === 'has-payed') {
-            $booking->update(['completed' => 1]);
-            $bookingActions->addHistory($booking->id, 'Mark as payed');
-        }
-
-        if ($allInput['update-type'] === 'cancel_booking') {
-            $booking->update(['active' => 0]);
-            $bookingActions->addHistory($booking->id, 'Booking Canceled');
-        }
-
-        if ($allInput['update-type'] === 'activate_booking') {
-            $booking->update(['active' => 1]);
-            $bookingActions->addHistory($booking->id, 'Booking Activated');
+        switch($allInput['update-type'])
+        {
+            case 'create-documents';
+                new createPDFs($request, $booking);
+                $bookingActions->addHistory($booking->id, 'Create Documents');
+                break;
+            case 'create-documents-again';
+                $booking->update(['documents' => 0,]);
+                break;
+            case 'send-documents';
+                $sendEmailService = new sendEmailService();
+                $sendEmailService->sendSendDocumentsEmail($booking);
+                $booking->update(['documents_sent' => 1,]);
+                $bookingActions->addHistory($booking->id, 'Send Documents');
+                break;
+            case 'has-payed';
+                $booking->update(['completed' => 1]);
+                $bookingActions->addHistory($booking->id, 'Mark as payed');
+                break;
+            case 'cancel_booking';
+                $booking->update(['active' => 0]);
+                $bookingActions->addHistory($booking->id, 'Booking Canceled');
+                break;
+            case 'activate_booking';
+                $booking->update(['active' => 1]);
+                $bookingActions->addHistory($booking->id, 'Booking Activated');
+                break;
         }
     }
 }

@@ -140,7 +140,53 @@ class TourController extends Controller
      */
     public function export($tourID)
     {
-        $tour = Tour::where('id', $tourID)->first();
-        dd($tour->bookings);
+        $tour = Tour::with('bookings')->where('id', $tourID)->first();
+
+        $fileName = $tour->slug.'-'.$tour->season.'.csv';
+        $path = storage_path('../storage/app/');
+
+        $headers = array(
+            "Content-type" => "text/csv",
+            "Content-Disposition" => "attachment; filename=$fileName",
+            "Pragma" => "no-cache",
+            "Cache-Control" => "must-revalidate, post-check=0, pre-check=0",
+            "Expires" => "0"
+        );
+
+        $columns = array(
+            'Booking id', 'Fist name', 'Last name', 'Gender', 'Birthdate', 'email', 'phone'
+        );
+
+        $file = fopen($path . $fileName, 'w');
+        fputcsv($file, $columns);
+
+        foreach ($tour->bookings as $booking) {
+            fputcsv($file, array(
+                $booking->id,
+                $booking->first_name,
+                $booking->last_name,
+                $booking->gender,
+                $booking->birth_date,
+                $booking->email,
+                $booking->phone
+            ));
+
+            if ($booking->travelers) {
+                foreach ($booking->travelers as $traveler) {
+                    fputcsv($file, array(
+                        '',
+                        $traveler->first_name,
+                        $traveler->last_name,
+                        '',
+                        $traveler->birth_date,
+                        $traveler->email,
+                        $traveler->phone
+                    ));
+                }
+            }
+        }
+
+        fclose($file);
+        return response()->download($path . $fileName,  $fileName, $headers);
     }
 }

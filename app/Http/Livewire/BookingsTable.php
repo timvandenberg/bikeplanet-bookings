@@ -10,7 +10,7 @@ use Mediconesystems\LivewireDatatables\Http\Livewire\LivewireDatatable;
 
 class BookingsTable extends LivewireDatatable
 {
-    public $exportable = true;
+    public $exportable = false;
     public $tourID;
 
     public function builder()
