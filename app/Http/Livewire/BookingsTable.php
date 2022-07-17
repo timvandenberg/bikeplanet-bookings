@@ -23,9 +23,9 @@ class BookingsTable extends LivewireDatatable
     {
         return [
             Column::callback(['id'], 'getBookingLink')->label('Last name')->filterable(),
-            Column::callback(['id'], 'personCount')->label('Person Count'),
+            Column::callback(['id'], 'personCount')->label('Total persons'),
             Column::name('country')->label('Country')->filterable(),
-            DateColumn::name('created_at')->label('Registered on')->format('d-m-Y H:i'),
+            DateColumn::name('created_at')->label('Registered on')->format('d-m-Y - H:i'),
             Column::callback(['id'], 'getStatus')->label('Status'),
         ];
     }
@@ -46,12 +46,12 @@ class BookingsTable extends LivewireDatatable
     public function getStatus($id)
     {
         $booking = Booking::findOrFail($id);
-        if($booking->documents_sent === 1) {
-            return "<span class='block w-4 h-4 rounded-full bg-red-500'></span>";
-        } else if ($booking->completed === 1) {
+        if ($booking->completed === 1) {
+            return "<span class='block w-4 h-4 rounded-full bg-green-500'></span>";
+        } else if ($booking->documents_sent === 1) {
             return "<span class='block w-4 h-4 rounded-full bg-orange-500'></span>";
         } else {
-            return "<span class='block w-4 h-4 rounded-full bg-green-500'></span>";
+            return "<span class='block w-4 h-4 rounded-full bg-red-500'></span>";
         }
 
     }

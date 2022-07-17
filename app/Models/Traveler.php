@@ -11,6 +11,10 @@ class Traveler extends Model
 
     protected $guarded = [];
 
+    protected $casts = [
+        'birth_date'  => 'date:Y-m-d',
+    ];
+
     /**
      * Get the tour.
      */

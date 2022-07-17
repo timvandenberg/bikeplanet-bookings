@@ -12,7 +12,7 @@ class createPDFs
     public function __construct($request, $booking)
     {
         $this->checkDiscountAndSetPrice($request, $booking);
-        $this->primmadonnaPDFs($booking);
+        $this->makePDFs($booking);
     }
 
     private function checkDiscountAndSetPrice($request, $booking) {
@@ -44,8 +44,7 @@ class createPDFs
         ]);
     }
 
-    private function primmadonnaPDFs($booking) {
-
+    private function makePDFs($booking) {
         $travelers = Traveler::where('booking_id', '=', $booking->id)
             ->get();
 
@@ -55,21 +54,16 @@ class createPDFs
         $title = $booking->last_name;
         $titleSlug = Str::slug($title, '-');
 
-        $pdf = PDF::loadView('booking.pdftemplates.'.$bookedTour->tour_type.'.agreement', array(
+        PDF::loadView('booking.pdftemplates.'.$bookedTour->tour_type.'.agreement', array(
             'booking' => $booking,
             'travelers' => $travelers,
             'tour' => $bookedTour
-        ))
-            ->save('pdf/'.$booking->tour->season.'/'.$booking->tour->slug.'-'.$booking->tour->start_date.'/agreement-'.$titleSlug.'.pdf');
+        ))->save(storage_path('/app/public/pdf/'.$booking->tour->season.'/'.$booking->tour->slug.'-'.$booking->tour->start_date->format('Y-m-d').'/agreement-'.$titleSlug.'.pdf'));
 
-//        return $pdf->stream();
-
-        $pdf = PDF::loadView('booking.pdftemplates.'.$bookedTour->tour_type.'.invoice', array(
+        PDF::loadView('booking.pdftemplates.'.$bookedTour->tour_type.'.invoice', array(
             'booking' => $booking,
             'travelers' => $travelers,
             'tour' => $bookedTour
-        ))
-            ->save('pdf/'.$booking->tour->season.'/'.$booking->tour->slug.'-'.$booking->tour->start_date.'/invoice-'.$titleSlug.'.pdf');
-
+        ))->save(storage_path('/app/public/pdf/'.$booking->tour->season.'/'.$booking->tour->slug.'-'.$booking->tour->start_date->format('Y-m-d').'/invoice-'.$titleSlug.'.pdf'));
     }
 }

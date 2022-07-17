@@ -4,8 +4,6 @@ namespace App\Services;
 
 use App\Models\Booking;
 use App\Models\Traveler;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Str;
 
 class bookingService
 {
@@ -43,9 +41,8 @@ class bookingService
             $newTraveler->fill(['diet' => $allPart2['diet_person_'.$i]]);
             $newTraveler->fill(['diet_remarks' => $allPart2['diet_remarks_person_'.$i]]);
 
-
-                // set same address as person -1
-                if(($i === 2 || $i === 4 || $i === 6 || $i === 8) && !isset($allPart2['different_address_'.$i])) {
+            // set same address as person -1
+            if(($i === 2 || $i === 4 || $i === 6 || $i === 8) && !isset($allPart2['different_address_'.$i])) {
                 $newTraveler->fill(['street' => $allPart2['street_person_'.($i-1)]]);
                 $newTraveler->fill(['postal_code' => $allPart2['postal_code_person_'.($i-1)]]);
                 $newTraveler->fill(['town' => $allPart2['town_person_'.($i-1)]]);

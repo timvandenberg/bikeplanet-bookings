@@ -65,7 +65,7 @@
             {{ __('Start date') }}
         </label>
         <input id="start_date" type="date" class="form-input w-full @error('start_date') border-red-500 @enderror"
-            name="start_date" value="@if(isset($tour->start_date)){{$tour->start_date}}@endif" required autocomplete="start_date" autofocus>
+            name="start_date" value="@if(isset($tour->start_date)){{$tour->start_date->format('Y-m-d')}}@endif" required autocomplete="start_date" autofocus>
     </div>
 
     <div class="w-1/2 sm:w-49 mb-4 pr-2 sm:pr-0">
@@ -81,7 +81,7 @@
             {{ __('End date') }}
         </label>
         <input id="end_date" type="date" class="form-input w-full @error('end_date') border-red-500 @enderror"
-            name="end_date" value="@if(isset($tour->end_date)){{$tour->end_date}}@endif" required autocomplete="end_date" autofocus>
+            name="end_date" value="@if(isset($tour->end_date)){{$tour->end_date->format('Y-m-d')}}@endif" required autocomplete="end_date" autofocus>
     </div>
 
     <div class="w-full sm:w-32 mb-4">
@@ -99,9 +99,7 @@
         <label for="invoice_text" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4">
             {{ __('Invoice text') }}
         </label>
-        <textarea rows="5" id="invoice_text" class="form-input w-full @error('invoice_text') border-red-500 @enderror" name="invoice_text" required autocomplete="invoice_text" autofocus>
-            @if(isset($tour->invoice_text)){{$tour->invoice_text}}@endif
-        </textarea>
+        <textarea rows="5" id="invoice_text" class="form-input w-full @error('invoice_text') border-red-500 @enderror" name="invoice_text" required autocomplete="invoice_text" autofocus>@if(isset($tour->invoice_text)){{$tour->invoice_text}}@endif</textarea>
     </div>
 
     <div class="w-full sm:w-49 mb-4">

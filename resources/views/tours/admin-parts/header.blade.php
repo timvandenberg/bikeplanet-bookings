@@ -24,13 +24,13 @@
             <div class="flex flex-wrap">
                 <div class="w-full sm:w-1/2">
                     <p>
-                        <span class="bold">Start date:</span> <span class="font-normal">{{ $tour->start_date }}</span>
+                        <span class="bold">Start date:</span> <span class="font-normal">{{ $tour->start_date->format('d-m-Y') }}</span>
                     </p>
                 </div>
 
                 <div class="w-full sm:w-1/2">
                     <p>
-                        <span class="bold">End date:</span> <span class="font-normal">{{ $tour->end_date }}</span>
+                        <span class="bold">End date:</span> <span class="font-normal">{{ $tour->end_date->format('d-m-Y') }}</span>
                     </p>
                 </div>
             </div>

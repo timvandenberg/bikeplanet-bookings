@@ -1,8 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
-<main class="sm:container sm:mx-auto sm:mt-10">
+<main class="bike-container sm:mx-auto">
     <div class="w-full sm:px-6">
+
+        <div class="bg-gray-100 py-4">
+            <a href="/home" class="btn-primary relative inline-block w-auto select-none bold whitespace-no-wrap px-4 sm:px-6 py-1 sm:py-2 border-orange-500 border rounded-lg text-base leading-normal no-underline text-gray-100 bg-orange-500 text-center ml-6 sm:ml-0">Back</a>
+        </div>
 
         <section class="flex flex-col break-words bg-white sm:border-1 sm:rounded-md sm:shadow-sm sm:shadow-lg">
 

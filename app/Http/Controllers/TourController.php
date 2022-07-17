@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreTourRequest;
 use App\Models\Tour;
 use App\Models\Booking;
 use Illuminate\Http\Request;
@@ -27,26 +28,17 @@ class TourController extends Controller
      */
     public function create()
     {
-        return view('tours.create', [
-        ]);
+        return view('tours.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\StoreTourRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreTourRequest $request)
     {
-        $request->validate([
-            'title' => 'required',
-            'price' => 'required',
-            'season' => 'required',
-            'max_bookings' => 'required',
-            'tour_type' => 'required'
-        ]);
-
         $allInput = $request->all();
         $slug = Str::slug($allInput['title'], '-');
 
@@ -55,7 +47,7 @@ class TourController extends Controller
         $tour->fill(['slug' => $slug]);
         $tour->save();
 
-        $path = public_path().'/pdf/'.$allInput['season'].'/'.$slug.'-'.$allInput['start_date'];
+        $path = storage_path('/app/public/pdf/'.$allInput['season'].'/'.$slug.'-'.$allInput['start_date']);
         File::makeDirectory($path, 0777, true, true);
 
         return redirect(route('home'));
@@ -72,8 +64,6 @@ class TourController extends Controller
         $cancelledBookings = Booking::where('tour_id', '=', $tour->id)
             ->where('active', '=', 0)
             ->get();
-
-        // dd($cancelledBookings);
 
         return view('tours.show', [
             'tour' => $tour,
@@ -98,20 +88,12 @@ class TourController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\StoreTourRequest  $request
      * @param  \App\Models\Tour  $tour
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Tour $tour)
+    public function update(StoreTourRequest $request, Tour $tour)
     {
-        $request->validate([
-            'title' => 'required',
-            'price' => 'required',
-            'season' => 'required',
-            'max_bookings' => 'required',
-            'tour_type' => 'required'
-        ]);
-
         $allInput = $request->all();
         $slug = Str::slug($allInput['title'], '-');
 
@@ -143,7 +125,7 @@ class TourController extends Controller
         $tour = Tour::with('bookings')->where('id', $tourID)->first();
 
         $fileName = $tour->slug.'-'.$tour->season.'.csv';
-        $path = storage_path('../storage/app/');
+        $path = storage_path('/app/exports/');
 
         $headers = array(
             "Content-type" => "text/csv",
@@ -154,33 +136,51 @@ class TourController extends Controller
         );
 
         $columns = array(
-            'Booking id', 'Fist name', 'Last name', 'Gender', 'Birthdate', 'email', 'phone'
+            'Booking id', 'Fist name', 'Last name', 'Bike', 'Height', 'Diet', 'Diet remarks', 'Cabin', 'Birthdate', 'Email', 'Phone', 'Street', 'Postal code',
+            'Town', 'Country', 'Extra Comments'
         );
 
         $file = fopen($path . $fileName, 'w');
         fputcsv($file, $columns);
 
         foreach ($tour->bookings as $booking) {
-            fputcsv($file, array(
-                $booking->id,
-                $booking->first_name,
-                $booking->last_name,
-                $booking->gender,
-                $booking->birth_date,
-                $booking->email,
-                $booking->phone
-            ));
+//            fputcsv($file, array(
+//                $booking->id,
+//                $booking->first_name,
+//                $booking->last_name,
+//                $booking->birth_date->format('d-m-Y'),
+//                $booking->email,
+//                $booking->phone,
+//                $booking->street,
+//                $booking->postal_code,
+//                $booking->town,
+//                $booking->country,
+//                $booking->extra_comments,
+//            ));
 
             if ($booking->travelers) {
                 foreach ($booking->travelers as $traveler) {
+                    if (! $traveler->first_name) {
+                        continue;
+                    }
+
                     fputcsv($file, array(
-                        '',
+                        $booking->id,
                         $traveler->first_name,
                         $traveler->last_name,
-                        '',
-                        $traveler->birth_date,
+                        $traveler->bike,
+                        $traveler->height,
+                        $traveler->diet,
+                        $traveler->diet_remarks,
+                        $traveler->cabin,
+                        $traveler->birth_date->format('d-m-Y'),
                         $traveler->email,
-                        $traveler->phone
+                        $traveler->phone,
+                        $traveler->street,
+                        $traveler->postal_code,
+                        $traveler->town,
+                        $traveler->country,
+                        $booking->extra_comments
                     ));
                 }
             }
