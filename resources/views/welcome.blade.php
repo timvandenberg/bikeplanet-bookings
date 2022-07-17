@@ -42,7 +42,7 @@
                     <span style="color: #F19C26">.com</span>
                 </h1>
 
-                <p class="text-center bold sm:text-2xl sm:leading-8" style="color: #074161">This is our bookings website.<br>
+                <p class="text-center bold sm:text-2xl sm:leading-8" style="color: #074161">This is our booking website.<br>
                     Visit our tour website for
                     <a href="https://www.bikeplanet.tours/bike-tours/" target="_blank" class="bold sm:text-2xl" style="color: #F19C26">
                         all Tours
