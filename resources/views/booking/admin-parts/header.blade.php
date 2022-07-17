@@ -31,7 +31,7 @@
             </div>
             <div class="w-full">
                 <p class="text-sm sm:text-md inline w-full sm:w-auto sm:mt-0">
-                    <span class="bold">Registerd on:</span> <span class="font-normal">{{ $booking->created_at }}</span>
+                    <span class="bold">Registerd on:</span> <span class="font-normal">{{ $booking->created_at->format('d-m-Y H:i') }}</span>
                 </p>
             </div>
         </div>

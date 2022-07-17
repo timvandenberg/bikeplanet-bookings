@@ -53,6 +53,10 @@
     }
     $finalPrice += $bikePrice;
 
+    if($booking->discount) {
+         $finalPrice -= (int)$booking->discount;
+    }
+
     $allNames = [];
 @endphp
 @foreach ($travelers as $traveler)

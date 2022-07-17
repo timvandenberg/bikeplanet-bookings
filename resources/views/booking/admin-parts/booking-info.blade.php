@@ -1,5 +1,5 @@
 <div class="w-full mb-7">
-    <h4 class="text-xl sm:text-2xl bold">Booking info</h4>
+    <h4 class="text-xl sm:text-2xl bold">Travelers info</h4>
     <div class="w-full flex md:flex-wrap overflow-x-auto md:overflow-visible">
         <table class="flex-00 whitespace-nowrap styled-table">
             <thead>

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\BookingPart2Request;
+use App\Http\Requests\BookingPart3Request;
 use App\Models\Booking;
 use App\Models\BookingActions;
 use App\Models\Traveler;
@@ -58,19 +60,15 @@ class BookingController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function part2(Request $request)
+    public function part2(BookingPart2Request $request)
     {
-        $request->validate([
-            'tour_id' => 'required',
-            'referral_code' => 'required',
-        ]);
-
         $tour = Tour::with('bookings')
             ->where('id', $request->tour_id)
             ->first();
 
         if ($request->referral_code !== $tour->referral_code) {
             $bookingCount = count($tour->bookings);
+
             return view('booking.book-part1', [
                 'tour' => $tour,
                 'bookingCount' => $bookingCount,
@@ -90,16 +88,8 @@ class BookingController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function part3(Request $request)
+    public function part3(BookingPart3Request $request)
     {
-        $request->validate([
-            'tour_id' => 'required',
-            'gender' => 'required',
-            'first_name' => 'required',
-            'last_name' => 'required',
-            'email' => 'required',
-        ]);
-
         $tour = Tour::where('id', $request->tour_id)->first();
 
         $request->session()->put('key', 'value');
@@ -129,7 +119,6 @@ class BookingController extends Controller
     public function part4(Request $request)
     {
         $request->session()->push('allPart3', $request->all());
-
         return view('booking.book-part4');
     }
 
@@ -219,6 +208,23 @@ class BookingController extends Controller
         $tour = Tour::findOrFail($tourID);
 
         return redirect(route('tours.show', $tour));
+    }
 
+    /**
+     * viewDocument
+     */
+    public function viewDocument(Request $request, Booking $booking) {
+        if(!$request->type) {
+            return false;
+        }
+
+        $fileName = $request->type.'-'.str_slug($booking->last_name).'.pdf';
+        $filePath = '/app/public/pdf/'.$booking->tour->season.'/'.$booking->tour->slug.'-'.$booking->tour->start_date->format('Y-m-d').'/'.$fileName;
+
+        return response()->download(
+            storage_path($filePath),
+            $fileName,
+            ['Content-Type' => 'application/pdf']
+        );
     }
 }

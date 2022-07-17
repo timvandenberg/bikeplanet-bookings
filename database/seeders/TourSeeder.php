@@ -37,8 +37,24 @@ class TourSeeder extends Seeder
             'referral_code' => 'TESTCODE',
         ]);
 
-        $path = public_path().'/pdf/2022/primadonna-test-tour-2022-12-12';
+        $path = storage_path('/app/public/pdf/2022/primadonna-test-tour-2022-12-12');
         File::makeDirectory($path, 0777, true, true);
+
+        DB::table('bookings')->insert([
+            'tour_id' => '1',
+            'gender' => 'female',
+            'first_name' => 'Samson',
+            'last_name' => 'Singleton',
+            'birth_date' => '1975-07-10',
+            'email' => 'donuty@mailinator.com',
+            'phone' => '+1 (229) 732-3099',
+            'street' => 'Rem repellendus Nos',
+            'postal_code' => 'Fugiat nisi eligendi',
+            'town' => 'Esse commodi totam',
+            'country' => 'Belgium',
+            'input_total_person_count' => '1',
+            'extra_comments' => 'Lorem pasdkfja'
+        ]);
 
         DB::table('tours')->insert([
             'title' => 'Primadonna Test Tour',
@@ -61,7 +77,7 @@ class TourSeeder extends Seeder
             'referral_code' => 'TESTCODE',
         ]);
 
-        $path = public_path().'/pdf/2022/primadonna-test-tour-2022-12-21';
+        $path = storage_path('/app/public/pdf/2022/primadonna-test-tour-2022-12-21');
         File::makeDirectory($path, 0777, true, true);
 
         DB::table('tours')->insert([
@@ -85,7 +101,10 @@ class TourSeeder extends Seeder
             'referral_code' => 'TESTCODE',
         ]);
 
-        $path = public_path().'/pdf/2022/iris-test-tour-2022-12-10';
+        $path = storage_path('/app/public/pdf/2022/iris-test-tour-2022-12-10');
+        File::makeDirectory($path, 0777, true, true);
+
+        $path = storage_path('/app/exports/');
         File::makeDirectory($path, 0777, true, true);
     }
 }

@@ -36,8 +36,8 @@ class sendEmailService
         $titleSlug = Str::slug($title, '-');
 
         $files = [
-            public_path('pdf/'.$booking->tour->season.'/'.$booking->tour->slug.'-'.$booking->tour->start_date.'/agreement-'.$titleSlug.'.pdf'),
-            public_path('pdf/'.$booking->tour->season.'/'.$booking->tour->slug.'-'.$booking->tour->start_date.'/invoice-'.$titleSlug.'.pdf'),
+            storage_path('/app/public/pdf/'.$booking->tour->season.'/'.$booking->tour->slug.'-'.$booking->tour->start_date->format('Y-m-d').'/agreement-'.$titleSlug.'.pdf'),
+            storage_path('/app/public/pdf/'.$booking->tour->season.'/'.$booking->tour->slug.'-'.$booking->tour->start_date->format('Y-m-d').'/invoice-'.$titleSlug.'.pdf'),
         ];
 
         Mail::send('email.guest-documents', ['booking' => $booking],

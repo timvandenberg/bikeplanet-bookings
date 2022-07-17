@@ -15,7 +15,6 @@ class CreateBookingsTable extends Migration
     {
         Schema::create('bookings', function (Blueprint $table) {
             $table->id();
-            $table->integer('user_id')->default(0);
             $table->integer('tour_id')->nullable();
             $table->string('gender')->nullable();
             $table->string('first_name')->nullable();

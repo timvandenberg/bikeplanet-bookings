@@ -8,7 +8,6 @@ use App\Models\Tour;
 
 class ToursTable extends LivewireDatatable
 {
-//    public $exportable = true;
 
     public function builder()
     {
@@ -18,7 +17,6 @@ class ToursTable extends LivewireDatatable
     public function columns()
     {
         return [
-//            Column::checkbox(),
             Column::callback(['id', 'title'], 'getTourLink')->label('Title')->filterable(),
             Column::name('season')->label('Season')->filterable(),
             Column::name('tour_type')->label('Type')->filterable(),
@@ -31,7 +29,6 @@ class ToursTable extends LivewireDatatable
 
     public function getTourLink($id) {
         $tour = Tour::findOrFail($id);
-
         return "
             <a href='/tours/$tour->id' class='text-orange-500 bold'>$tour->title</a>
         ";

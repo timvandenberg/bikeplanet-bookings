@@ -45,8 +45,9 @@
                 </table>
             </div>
 
+            @if($travelers)
             <div class="w-full p-6 overflow-x-scroll">
-                <h2 class="text-xl sm:text-2xl bold mb-2">All travelers</h2>
+                <h2 class="text-xl sm:text-2xl bold mb-2">Including travelers:</h2>
                 <table class="styled-table">
                     @foreach($travelers as $key => $row)
                     <tr>
@@ -59,6 +60,7 @@
                     @endforeach
                 </table>
             </div>
+            @endif
         </section>
     </div>
 </main>

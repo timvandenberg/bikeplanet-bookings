@@ -4,8 +4,6 @@ namespace App\Services;
 
 use App\Models\Booking;
 use App\Models\Traveler;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Str;
 
 class bookingService
 {
@@ -43,9 +41,8 @@ class bookingService
             $newTraveler->fill(['diet' => $allPart2['diet_person_'.$i]]);
             $newTraveler->fill(['diet_remarks' => $allPart2['diet_remarks_person_'.$i]]);
 
-
-                // set same address as person -1
-                if(($i === 2 || $i === 4 || $i === 6 || $i === 8) && !isset($allPart2['different_address_'.$i])) {
+            // set same address as person -1
+            if(($i === 2 || $i === 4 || $i === 6 || $i === 8) && !isset($allPart2['different_address_'.$i])) {
                 $newTraveler->fill(['street' => $allPart2['street_person_'.($i-1)]]);
                 $newTraveler->fill(['postal_code' => $allPart2['postal_code_person_'.($i-1)]]);
                 $newTraveler->fill(['town' => $allPart2['town_person_'.($i-1)]]);
@@ -73,35 +70,33 @@ class bookingService
     {
         $bookingActions = new bookingActionsService();
 
-        if ($allInput['update-type'] === 'create-documents') {
-            new createPDFs($request, $booking);
-            $bookingActions->addHistory($booking->id, 'Create Documents');
-        }
-
-        if ($allInput['update-type'] === 'create-documents-again') {
-            $booking->update(['documents' => 0,]);
-        }
-
-        if ($allInput['update-type'] === 'send-documents') {
-            $sendEmailService = new sendEmailService();
-            $sendEmailService->sendSendDocumentsEmail($booking);
-            $booking->update(['documents_sent' => 1,]);
-            $bookingActions->addHistory($booking->id, 'Send Documents');
-        }
-
-        if ($allInput['update-type'] === 'has-payed') {
-            $booking->update(['completed' => 1]);
-            $bookingActions->addHistory($booking->id, 'Mark as payed');
-        }
-
-        if ($allInput['update-type'] === 'cancel_booking') {
-            $booking->update(['active' => 0]);
-            $bookingActions->addHistory($booking->id, 'Booking Canceled');
-        }
-
-        if ($allInput['update-type'] === 'activate_booking') {
-            $booking->update(['active' => 1]);
-            $bookingActions->addHistory($booking->id, 'Booking Activated');
+        switch($allInput['update-type'])
+        {
+            case 'create-documents';
+                new createPDFs($request, $booking);
+                $bookingActions->addHistory($booking->id, 'Create Documents');
+                break;
+            case 'create-documents-again';
+                $booking->update(['documents' => 0,]);
+                break;
+            case 'send-documents';
+                $sendEmailService = new sendEmailService();
+                $sendEmailService->sendSendDocumentsEmail($booking);
+                $booking->update(['documents_sent' => 1,]);
+                $bookingActions->addHistory($booking->id, 'Send Documents');
+                break;
+            case 'has-payed';
+                $booking->update(['completed' => 1]);
+                $bookingActions->addHistory($booking->id, 'Mark as payed');
+                break;
+            case 'cancel_booking';
+                $booking->update(['active' => 0]);
+                $bookingActions->addHistory($booking->id, 'Booking Canceled');
+                break;
+            case 'activate_booking';
+                $booking->update(['active' => 1]);
+                $bookingActions->addHistory($booking->id, 'Booking Activated');
+                break;
         }
     }
 }
