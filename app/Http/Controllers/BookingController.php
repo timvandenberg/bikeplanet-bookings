@@ -18,16 +18,6 @@ use Illuminate\Http\Request;
 class BookingController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
      * book
      *
      * @return \Illuminate\Http\Response
@@ -119,6 +109,7 @@ class BookingController extends Controller
     public function part4(Request $request)
     {
         $request->session()->push('allPart3', $request->all());
+
         return view('booking.book-part4');
     }
 
@@ -145,6 +136,8 @@ class BookingController extends Controller
 
         $bookingActions = new bookingActionsService();
         $bookingActions->addHistory($newBooking->id, 'Client Registered');
+
+        ray('end store');
 
         return view('booking.thankyou', [
             'tour' => $tour,

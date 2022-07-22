@@ -25,9 +25,10 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/tours', App\Http\Controllers\TourController::class);
     Route::get('/tours/export/{id}', [App\Http\Controllers\TourController::class, 'export'])->name('tours.export');
 
-    Route::resource('/booking', App\Http\Controllers\BookingController::class);
     Route::post('booking/documents/{booking}', [App\Http\Controllers\BookingController::class, 'viewDocument'])->name('booking.documents');
 });
+
+Route::resource('/booking', App\Http\Controllers\BookingController::class);
 
 Route::get('/new-booking/{season}/{slug}', [App\Http\Controllers\BookingController::class, 'book']);
 Route::post('/booking/part2', [App\Http\Controllers\BookingController::class, 'part2'])->name('booking.part2');
