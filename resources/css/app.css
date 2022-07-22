@@ -78,7 +78,6 @@ button,
   margin: 25px 0;
   font-size: 0.9em;
   font-family: sans-serif;
-  min-width: 400px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
   white-space: nowrap !important;
 
@@ -96,7 +95,7 @@ button,
 .styled-table th,
 .styled-table td {
   padding: 12px 15px;
-  font-size: 1.2em;
+  font-size: 1em;
 
   @media screen and (max-width: 640px) {
     font-size: 1em;

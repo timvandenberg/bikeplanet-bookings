@@ -14,7 +14,7 @@ class bookingActionsService
     {
         $user = auth()->user();
         $who = '';
-        if($user) {
+        if ($user && $action !== 'Client Registered') {
             $who = $user->name;
         }
         $newBookingAction = new BookingActions;

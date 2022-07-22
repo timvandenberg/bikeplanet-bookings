@@ -350,8 +350,13 @@
                                 <tr>
                                     <td>
                                         <p>Hi {{$booking->first_name}},</p>
+                                        @if($variant === 'normal')
                                         <p>Thanks for booking with us!</p>
                                         <p>See attached your booking documents!</p>
+                                        @else
+                                        <p>This is a reminder to let you know we are still waiting for you payment!</p>
+                                        <p>See attached your booking documents!</p>
+                                        @endif
                                         <p>Best,</p>
                                         <p>Lenny versteeg CEO.</p>
                                     </td>

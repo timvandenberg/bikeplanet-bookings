@@ -25,8 +25,11 @@
                     @csrf
 
                     <textarea class="form-input w-full mb-4" name="extra_comments" id="" cols="30" rows="5"></textarea>
-                    <button type="submit"
-                        class="w-full select-none font-bold whitespace-no-wrap p-3 rounded-lg text-base leading-normal no-underline text-gray-100 bg-orange-500 hover:bg-orange-700 sm:py-4">
+                    <button
+                        type="submit"
+                        class="w-full select-none font-bold whitespace-no-wrap p-3 rounded-lg text-base leading-normal
+                        no-underline text-gray-100 bg-orange-500 hover:bg-orange-700 sm:py-4"
+                    >
                         {{ __('Book now') }}
                     </button>
                 </form>
